@@ -14,18 +14,23 @@
             <div class="title">Demographic profile</div>
             <div class="progress-bar"></div>
         </div>
-        <form action="POST" class="survey goal">
-            <div class="question">What is your weight loss goal?</div>
+        <form action="POST" class="survey mount">
+            <div class="question">Celing or Wall Mount</div>
+            <div class="subtext">Please select by clicking on the appropriate tile below</div>
             <div class="answers">
-                <button type="button" class="selection goal" data-question="goal" value="1-20">Lose 1-20 lbs for good</button>
-                <button type="button" class="selection goal" data-question="goal" value="21-50">Lose 21-50 lbs for good</button>
-                <button type="button" class="selection goal" data-question="goal" value=">50">Lose over 50 lbs for good</button>
-                <button type="button" class="selection goal" data-question="goal" value="zero">Maintain weight and get fit</button>
-                <button type="button" class="selection goal" data-question="goal" value="not decided">I haven't decided yet</button>
+                <button type="button" class="selection mount" data-question="mount" value="ceiling-mount">
+                    <img class="selection-child selection-icon" src="" alt="">
+                    <div class="selection-child selection-checkbox"></div>
+                    <div class="selection-child selection-text">Ceiling</div>
+                </button>
+                <button type="button" class="selection mount" data-question="mount" value="wall-mount">
+                    <img class="selection-child" src="" alt="">
+                    <div class="selection-child">Wall</div>
+                </button>
             </div>
             <div class="prev-or-next">
-                <button type="button" class="prev">Previous</button>
-                <button type="button" class="next">Next</button>
+                <button type="button" class="prev">Back</button>
+                <button type="button" class="next">Single/Dual</button>
             </div>
         </form>
         <form action="POST" class="survey sex">
@@ -36,8 +41,8 @@
                 <button type="button" class="selection sex" data-question="sex" value="intersex">Intersex</button>
             </div>
             <div class="prev-or-next">
-                <button type="button" class="prev">Previous</button>
-                <button type="button" class="next">Next</button>
+                <button type="button" class="prev">Back</button>
+                <button type="button" class="next">Screen Orientation</button>
             </div>
         </form>
         <form action="POST" class="survey gender">
@@ -50,8 +55,8 @@
                 <button type="button" class="selection gender" data-question="gender" value="prefer not to say">Prefer not to say</button>
             </div>
             <div class="prev-or-next">
-                <button type="button" class="prev">Previous</button>
-                <button type="button" class="next">Next</button>
+                <button type="button" class="prev">Back</button>
+                <button type="button" class="next">Display</button>
             </div>
         </form>
         

@@ -57,3 +57,8 @@ button:hover {
 .selection.picked {
     background-color: rgba(0, 127, 173, 0.301)
 }
+
+.selection {
+    display: grid;
+    
+}

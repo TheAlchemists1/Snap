@@ -3,7 +3,7 @@ const selections = document.querySelectorAll(`.selection`)
 let returnAnswer = ``
 
 const answers = [
-    { goal: `` },
+    { mount: `` },
     { sex: `` },
     { gender: `` },
 ]
@@ -17,10 +17,14 @@ for (let i = 0; i < surveys.length; i++) {
 }
 
 document.addEventListener(`click`, (event) => {
-    inputAnswer(event.target)
-    nextAnswer(event.target)
-    prevAnswer(event.target)
-    console.log(answers)
+    let selectionTargeter = event.target
+    if (event.target.classList.contains(`selection-child`)) {
+        selectionTargeter = event.target.parentElement
+    }
+    inputAnswer(selectionTargeter)
+    nextAnswer(selectionTargeter)
+    prevAnswer(selectionTargeter)
+    console.table(answers)
 })
 
 const inputAnswer = (target) => {

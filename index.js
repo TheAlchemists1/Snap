@@ -3,9 +3,9 @@ const selections = document.querySelectorAll(`.selection`)
 let returnAnswer = ``
 
 const answers = [
-    { goal: `placeholder goal` },
-    { sex: `placeholder sex` },
-    { gender: `placeholder gender` },
+    { goal: `` },
+    { sex: `` },
+    { gender: `` },
 ]
 
 for (let i = 0; i < surveys.length; i++) {
@@ -46,6 +46,7 @@ const inputAnswer = (target) => {
         })
         // Make the current selection the only picked class for this question
         target.classList.add(`picked`)
+        target.parentElement.parentElement.classList.add(`question-picked`)
     }
 }
 
@@ -53,7 +54,7 @@ const nextAnswer = (target) => {
     if (target.className === `next`) {
         console.log(returnAnswer)
         for (let i = 0; i < surveys.length; i++) {
-            if (target.parentElement.parentElement === surveys[i] && returnAnswer !== ``) {
+            if (target.parentElement.parentElement === surveys[i] && surveys[i].classList.contains(`question-picked`)) {
                 surveys[i].style.display = `none`
                 surveys[i + 1].style.display = `flex`
                 break
@@ -69,7 +70,6 @@ const prevAnswer = (target) => {
             if (target.parentElement.parentElement === surveys[i]) {
                 surveys[i].style.display = `none`
                 surveys[i - 1].style.display = `flex`
-                // returnAnswer = answers[i - 1].Object.keys(answers)[0]
                 break
             }
         }

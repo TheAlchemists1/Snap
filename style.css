@@ -77,9 +77,11 @@ button {
 .next {
     opacity: .2;
     background-color: #000;
+    pointer-events: none;
 }
 
 .question-picked > .prev-or-next > .next {
+    pointer-events: auto;
     opacity: 1;
     background: var(--prev-next-clr);
 }

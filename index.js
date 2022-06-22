@@ -1,5 +1,6 @@
 const surveys = document.querySelectorAll(`.survey`)
 const selections = document.querySelectorAll(`.selection`)
+const dimensionInputs = document.querySelectorAll(`.dimension-input`)
 let returnAnswer = ``
 
 const answers = [
@@ -34,6 +35,10 @@ document.addEventListener(`click`, (event) => {
     console.table(answers)
 })
 
+document.addEventListener(`input`, (event) => {
+    inputDimensionsAnswer(event.target)
+})
+
 const inputTileAnswer = (target) => {
     // Check if target is an answer button
     if (target.classList.contains(`selection`)) {
@@ -61,8 +66,21 @@ const inputTileAnswer = (target) => {
     }
 }
 
+const inputDimensionsAnswer = (target) => {
+    answers[3][target.getAttribute(`id`)] = target.value
+    
+    for (let i = 0; i < dimensionInputs.length; i++) {
+        if (dimensionInputs[i].value === ``) {
+            target.parentElement.parentElement.parentElement.classList.remove(`question-picked`)
+            break
+        }
+        target.parentElement.parentElement.parentElement.classList.add(`question-picked`)
+    }
+    console.table(answers)
+}
+
 const nextAnswer = (target) => {
-    if (target.className === `next`) {
+    if (target.classList.contains(`next`)) {
         console.log(returnAnswer)
         for (let i = 0; i < surveys.length; i++) {
             if (target.parentElement.parentElement === surveys[i] && surveys[i].classList.contains(`question-picked`)) {

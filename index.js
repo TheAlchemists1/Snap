@@ -4,8 +4,8 @@ let returnAnswer = ``
 
 const answers = [
     { mount: `` },
-    { sex: `` },
-    { gender: `` },
+    { sides: `` },
+    { orientation: `` },
 ]
 
 for (let i = 0; i < surveys.length; i++) {

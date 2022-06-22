@@ -75,7 +75,18 @@ button {
 
 .prev {
     background: none;
+    padding: 12px;
     color: var(--prev-next-clr);
+}
+
+.next {
+    opacity: .2;
+    background-color: #000;
+}
+
+.survey.question-picked > .prev-or-next > .next {
+    opacity: 1;
+    background: var(--prev-next-clr);
 }
 
 .selection.picked {
@@ -93,7 +104,6 @@ button {
 }
 
 .selection > .selection-text {
-    background: none;
 }
 
 .selection {

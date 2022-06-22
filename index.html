@@ -19,8 +19,8 @@
         </div>
         <form action="POST" class="survey mount">
             <h1 class="question">Celing or Wall Mount</h1>
-            <div class="subtext">Please select by clicking on the appropriate tile below</div>
-            <div class="answers">
+            <div class="subtext">Please select by clicking on the appropriate tile below.</div>
+            <div class="tile-answers">
                 <button type="button" class="selection mount" data-question="mount" value="ceiling-mount">
                     <i class="material-icons-outlined selection-child selection-icon">dashboard</i>
                     <!-- <img class="selection-child selection-icon" src="" alt=""> -->
@@ -43,8 +43,8 @@
         </form>
         <form action="POST" class="survey sides">
             <h1 class="question">Single or Dual sided install</h1>
-            <div class="subtext">Please select by clicking on the appropriate tile below</div>
-            <div class="answers">
+            <div class="subtext">Please select by clicking on the appropriate tile below.</div>
+            <div class="tile-answers">
                 <button type="button" class="selection sides" data-question="sides" value="single">
                     <i class="material-icons-outlined selection-child selection-icon">dashboard</i>
                     <!-- <img class="selection-child selection-icon" src="" alt=""> -->
@@ -67,8 +67,8 @@
         </form>
         <form action="POST" class="survey orientation">
             <h1 class="question">Display Orientation</h1>
-            <div class="subtext">Please select by clicking on the appropriate tile below</div>
-            <div class="answers">
+            <div class="subtext">Please select by clicking on the appropriate tile below.</div>
+            <div class="tile-answers">
                 <button type="button" class="selection orientation" data-question="orientation" value="portrait">
                     <i class="material-icons-outlined selection-child selection-icon">dashboard</i>
                     <!-- <img class="selection-child selection-icon" src="" alt=""> -->
@@ -87,6 +87,39 @@
             <div class="prev-or-next">
                 <button type="button" class="prev">< Back</button>
                 <button type="button" class="next">Display Dimensions</button>
+            </div>
+        </form>
+        <form action="POST" class="survey dimensions">
+            <h1 class="question">Strong Carbon Series Commericial Display Configurator</h1>
+            <div class="subtext">Please complete each field so we can show you the best products for your install.</div>
+            <div class="disclaimer"><span class="asterisks">***</span>Please keep in mind this is a semi-functioning "prototype". There will be some areas that only require one/two click and others that may require several to move forward. Please jot down any comments whether Good, Bad, or Ugly. Don't hold back but be nice and assertive. We need this to be the best experience for our partners. This text will also be updated accordingly.</div>
+            <h2>Display Dimensions</h2>
+            <div>All fields are required.</div>
+            <div class="dimensions-answers">
+                <div class="label-container">
+                    <label for="displays"># of Displays</label>
+                    <input type="number" id="displays">
+                </div>
+                <div class="label-container">
+                    <label for="gap">Gap (in)</label>
+                    <input type="number" id="gap">
+                </div>
+                <div class="label-container">
+                    <label for="width">Width (in)</label>
+                    <input type="number" id="width">
+                </div>
+                <div class="label-container">
+                    <label for="height">Height (in)</label>
+                    <input type="number" id="height">
+                </div>
+                <div class="label-container">
+                    <label for="weight">Weight (in)</label>
+                    <input type="number" id="weight">
+                </div>
+            </div>
+            <div class="prev-or-next">
+                <button type="button" class="prev">< Back</button>
+                <button type="button" class="next">Ceiling Plate</button>
             </div>
         </form>
         

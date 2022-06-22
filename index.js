@@ -6,6 +6,13 @@ const answers = [
     { mount: `` },
     { sides: `` },
     { orientation: `` },
+    {
+        displays: ``,
+        gap: ``,
+        width: ``,
+        height: ``,
+        weight: ``
+    },
 ]
 
 for (let i = 0; i < surveys.length; i++) {
@@ -21,13 +28,13 @@ document.addEventListener(`click`, (event) => {
     if (event.target.classList.contains(`selection-child`)) {
         selectionTargeter = event.target.parentElement
     }
-    inputAnswer(selectionTargeter)
+    inputTileAnswer(selectionTargeter)
     nextAnswer(selectionTargeter)
     prevAnswer(selectionTargeter)
     console.table(answers)
 })
 
-const inputAnswer = (target) => {
+const inputTileAnswer = (target) => {
     // Check if target is an answer button
     if (target.classList.contains(`selection`)) {
         // Obtain data-question which will match the answers array key we are using

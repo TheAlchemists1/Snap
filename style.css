@@ -41,7 +41,7 @@ body {
     border-bottom: solid 1px rgba(128, 128, 128, 0.25);
 }
 
-.answers {
+.tile-answers {
     display: grid;
     justify-content: space-evenly;
     grid-template-columns: auto auto;
@@ -79,7 +79,7 @@ button {
     background-color: #000;
 }
 
-.survey.question-picked > .prev-or-next > .next {
+.question-picked > .prev-or-next > .next {
     opacity: 1;
     background: var(--prev-next-clr);
 }
@@ -134,4 +134,20 @@ i.selection-checkbox {
 .selection.picked > .selection-text {
     background-color: var(--selection-darker-bg);
     color: white;
+}
+
+
+
+
+.asterisks {
+    color: orange;
+}
+
+.dimensions-answers {
+    display: grid;
+}
+
+.label-container {
+    display: flex;
+    flex-direction: column;
 }

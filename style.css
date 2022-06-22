@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     --selection-bg: #50ccbf;
+    --selection-darker-bg: #378f86;
     --prev-next-clr: #ff5000;
 }
 
@@ -10,14 +11,6 @@ body {
     display: grid;
     /* justify-content: center; */
     justify-items: center;
-}
-
-i.material-icons-outlined {
-    font-size: 6rem;
-}
-
-i.selection-checkbox {
-    font-size: 2rem;
 }
 
 .container {
@@ -46,7 +39,7 @@ i.selection-checkbox {
 .answers {
     display: grid;
     justify-content: space-evenly;
-    grid-template-columns:150px 150px;
+    grid-template-columns: auto auto;
     gap: 5px;
     padding: 20px;
     padding-bottom: 40px;
@@ -64,12 +57,11 @@ button {
     outline: none;
     cursor: pointer;
     font-weight: 600;
-    border-radius: 3px;
+    border-radius: 5px;
     padding: 12px 48px;
     border: 0;
     color: #fff;
     background: var(--prev-next-clr);
-    line-height: 1.15;
     font-size: 16px;
 }
 
@@ -89,26 +81,51 @@ button {
     background: var(--prev-next-clr);
 }
 
+i.material-icons-outlined {
+    font-size: 6rem;
+}
+
+i.selection-checkbox {
+    font-size: 2rem;
+}
+
+.selection {
+    padding: 0;
+    display: grid;
+    background-color: white;
+    /* place-content: space-between; */
+    /* height: 200px; */
+}
+
 .selection.picked {
-    transition: all .05s ease;
+    transition: outline .05s ease;
     background-color: var(--selection-bg);
     outline: solid 2px #1ea8b2;
 }
 
+.selection > .selection-icon {
+    background-color: var(--selection-bg);
+    border-radius: 5px;
+    padding: 15px;
+}
+
 .selection > .selection-checkbox {
-    opacity: 0;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    background-color: var(--selection-bg);
+    display: none;
 }
 
 .selection.picked > .selection-checkbox {
-    opacity: 1;
+    display: inline-block
 }
 
 .selection > .selection-text {
+    padding: 10px 0px;
+    color: black;
 }
 
-.selection {
-    display: grid;
-    background-color: var(--selection-bg);
-    justify-content: space-evenly;
-    height: 200px;
+.selection.picked > .selection-text {
+    background-color: var(--selection-darker-bg);
+    color: white;
 }

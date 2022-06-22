@@ -4,6 +4,7 @@
     --selection-bg: #50ccbf;
     --selection-darker-bg: #378f86;
     --prev-next-clr: #ff5000;
+    font-size: 1.2rem;
 }
 
 body {
@@ -16,9 +17,13 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    width: min(100vw, 800px);
+    width: min(100vw, 1400px);
     gap: 30px;
     margin: 30px;
+}
+
+.question {
+    font-size: 2.5rem;
 }
 
 .header {
@@ -28,11 +33,11 @@ body {
 .survey {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .subtext {
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     border-bottom: solid 1px rgba(128, 128, 128, 0.25);
 }
 
@@ -40,16 +45,15 @@ body {
     display: grid;
     justify-content: space-evenly;
     grid-template-columns: auto auto;
-    gap: 5px;
-    padding: 20px;
-    padding-bottom: 40px;
+    padding: 30px;
+    padding-bottom: 60px;
     border-bottom: solid 1px rgba(128, 128, 128, 0.25);
 }
 
 .prev-or-next {
     display: flex;
     justify-content: space-between;
-    padding: 30px;
+    padding: 50px;
 }
 
 button {
@@ -62,7 +66,6 @@ button {
     border: 0;
     color: #fff;
     background: var(--prev-next-clr);
-    font-size: 16px;
 }
 
 .prev {
@@ -82,7 +85,7 @@ button {
 }
 
 i.material-icons-outlined {
-    font-size: 6rem;
+    font-size: 8rem;
 }
 
 i.selection-checkbox {
@@ -93,7 +96,7 @@ i.selection-checkbox {
     padding: 0;
     display: grid;
     background-color: white;
-    /* place-content: space-between; */
+    /* justify-content: center; */
     /* height: 200px; */
 }
 
@@ -113,14 +116,17 @@ i.selection-checkbox {
     padding-bottom: 10px;
     border-radius: 5px;
     background-color: var(--selection-bg);
-    display: none;
+    /* display: none; */
+    opacity: 0;
 }
 
 .selection.picked > .selection-checkbox {
-    display: inline-block
+    /* display: inline-block */
+    opacity: 1;
 }
 
 .selection > .selection-text {
+    font-size: 1.2rem;
     padding: 10px 0px;
     color: black;
 }

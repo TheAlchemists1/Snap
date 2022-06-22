@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     --selection-bg: #50ccbf;
+    --prev-next-clr: #ff5000;
 }
 
 body {
@@ -67,9 +68,14 @@ button {
     padding: 12px 48px;
     border: 0;
     color: #fff;
-    background: #ff5000;
+    background: var(--prev-next-clr);
     line-height: 1.15;
     font-size: 16px;
+}
+
+.prev {
+    background: none;
+    color: var(--prev-next-clr);
 }
 
 .selection.picked {
@@ -84,6 +90,10 @@ button {
 
 .selection.picked > .selection-checkbox {
     opacity: 1;
+}
+
+.selection > .selection-text {
+    background: none;
 }
 
 .selection {

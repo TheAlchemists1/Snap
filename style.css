@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    --selection-bg: #50ccbf;
 }
 
 body {
@@ -8,6 +9,14 @@ body {
     display: grid;
     /* justify-content: center; */
     justify-items: center;
+}
+
+i.material-icons-outlined {
+    font-size: 6rem;
+}
+
+i.selection-checkbox {
+    font-size: 2rem;
 }
 
 .container {
@@ -28,10 +37,6 @@ body {
     gap: 15px;
 }
 
-.header {
-
-}
-
 .subtext {
     padding-bottom: 10px;
     border-bottom: solid 1px rgba(128, 128, 128, 0.25);
@@ -40,10 +45,10 @@ body {
 .answers {
     display: grid;
     justify-content: space-evenly;
-    grid-template-columns: 200px 200px;
+    grid-template-columns:150px 150px;
     gap: 5px;
-    padding: 70px;
-    padding-bottom: 100px;
+    padding: 20px;
+    padding-bottom: 40px;
     border-bottom: solid 1px rgba(128, 128, 128, 0.25);
 }
 
@@ -69,11 +74,21 @@ button {
 
 .selection.picked {
     transition: all .05s ease;
-    background-color: #16c8b7;
+    background-color: var(--selection-bg);
     outline: solid 2px #1ea8b2;
+}
+
+.selection > .selection-checkbox {
+    opacity: 0;
+}
+
+.selection.picked > .selection-checkbox {
+    opacity: 1;
 }
 
 .selection {
     display: grid;
-    background-color: #16c8b7;
+    background-color: var(--selection-bg);
+    justify-content: space-evenly;
+    height: 200px;
 }

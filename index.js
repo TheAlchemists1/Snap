@@ -70,7 +70,7 @@ const inputDimensionsAnswer = (target) => {
     answers[3][target.getAttribute(`id`)] = target.value
     
     for (let i = 0; i < dimensionInputs.length; i++) {
-        if (dimensionInputs[i].value === ``) {
+        if (dimensionInputs[i].value === `` || dimensionInputs[i].value < `0`) {
             target.parentElement.parentElement.parentElement.classList.remove(`question-picked`)
             break
         }

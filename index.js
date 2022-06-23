@@ -121,7 +121,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
     quantityButtons.classList.add(`item-quantity-buttons`)
     quantityContainer.appendChild(quantityButtons)
 
-    const subtract = document.createElement(`button`)
+    const subtract = document.createElement(`div`)
     subtract.classList.add(`item-quantity-subtract`)
     subtract.setAttribute(`data-SKU`, itemSKU)
     subtract.textContent = `-`
@@ -133,7 +133,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
     amount.textContent = `0`
     quantityButtons.appendChild(amount)
 
-    const add = document.createElement(`button`)
+    const add = document.createElement(`div`)
     add.classList.add(`item-quantity-add`)
     add.setAttribute(`data-SKU`, itemSKU)
     add.textContent = `+`

@@ -82,8 +82,44 @@ const inputDimensionsAnswer = (target) => {
     console.table(answers)
 }
 
+// wip
 const requiredPlatesDisplay = () => {
     requiredPlates.textContent = answers[3].displays
+}
+
+const itemGenerator = (itemDestination, itemTitle, itemSKU, itemImage) => {
+    const container = document.createElement(`div`)
+    container.classList.add(`item-container`)
+    itemDestination.appendChild(container)
+    
+    const img = document.createElement(`img`)
+    img.src = itemImage
+    container.appendChild(img)
+
+    const infoContainer = document.createElement(`div`)
+    infoContainer.classList.add(`item-info-container`)
+    container.appendChild(infoContainer)
+
+    const title = document.createElement(`div`)
+    title.classList.add(`item-info-title`)
+    title.textContent = itemTitle
+    infoContainer.appendChild(title)
+
+    const SKU = document.createElement(`div`)
+    SKU.classList.add(`item-info-SKU`)
+    SKU.textContent = itemSKU
+    infoContainer.appendChild(SKU)
+
+    const quantityContainer = document.createElement(`div`)
+    quantityContainer.classList.add(`item-quantity-container`)
+    quantityContainer.textContent = `Qty:`
+    infoContainer.appendChild(quantityContainer)
+
+    const quantityBoxes = document.createElement(`div`)
+    quantityBoxes.classList.add(`item-quantity-boxes`)
+    quantityContainer.appendChild(quantityBoxes)
+
+    
 }
 
 const nextAnswer = (target) => {

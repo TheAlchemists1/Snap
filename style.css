@@ -205,12 +205,15 @@ label {
     grid-template-columns: auto auto auto auto;
 }
 
-.required-plates-text {
+.required-plates-text,
+.required-poles-text,
+.subtext-reminder {
     align-self: center;
     padding-bottom: 20px;
 }
 
-.required-plates {
+.required-plates,
+.required-poles {
     color: var(--snap-orange);
     font-size: 1.75rem;
     font-weight: bold;

@@ -218,3 +218,36 @@ label {
     font-size: 1.75rem;
     font-weight: bold;
 }
+
+
+
+.item-grid {
+    border-bottom: var(--border-bottom);
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(auto-fit, 200px);
+}
+
+.item-container {
+    display: flex;
+
+}
+
+.item-img {
+    height: 100%;
+}
+
+.item-info-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-quantity-container {
+    display: flex;
+    align-items: center;
+}
+
+.item-quantity-buttons {
+    display: flex;
+    align-items: center;
+}

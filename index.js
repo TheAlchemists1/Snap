@@ -2,6 +2,7 @@ const surveys = document.querySelectorAll(`.survey`)
 const selections = document.querySelectorAll(`.selection`)
 const dimensionInputs = document.querySelectorAll(`.dimension-input`)
 const requiredPlates = document.querySelector(`.required-plates`)
+const plateGrid = document.querySelector(`.plate-grid`)
 let returnAnswer = ``
 
 const answers = [
@@ -87,13 +88,14 @@ const requiredPlatesDisplay = () => {
     requiredPlates.textContent = answers[3].displays
 }
 
-const itemGenerator = (itemDestination, itemTitle, itemSKU, itemImage) => {
+const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
     const container = document.createElement(`div`)
     container.classList.add(`item-container`)
     itemDestination.appendChild(container)
     
     const img = document.createElement(`img`)
     img.src = itemImage
+    img.classList.add(`item-img`)
     container.appendChild(img)
 
     const infoContainer = document.createElement(`div`)
@@ -115,12 +117,30 @@ const itemGenerator = (itemDestination, itemTitle, itemSKU, itemImage) => {
     quantityContainer.textContent = `Qty:`
     infoContainer.appendChild(quantityContainer)
 
-    const quantityBoxes = document.createElement(`div`)
-    quantityBoxes.classList.add(`item-quantity-boxes`)
-    quantityContainer.appendChild(quantityBoxes)
+    const quantityButtons = document.createElement(`div`)
+    quantityButtons.classList.add(`item-quantity-buttons`)
+    quantityContainer.appendChild(quantityButtons)
 
-    
+    const subtract = document.createElement(`button`)
+    subtract.classList.add(`item-quantity-subtract`)
+    subtract.setAttribute(`data-SKU`, itemSKU)
+    subtract.textContent = `-`
+    quantityButtons.appendChild(subtract)
+
+    const amount = document.createElement(`div`)
+    amount.classList.add(`item-quantity-amount`)
+    amount.setAttribute(`data-SKU`, itemSKU)
+    amount.textContent = `0`
+    quantityButtons.appendChild(amount)
+
+    const add = document.createElement(`button`)
+    add.classList.add(`item-quantity-add`)
+    add.setAttribute(`data-SKU`, itemSKU)
+    add.textContent = `+`
+    quantityButtons.appendChild(add)
 }
+
+itemAppend(plateGrid, `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`, `SM-CB-CM-DJ-24-BLK`, `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-24-BLK.jpg`)
 
 const nextAnswer = (target) => {
     if (target.classList.contains(`next`)) {

@@ -3,9 +3,9 @@
     padding: 0;
     --selection-bg: #50ccbf;
     --selection-darker-bg: #378f86;
-    --prev-next-clr: #ff5000;
+    --snap-orange: #ff5000;
     --border-bottom: solid 1px rgba(128, 128, 128, 0.25);
-    --title-color: #2d4860;
+    --snap-blue: #2d4860;
     font-size: 1.2rem;
 }
 
@@ -26,7 +26,7 @@ body {
 
 .question {
     font-size: 2.5rem;
-    color: var(--title-color);
+    color: var(--snap-blue);
 }
 
 .header {
@@ -47,6 +47,7 @@ body {
 .tile-answers {
     display: grid;
     justify-content: space-evenly;
+    gap: 20px;
     grid-template-columns: auto auto;
     padding: 30px;
     padding-bottom: 60px;
@@ -68,13 +69,13 @@ button {
     padding: 12px 48px;
     border: 0;
     color: #fff;
-    background: var(--prev-next-clr);
+    background: var(--snap-orange);
 }
 
 .prev {
     background: none;
     padding: 12px;
-    color: var(--prev-next-clr);
+    color: var(--snap-orange);
 }
 
 .next {
@@ -86,7 +87,7 @@ button {
 .question-picked > .prev-or-next > .next {
     pointer-events: auto;
     opacity: 1;
-    background: var(--prev-next-clr);
+    background: var(--snap-orange);
 }
 
 i.material-icons-outlined {
@@ -145,7 +146,7 @@ i.selection-checkbox {
 
 
 .asterisks {
-    color: orange;
+    color: var(--snap-orange);
 }
 
 .rights-reserved {
@@ -156,7 +157,7 @@ i.selection-checkbox {
 h2 {
     margin-top: 100px;
     font-size: 1.6rem;
-    color: var(--title-color);
+    color: var(--snap-blue);
     font-weight: bold;
 }
 
@@ -191,5 +192,26 @@ h2 {
 }
 
 label {
+    font-weight: bold;
+}
+
+
+
+.plate-answers {
+    display: grid;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 40px;
+    grid-template-columns: auto auto auto auto;
+}
+
+.required-plates-text {
+    align-self: center;
+    padding-bottom: 20px;
+}
+
+.required-plates {
+    color: var(--snap-orange);
+    font-size: 1.75rem;
     font-weight: bold;
 }

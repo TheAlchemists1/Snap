@@ -1,6 +1,7 @@
 const surveys = document.querySelectorAll(`.survey`)
 const selections = document.querySelectorAll(`.selection`)
 const dimensionInputs = document.querySelectorAll(`.dimension-input`)
+const requiredPlates = document.querySelector(`.required-plates`)
 let returnAnswer = ``
 
 const answers = [
@@ -12,8 +13,9 @@ const answers = [
         gap: ``,
         width: ``,
         height: ``,
-        weight: ``
+        weight: ``,
     },
+    { plate: `` }
 ]
 
 for (let i = 0; i < surveys.length; i++) {
@@ -32,6 +34,7 @@ document.addEventListener(`click`, (event) => {
     inputTileAnswer(selectionTargeter)
     nextAnswer(selectionTargeter)
     prevAnswer(selectionTargeter)
+    requiredPlatesDisplay()
     console.table(answers)
 })
 
@@ -77,6 +80,10 @@ const inputDimensionsAnswer = (target) => {
         target.parentElement.parentElement.parentElement.classList.add(`question-picked`)
     }
     console.table(answers)
+}
+
+const requiredPlatesDisplay = () => {
+    requiredPlates.textContent = answers[3].displays
 }
 
 const nextAnswer = (target) => {

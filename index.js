@@ -2,6 +2,7 @@ const surveys = document.querySelectorAll(`.survey`);
 const selections = document.querySelectorAll(`.selection`);
 const dimensionInputs = document.querySelectorAll(`.dimension-input`);
 const requiredPlates = document.querySelector(`.required-plates`);
+const requiredPoles = document.querySelector(`.required-poles`);
 const plateGrid = document.querySelector(`.plate-grid`);
 const poleGrid = document.querySelector(`.pole-grid`);
 let returnAnswer = ``;
@@ -62,12 +63,15 @@ document.addEventListener(`click`, (event) => {
     event.target.parentElement.parentElement.parentElement.parentElement
       .parentElement.classList[1]
   );
-  requiredPlatesDisplay();
   // console.table(answers)
 });
 
 document.addEventListener(`input`, (event) => {
   inputDimensionsAnswer(event.target);
+});
+
+document.querySelector(`.ceiling-next`).addEventListener(`click`, (event) => {
+  requiredPlatesDisplay(`plate-grid`, `skip plate display check`);
 });
 
 const inputTileAnswer = (target) => {
@@ -139,6 +143,8 @@ const addOrSubtractPlate = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
+    console.log(gridLocation);
+    requiredPlatesDisplay(gridLocation);
   }
 
   if (target.classList.contains(`item-quantity-add`)) {
@@ -158,15 +164,19 @@ const addOrSubtractPlate = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
+    console.log(gridLocation);
+    requiredPlatesDisplay(gridLocation);
   }
 };
 
-const requiredPlatesDisplay = () => {
+const requiredPlatesDisplay = (gridLocation, skip) => {
   if (
-    window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`
+    window.getComputedStyle(document.querySelector(`.plate`)).display ===
+      `flex` ||
+    skip === `skip plate display check`
   ) {
     const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount`
+      `.item-quantity-amount-${gridLocation}`
     );
     let totalQuantity = 0;
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
@@ -177,6 +187,22 @@ const requiredPlatesDisplay = () => {
     const difference = displaysChosen - totalQuantity;
     requiredPlates.textContent = difference;
     requiredChecker(requiredPlates);
+  }
+  if (
+    window.getComputedStyle(document.querySelector(`.poles`)).display === `flex`
+  ) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
+    let totalQuantity = 0;
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+      totalQuantity += currentQuantity;
+    }
+    const displaysChosen = answers[3].displays;
+    const difference = displaysChosen - totalQuantity;
+    requiredPoles.textContent = difference;
+    requiredChecker(requiredPoles);
   }
 };
 

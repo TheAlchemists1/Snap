@@ -6,7 +6,6 @@ const requiredPoles = document.querySelector(`.required-poles`);
 const plateGrid = document.querySelector(`.plate-grid`);
 const plateGridPole = document.querySelector(`.plate-grid-pole`);
 
-
 let returnAnswer = ``;
 
 let sortedDataCeil = [];
@@ -165,7 +164,6 @@ document.addEventListener(`click`, (event) => {
       .parentElement.classList[1]
   );
   // console.table(answers)
-
 });
 
 document.addEventListener(`input`, (event) => {
@@ -177,7 +175,7 @@ document.querySelector(`.plate-next`).addEventListener(`click`, () => {
 });
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
-  requiredPolesDisplay(`pole-grid`);
+  requiredPolesDisplay(`plate-grid-pole`);
 });
 
 const inputTileAnswer = (target) => {
@@ -230,7 +228,6 @@ const inputDimensionsAnswer = (target) => {
   }
 
   //   console.table(answers);
-
 };
 
 const addOrSubtractPlate = (target, gridLocation) => {
@@ -238,6 +235,7 @@ const addOrSubtractPlate = (target, gridLocation) => {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-${gridLocation}`
     );
+    console.log(gridLocation);
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
@@ -387,32 +385,6 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   add.textContent = `+`;
   quantityButtons.appendChild(add);
 };
-
-// itemAppend(
-//   plateGrid,
-//   `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,
-//   `SM-CB-CM-DJ-24-BLK`,
-//   `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-24-BLK.jpg`
-// );
-// itemAppend(
-//   plateGrid,
-//   `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`,
-//   `SM-CB-CM-DJ-16-BLK`,
-//   `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-16-BLK.jpg`
-// );
-
-itemAppend(
-  poleGrid,
-  `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,
-  `SM-FIXPOLE-24-WH`,
-  `./product_images/products_thumbnail_150x150/fixed_pole/SM-FIXPOLE-24-WH.jpg`
-);
-itemAppend(
-  poleGrid,
-  `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`,
-  `SM-ADJPOLE-9-BLK`,
-  `./product_images/products_thumbnail_150x150/adjustable_pole/SM-ADJPOLE-9-BLK.png`
-);
 
 const nextAnswer = (target) => {
   if (target.classList.contains(`next`)) {

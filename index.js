@@ -35,13 +35,18 @@ document.addEventListener(`click`, (event) => {
     inputTileAnswer(selectionTargeter)
     nextAnswer(selectionTargeter)
     prevAnswer(selectionTargeter)
-    requiredPlatesDisplay()
-    console.table(answers)
+    addOrSubtractPlate(event.target)
+    // console.table(answers)
 })
 
 document.addEventListener(`input`, (event) => {
     inputDimensionsAnswer(event.target)
 })
+
+document.querySelector(`.ceiling-next`).addEventListener(`click`, () => {
+    requiredPlates.textContent = answers[3].displays
+})
+
 
 const inputTileAnswer = (target) => {
     // Check if target is an answer button
@@ -80,12 +85,50 @@ const inputDimensionsAnswer = (target) => {
         }
         target.parentElement.parentElement.parentElement.classList.add(`question-picked`)
     }
-    console.table(answers)
+    // console.table(answers)
+}
+
+const addOrSubtractPlate = (target) => {
+    const itemQuantityAmountArray = document.querySelectorAll(`.item-quantity-amount`)
+
+    if (target.classList.contains(`item-quantity-subtract`)) {
+        const targetSKU = target.getAttribute(`data-sku`)
+        for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+            if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) && parseInt(requiredPlates.textContent) < answers[3].displays) {
+                let currentQuantity = itemQuantityAmountArray[i].getAttribute(`data-value`)
+                let newQuantity = parseInt(currentQuantity) - 1
+                itemQuantityAmountArray[i].setAttribute(`data-value`, newQuantity)
+                itemQuantityAmountArray[i].textContent = newQuantity
+            }
+        }
+        requiredPlatesDisplay()
+    }
+
+    if (target.classList.contains(`item-quantity-add`)) {
+        const targetSKU = target.getAttribute(`data-sku`)
+        for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+            if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) && parseInt(requiredPlates.textContent) > 0) {
+                let currentQuantity = itemQuantityAmountArray[i].getAttribute(`data-value`)
+                let newQuantity = parseInt(currentQuantity) + 1
+                itemQuantityAmountArray[i].setAttribute(`data-value`, newQuantity)
+                itemQuantityAmountArray[i].textContent = newQuantity
+            }
+        }
+        requiredPlatesDisplay()
+    }
 }
 
 // wip
 const requiredPlatesDisplay = () => {
-    requiredPlates.textContent = answers[3].displays
+    const itemQuantityAmountArray = document.querySelectorAll(`.item-quantity-amount`)
+    let totalQuantity = 0
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+        let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent)
+        totalQuantity += currentQuantity
+    }
+    const displaysChosen = answers[3].displays
+    const difference = displaysChosen - totalQuantity
+    requiredPlates.textContent = difference
 }
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
@@ -130,7 +173,8 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
     const amount = document.createElement(`div`)
     amount.classList.add(`item-quantity-amount`)
     amount.setAttribute(`data-SKU`, itemSKU)
-    amount.textContent = `0`
+    amount.setAttribute(`data-value`, 0)
+    amount.textContent = amount.getAttribute(`data-value`)
     quantityButtons.appendChild(amount)
 
     const add = document.createElement(`div`)
@@ -141,10 +185,10 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
 }
 
 itemAppend(plateGrid, `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`, `SM-CB-CM-DJ-24-BLK`, `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-24-BLK.jpg`)
+itemAppend(plateGrid, `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`, `SM-CB-CM-DJ-16-BLK`, `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-16-BLK.jpg`)
 
 const nextAnswer = (target) => {
     if (target.classList.contains(`next`)) {
-        console.log(returnAnswer)
         for (let i = 0; i < surveys.length; i++) {
             if (target.parentElement.parentElement === surveys[i] && surveys[i].classList.contains(`question-picked`)) {
                 surveys[i].style.display = `none`

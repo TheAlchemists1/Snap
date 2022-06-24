@@ -36,6 +36,7 @@ document.addEventListener(`click`, (event) => {
     nextAnswer(selectionTargeter)
     prevAnswer(selectionTargeter)
     addOrSubtractPlate(event.target)
+    requiredPlatesDisplay()
     // console.table(answers)
 })
 
@@ -43,9 +44,7 @@ document.addEventListener(`input`, (event) => {
     inputDimensionsAnswer(event.target)
 })
 
-// document.querySelector(`.ceiling-next`).addEventListener(`click`, () => {
-//     requiredPlates.textContent = answers[3].displays
-// })
+
 
 
 const inputTileAnswer = (target) => {
@@ -114,10 +113,8 @@ const addOrSubtractPlate = (target) => {
             }
         }
     }
-    requiredPlatesDisplay()
 }
 
-// wip
 const requiredPlatesDisplay = () => {
     if (window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`) {
         const itemQuantityAmountArray = document.querySelectorAll(`.item-quantity-amount`)

@@ -96,21 +96,23 @@ const inputTileAnswer = (target) => {
 };
 
 const inputDimensionsAnswer = (target) => {
-  answers[3][target.getAttribute(`id`)] = target.value;
+  if (target.classList.contains(`dimension-input`)) {
+    answers[3][target.getAttribute(`id`)] = target.value;
 
-  for (let i = 0; i < dimensionInputs.length; i++) {
-    if (dimensionInputs[i].value === `` || dimensionInputs[i].value < `0`) {
-      target.parentElement.parentElement.parentElement.classList.remove(
+    for (let i = 0; i < dimensionInputs.length; i++) {
+      if (dimensionInputs[i].value === `` || dimensionInputs[i].value < `0`) {
+        target.parentElement.parentElement.parentElement.classList.remove(
+          `question-picked`
+        );
+        break;
+      }
+
+      target.parentElement.parentElement.parentElement.classList.add(
         `question-picked`
       );
-      break;
     }
-
-    target.parentElement.parentElement.parentElement.classList.add(
-      `question-picked`
-    );
+    console.table(answers);
   }
-  console.table(answers);
 };
 
 const addOrSubtractPlate = (target) => {
@@ -167,6 +169,20 @@ const requiredPlatesDisplay = () => {
     const displaysChosen = answers[3].displays;
     const difference = displaysChosen - totalQuantity;
     requiredPlates.textContent = difference;
+    requiredChecker(requiredPlates);
+  }
+};
+
+const requiredChecker = (remainingChoices) => {
+  if (remainingChoices.textContent === `0`) {
+    remainingChoices.parentElement.parentElement.classList.add(
+      `question-picked`
+    );
+  }
+  if (remainingChoices.textContent !== `0`) {
+    remainingChoices.parentElement.parentElement.classList.remove(
+      `question-picked`
+    );
   }
 };
 
@@ -223,6 +239,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   quantityButtons.appendChild(add);
 };
 
+// Placeholder items
 itemAppend(
   plateGrid,
   `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,

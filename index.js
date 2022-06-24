@@ -3,7 +3,15 @@ const selections = document.querySelectorAll(`.selection`);
 const dimensionInputs = document.querySelectorAll(`.dimension-input`);
 const requiredPlates = document.querySelector(`.required-plates`);
 const plateGrid = document.querySelector(`.plate-grid`);
+
 let returnAnswer = ``;
+
+let sortedDataCeil = [];
+let sortedDataArm = [];
+let sortedDataPole = [];
+let sortedDataMount = [];
+let sortedDataStrut = [];
+let sortedDataAdapter = [];
 
 const answers = [
   { mount: `` },
@@ -30,18 +38,47 @@ for (let i = 0; i < surveys.length; i++) {
 const btn = document.getElementById("sub");
 
 btn.addEventListener("click", function () {
-  makePostRequest();
+  filterCeiling();
 });
 
-function makePostRequest() {
-  const Http = new XMLHttpRequest();
-  Http.open("post", "http://localhost:3000/");
-  Http.setRequestHeader("Content-Type", "text/plain");
-  const data = JSON.stringify(answers);
-  Http.send(data);
-  Http.onload = function () {
-    console.log(Http.response);
-  };
+axios
+  .get("http://localhost:3000/")
+  .then(function (response) {
+    let apiData = response.data;
+    apiData[0].forEach((item) => {
+      sortedDataCeil.push(item);
+    });
+    apiData[1].forEach((item) => {
+      sortedDataArm.push(item);
+    });
+    apiData[2].forEach((item) => {
+      sortedDataPole.push(item);
+    });
+    apiData[3].forEach((item) => {
+      sortedDataMount.push(item);
+    });
+    apiData[4].forEach((item) => {
+      sortedDataStrut.push(item);
+    });
+    apiData[5].forEach((item) => {
+      sortedDataAdapter.push(item);
+    });
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  });
+
+function filterCeiling() {
+  for (let i = 0; i < sortedDataCeil.length; i++) {
+    console.log(sortedDataCeil[i]);
+    itemAppend(
+      plateGrid,
+      `${sortedDataCeil[i].description}`,
+      `${sortedDataCeil[i].sku}`,
+      `./product_images/products_thumbnail_150x150/ceiling_mount/${sortedDataCeil[i].sku}.jpg`
+    );
+  }
 }
 
 document.addEventListener(`click`, (event) => {
@@ -109,6 +146,9 @@ const inputDimensionsAnswer = (target) => {
     }
     console.table(answers);
   }
+
+  //   console.table(answers);
+
 };
 
 const addOrSubtractPlate = (target) => {
@@ -235,19 +275,18 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   quantityButtons.appendChild(add);
 };
 
-// Placeholder items
-itemAppend(
-  plateGrid,
-  `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,
-  `SM-CB-CM-DJ-24-BLK`,
-  `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-24-BLK.jpg`
-);
-itemAppend(
-  plateGrid,
-  `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`,
-  `SM-CB-CM-DJ-16-BLK`,
-  `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-16-BLK.jpg`
-);
+// itemAppend(
+//   plateGrid,
+//   `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,
+//   `SM-CB-CM-DJ-24-BLK`,
+//   `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-24-BLK.jpg`
+// );
+// itemAppend(
+//   plateGrid,
+//   `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`,
+//   `SM-CB-CM-DJ-16-BLK`,
+//   `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-16-BLK.jpg`
+// );
 
 const nextAnswer = (target) => {
   if (target.classList.contains(`next`)) {

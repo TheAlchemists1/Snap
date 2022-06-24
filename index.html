@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>survey</title>
     <script defer src="index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
       rel="stylesheet"
@@ -19,8 +20,7 @@
         <div class="progress-bar"></div>
       </div>
 
-      <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
-      <form method="POST" class="survey mount">
+      <form class="survey mount">
         <h1 class="question">Celing or Wall Mount</h1>
         <div class="subtext">
           Please select by clicking on the appropriate tile below.
@@ -61,15 +61,7 @@
         </div>
         <div class="prev-or-next">
           <button type="button" class="prev">< Back</button>
-          <button
-            type="submit"
-            form="form1"
-            value="Submit"
-            id="sub"
-            class="next"
-          >
-            Single/Dual
-          </button>
+          <button type="button" class="next">Single/Dual</button>
         </div>
       </form>
 
@@ -118,7 +110,7 @@
         </div>
       </form>
 
-      <form action="POST" class="survey orientation">
+      <form class="survey orientation">
         <h1 class="question">Display Orientation</h1>
         <div class="subtext">
           Please select by clicking on the appropriate tile below.
@@ -163,7 +155,8 @@
         </div>
       </form>
 
-      <form action="POST" class="survey dimensions">
+      <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+      <form target="dummyframe" id="form1" class="survey dimensions">
         <h1 class="question">
           Strong<span class="rights-reserved">®</span> Carbon Series Commericial
           Display Configurator
@@ -225,7 +218,7 @@
             />
           </div>
           <div class="label-container">
-            <label for="weight">Weight (in)</label>
+            <label for="weight">Weight (lbs)</label>
             <input
               type="number"
               class="dimension-input"
@@ -237,7 +230,15 @@
         </div>
         <div class="prev-or-next">
           <button type="button" class="prev">< Back</button>
-          <button type="button" class="next">Ceiling Plate</button>
+          <button
+            type="submit"
+            form="form1"
+            value="Submit"
+            id="sub"
+            class="next"
+          >
+            Ceiling Plate
+          </button>
         </div>
       </form>
 

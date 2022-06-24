@@ -3,6 +3,7 @@ const selections = document.querySelectorAll(`.selection`);
 const dimensionInputs = document.querySelectorAll(`.dimension-input`);
 const requiredPlates = document.querySelector(`.required-plates`);
 const plateGrid = document.querySelector(`.plate-grid`);
+const poleGrid = document.querySelector(`.pole-grid`);
 let returnAnswer = ``;
 
 const answers = [
@@ -56,7 +57,11 @@ document.addEventListener(`click`, (event) => {
   inputTileAnswer(selectionTargeter);
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
-  addOrSubtractPlate(event.target);
+  addOrSubtractPlate(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
   requiredPlatesDisplay();
   // console.table(answers)
 });
@@ -115,12 +120,11 @@ const inputDimensionsAnswer = (target) => {
   }
 };
 
-const addOrSubtractPlate = (target) => {
-  const itemQuantityAmountArray = document.querySelectorAll(
-    `.item-quantity-amount`
-  );
-
+const addOrSubtractPlate = (target, gridLocation) => {
   if (target.classList.contains(`item-quantity-subtract`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
@@ -138,6 +142,9 @@ const addOrSubtractPlate = (target) => {
   }
 
   if (target.classList.contains(`item-quantity-add`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
@@ -187,6 +194,8 @@ const requiredChecker = (remainingChoices) => {
 };
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
+  const currentGrid = itemDestination.classList[1];
+
   const container = document.createElement(`div`);
   container.classList.add(`item-container`);
   itemDestination.appendChild(container);
@@ -226,6 +235,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   quantityButtons.appendChild(subtract);
 
   const amount = document.createElement(`div`);
+  amount.classList.add(`item-quantity-amount-${currentGrid}`);
   amount.classList.add(`item-quantity-amount`);
   amount.setAttribute(`data-SKU`, itemSKU);
   amount.setAttribute(`data-value`, 0);
@@ -251,6 +261,19 @@ itemAppend(
   `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`,
   `SM-CB-CM-DJ-16-BLK`,
   `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-16-BLK.jpg`
+);
+
+itemAppend(
+  poleGrid,
+  `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,
+  `SM-FIXPOLE-24-WH`,
+  `./product_images/products_thumbnail_150x150/fixed_pole/SM-FIXPOLE-24-WH.jpg`
+);
+itemAppend(
+  poleGrid,
+  `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`,
+  `SM-ADJPOLE-9-BLK`,
+  `./product_images/products_thumbnail_150x150/adjustable_pole/SM-ADJPOLE-9-BLK.png`
 );
 
 const nextAnswer = (target) => {

@@ -70,8 +70,12 @@ document.addEventListener(`input`, (event) => {
   inputDimensionsAnswer(event.target);
 });
 
-document.querySelector(`.ceiling-next`).addEventListener(`click`, (event) => {
-  requiredPlatesDisplay(`plate-grid`, `skip plate display check`);
+document.querySelector(`.plate-next`).addEventListener(`click`, () => {
+  requiredPlatesDisplay(`plate-grid`);
+});
+
+document.querySelector(`.pole-next`).addEventListener(`click`, () => {
+  requiredPolesDisplay(`pole-grid`);
 });
 
 const inputTileAnswer = (target) => {
@@ -144,7 +148,7 @@ const addOrSubtractPlate = (target, gridLocation) => {
       }
     }
     console.log(gridLocation);
-    requiredPlatesDisplay(gridLocation);
+    requiredItemsDirector(gridLocation);
   }
 
   if (target.classList.contains(`item-quantity-add`)) {
@@ -165,45 +169,51 @@ const addOrSubtractPlate = (target, gridLocation) => {
       }
     }
     console.log(gridLocation);
-    requiredPlatesDisplay(gridLocation);
+    requiredItemsDirector(gridLocation);
   }
 };
 
-const requiredPlatesDisplay = (gridLocation, skip) => {
+const requiredItemsDirector = (gridLocation) => {
   if (
-    window.getComputedStyle(document.querySelector(`.plate`)).display ===
-      `flex` ||
-    skip === `skip plate display check`
+    window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`
   ) {
-    const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-${gridLocation}`
-    );
-    let totalQuantity = 0;
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
-      totalQuantity += currentQuantity;
-    }
-    const displaysChosen = answers[3].displays;
-    const difference = displaysChosen - totalQuantity;
-    requiredPlates.textContent = difference;
-    requiredChecker(requiredPlates);
+    requiredPlatesDisplay(gridLocation);
   }
   if (
     window.getComputedStyle(document.querySelector(`.poles`)).display === `flex`
   ) {
-    const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-${gridLocation}`
-    );
-    let totalQuantity = 0;
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
-      totalQuantity += currentQuantity;
-    }
-    const displaysChosen = answers[3].displays;
-    const difference = displaysChosen - totalQuantity;
-    requiredPoles.textContent = difference;
-    requiredChecker(requiredPoles);
+    requiredPolesDisplay(gridLocation);
   }
+};
+
+const requiredPlatesDisplay = (gridLocation) => {
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-${gridLocation}`
+  );
+  let totalQuantity = 0;
+  for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+    totalQuantity += currentQuantity;
+  }
+  const displaysChosen = answers[3].displays;
+  const difference = displaysChosen - totalQuantity;
+  requiredPlates.textContent = difference;
+  requiredChecker(requiredPlates);
+};
+
+const requiredPolesDisplay = (gridLocation) => {
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-${gridLocation}`
+  );
+  let totalQuantity = 0;
+  for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+    totalQuantity += currentQuantity;
+  }
+  const displaysChosen = answers[3].displays;
+  const difference = displaysChosen - totalQuantity;
+  requiredPoles.textContent = difference;
+  requiredChecker(requiredPoles);
 };
 
 const requiredChecker = (remainingChoices) => {

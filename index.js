@@ -43,9 +43,9 @@ document.addEventListener(`input`, (event) => {
     inputDimensionsAnswer(event.target)
 })
 
-document.querySelector(`.ceiling-next`).addEventListener(`click`, () => {
-    requiredPlates.textContent = answers[3].displays
-})
+// document.querySelector(`.ceiling-next`).addEventListener(`click`, () => {
+//     requiredPlates.textContent = answers[3].displays
+// })
 
 
 const inputTileAnswer = (target) => {
@@ -94,14 +94,13 @@ const addOrSubtractPlate = (target) => {
     if (target.classList.contains(`item-quantity-subtract`)) {
         const targetSKU = target.getAttribute(`data-sku`)
         for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-            if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) && parseInt(requiredPlates.textContent) < answers[3].displays) {
+            if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) && parseInt(requiredPlates.textContent) < answers[3].displays && parseInt(itemQuantityAmountArray[i].textContent) > 0) {
                 let currentQuantity = itemQuantityAmountArray[i].getAttribute(`data-value`)
                 let newQuantity = parseInt(currentQuantity) - 1
                 itemQuantityAmountArray[i].setAttribute(`data-value`, newQuantity)
                 itemQuantityAmountArray[i].textContent = newQuantity
             }
         }
-        requiredPlatesDisplay()
     }
 
     if (target.classList.contains(`item-quantity-add`)) {
@@ -114,21 +113,23 @@ const addOrSubtractPlate = (target) => {
                 itemQuantityAmountArray[i].textContent = newQuantity
             }
         }
-        requiredPlatesDisplay()
     }
+    requiredPlatesDisplay()
 }
 
 // wip
 const requiredPlatesDisplay = () => {
-    const itemQuantityAmountArray = document.querySelectorAll(`.item-quantity-amount`)
-    let totalQuantity = 0
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-        let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent)
-        totalQuantity += currentQuantity
+    if (window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`) {
+        const itemQuantityAmountArray = document.querySelectorAll(`.item-quantity-amount`)
+        let totalQuantity = 0
+        for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+            let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent)
+            totalQuantity += currentQuantity
+        }
+        const displaysChosen = answers[3].displays
+        const difference = displaysChosen - totalQuantity
+        requiredPlates.textContent = difference
     }
-    const displaysChosen = answers[3].displays
-    const difference = displaysChosen - totalQuantity
-    requiredPlates.textContent = difference
 }
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {

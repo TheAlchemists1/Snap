@@ -147,7 +147,6 @@ const addOrSubtractPlate = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    console.log(gridLocation);
     requiredItemsDirector(gridLocation);
   }
 
@@ -168,7 +167,6 @@ const addOrSubtractPlate = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    console.log(gridLocation);
     requiredItemsDirector(gridLocation);
   }
 };

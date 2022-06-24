@@ -11,7 +11,6 @@
 }
 
 body {
-  height: 100vh;
   display: grid;
   /* justify-content: center; */
   justify-items: center;
@@ -55,6 +54,11 @@ body {
   grid-template-columns: auto auto;
   padding: 30px;
   padding-bottom: 60px;
+}
+
+.mount > .tile-answers,
+.sides > .tile-answers,
+.orientation > .tile-answers {
   border-bottom: var(--border-bottom);
 }
 

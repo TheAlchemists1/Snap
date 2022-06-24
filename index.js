@@ -2,7 +2,9 @@ const surveys = document.querySelectorAll(`.survey`);
 const selections = document.querySelectorAll(`.selection`);
 const dimensionInputs = document.querySelectorAll(`.dimension-input`);
 const requiredPlates = document.querySelector(`.required-plates`);
+const requiredPoles = document.querySelector(`.required-poles`);
 const plateGrid = document.querySelector(`.plate-grid`);
+const poleGrid = document.querySelector(`.pole-grid`);
 
 let returnAnswer = ``;
 
@@ -89,13 +91,26 @@ document.addEventListener(`click`, (event) => {
   inputTileAnswer(selectionTargeter);
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
-  addOrSubtractPlate(event.target);
-  requiredPlatesDisplay();
-  console.log(answers);
+
+  addOrSubtractPlate(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
+  // console.table(answers)
+
 });
 
 document.addEventListener(`input`, (event) => {
   inputDimensionsAnswer(event.target);
+});
+
+document.querySelector(`.plate-next`).addEventListener(`click`, () => {
+  requiredPlatesDisplay(`plate-grid`);
+});
+
+document.querySelector(`.pole-next`).addEventListener(`click`, () => {
+  requiredPolesDisplay(`pole-grid`);
 });
 
 const inputTileAnswer = (target) => {
@@ -151,12 +166,11 @@ const inputDimensionsAnswer = (target) => {
 
 };
 
-const addOrSubtractPlate = (target) => {
-  const itemQuantityAmountArray = document.querySelectorAll(
-    `.item-quantity-amount`
-  );
-
+const addOrSubtractPlate = (target, gridLocation) => {
   if (target.classList.contains(`item-quantity-subtract`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
@@ -171,9 +185,13 @@ const addOrSubtractPlate = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
+    requiredItemsDirector(gridLocation);
   }
 
   if (target.classList.contains(`item-quantity-add`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
@@ -187,26 +205,51 @@ const addOrSubtractPlate = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
+    requiredItemsDirector(gridLocation);
   }
 };
 
-const requiredPlatesDisplay = () => {
+const requiredItemsDirector = (gridLocation) => {
   if (
     window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`
   ) {
-    const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount`
-    );
-    let totalQuantity = 0;
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
-      totalQuantity += currentQuantity;
-    }
-    const displaysChosen = answers[3].displays;
-    const difference = displaysChosen - totalQuantity;
-    requiredPlates.textContent = difference;
-    requiredChecker(requiredPlates);
+    requiredPlatesDisplay(gridLocation);
   }
+  if (
+    window.getComputedStyle(document.querySelector(`.poles`)).display === `flex`
+  ) {
+    requiredPolesDisplay(gridLocation);
+  }
+};
+
+const requiredPlatesDisplay = (gridLocation) => {
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-${gridLocation}`
+  );
+  let totalQuantity = 0;
+  for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+    totalQuantity += currentQuantity;
+  }
+  const displaysChosen = answers[3].displays;
+  const difference = displaysChosen - totalQuantity;
+  requiredPlates.textContent = difference;
+  requiredChecker(requiredPlates);
+};
+
+const requiredPolesDisplay = (gridLocation) => {
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-${gridLocation}`
+  );
+  let totalQuantity = 0;
+  for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+    totalQuantity += currentQuantity;
+  }
+  const displaysChosen = answers[3].displays;
+  const difference = displaysChosen - totalQuantity;
+  requiredPoles.textContent = difference;
+  requiredChecker(requiredPoles);
 };
 
 const requiredChecker = (remainingChoices) => {
@@ -223,6 +266,8 @@ const requiredChecker = (remainingChoices) => {
 };
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
+  const currentGrid = itemDestination.classList[1];
+
   const container = document.createElement(`div`);
   container.classList.add(`item-container`);
   itemDestination.appendChild(container);
@@ -262,6 +307,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   quantityButtons.appendChild(subtract);
 
   const amount = document.createElement(`div`);
+  amount.classList.add(`item-quantity-amount-${currentGrid}`);
   amount.classList.add(`item-quantity-amount`);
   amount.setAttribute(`data-SKU`, itemSKU);
   amount.setAttribute(`data-value`, 0);
@@ -287,6 +333,19 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
 //   `SM-CB-CM-DJ-16-BLK`,
 //   `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-16-BLK.jpg`
 // );
+
+itemAppend(
+  poleGrid,
+  `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,
+  `SM-FIXPOLE-24-WH`,
+  `./product_images/products_thumbnail_150x150/fixed_pole/SM-FIXPOLE-24-WH.jpg`
+);
+itemAppend(
+  poleGrid,
+  `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`,
+  `SM-ADJPOLE-9-BLK`,
+  `./product_images/products_thumbnail_150x150/adjustable_pole/SM-ADJPOLE-9-BLK.png`
+);
 
 const nextAnswer = (target) => {
   if (target.classList.contains(`next`)) {

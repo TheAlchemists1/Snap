@@ -49,20 +49,25 @@ function makePostRequest() {
 }
 
 document.addEventListener(`click`, (event) => {
-  let selectionTargeter = event.target;
-  if (event.target.classList.contains(`selection-child`)) {
-    selectionTargeter = event.target.parentElement;
-  }
-  inputTileAnswer(selectionTargeter);
-  nextAnswer(selectionTargeter);
-  prevAnswer(selectionTargeter);
-  requiredPlatesDisplay();
-  console.table(answers);
+
+    let selectionTargeter = event.target
+    if (event.target.classList.contains(`selection-child`)) {
+        selectionTargeter = event.target.parentElement
+    }
+    inputTileAnswer(selectionTargeter)
+    nextAnswer(selectionTargeter)
+    prevAnswer(selectionTargeter)
+    addOrSubtractPlate(event.target)
+    requiredPlatesDisplay()
+    // console.table(answers)
 });
 
 document.addEventListener(`input`, (event) => {
   inputDimensionsAnswer(event.target);
 });
+
+
+
 
 const inputTileAnswer = (target) => {
   // Check if target is an answer button
@@ -104,6 +109,7 @@ const inputDimensionsAnswer = (target) => {
       );
       break;
     }
+
     target.parentElement.parentElement.parentElement.classList.add(
       `question-picked`
     );
@@ -111,86 +117,121 @@ const inputDimensionsAnswer = (target) => {
   console.table(answers);
 };
 
-// wip
+}
+
+const addOrSubtractPlate = (target) => {
+    const itemQuantityAmountArray = document.querySelectorAll(`.item-quantity-amount`)
+
+    if (target.classList.contains(`item-quantity-subtract`)) {
+        const targetSKU = target.getAttribute(`data-sku`)
+        for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+            if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) && parseInt(requiredPlates.textContent) < answers[3].displays && parseInt(itemQuantityAmountArray[i].textContent) > 0) {
+                let currentQuantity = itemQuantityAmountArray[i].getAttribute(`data-value`)
+                let newQuantity = parseInt(currentQuantity) - 1
+                itemQuantityAmountArray[i].setAttribute(`data-value`, newQuantity)
+                itemQuantityAmountArray[i].textContent = newQuantity
+            }
+        }
+    }
+
+    if (target.classList.contains(`item-quantity-add`)) {
+        const targetSKU = target.getAttribute(`data-sku`)
+        for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+            if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) && parseInt(requiredPlates.textContent) > 0) {
+                let currentQuantity = itemQuantityAmountArray[i].getAttribute(`data-value`)
+                let newQuantity = parseInt(currentQuantity) + 1
+                itemQuantityAmountArray[i].setAttribute(`data-value`, newQuantity)
+                itemQuantityAmountArray[i].textContent = newQuantity
+            }
+        }
+    }
+}
+
+
 const requiredPlatesDisplay = () => {
-  requiredPlates.textContent = answers[3].displays;
-};
+
+    if (window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`) {
+        const itemQuantityAmountArray = document.querySelectorAll(`.item-quantity-amount`)
+        let totalQuantity = 0
+        for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+            let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent)
+            totalQuantity += currentQuantity
+        }
+        const displaysChosen = answers[3].displays
+        const difference = displaysChosen - totalQuantity
+        requiredPlates.textContent = difference
+    }
+}
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
-  const container = document.createElement(`div`);
-  container.classList.add(`item-container`);
-  itemDestination.appendChild(container);
+    const container = document.createElement(`div`)
+    container.classList.add(`item-container`)
+    itemDestination.appendChild(container)
+    
+    const img = document.createElement(`img`)
+    img.src = itemImage
+    img.classList.add(`item-img`)
+    container.appendChild(img)
 
-  const img = document.createElement(`img`);
-  img.src = itemImage;
-  img.classList.add(`item-img`);
-  container.appendChild(img);
+    const infoContainer = document.createElement(`div`)
+    infoContainer.classList.add(`item-info-container`)
+    container.appendChild(infoContainer)
 
-  const infoContainer = document.createElement(`div`);
-  infoContainer.classList.add(`item-info-container`);
-  container.appendChild(infoContainer);
+    const title = document.createElement(`div`)
+    title.classList.add(`item-info-title`)
+    title.textContent = itemTitle
+    infoContainer.appendChild(title)
 
-  const title = document.createElement(`div`);
-  title.classList.add(`item-info-title`);
-  title.textContent = itemTitle;
-  infoContainer.appendChild(title);
+    const SKU = document.createElement(`div`)
+    SKU.classList.add(`item-info-SKU`)
+    SKU.textContent = itemSKU
+    infoContainer.appendChild(SKU)
 
-  const SKU = document.createElement(`div`);
-  SKU.classList.add(`item-info-SKU`);
-  SKU.textContent = itemSKU;
-  infoContainer.appendChild(SKU);
+    const quantityContainer = document.createElement(`div`)
+    quantityContainer.classList.add(`item-quantity-container`)
+    quantityContainer.textContent = `Qty:`
+    infoContainer.appendChild(quantityContainer)
 
-  const quantityContainer = document.createElement(`div`);
-  quantityContainer.classList.add(`item-quantity-container`);
-  quantityContainer.textContent = `Qty:`;
-  infoContainer.appendChild(quantityContainer);
+    const quantityButtons = document.createElement(`div`)
+    quantityButtons.classList.add(`item-quantity-buttons`)
+    quantityContainer.appendChild(quantityButtons)
 
-  const quantityButtons = document.createElement(`div`);
-  quantityButtons.classList.add(`item-quantity-buttons`);
-  quantityContainer.appendChild(quantityButtons);
+    const subtract = document.createElement(`div`)
+    subtract.classList.add(`item-quantity-subtract`)
+    subtract.setAttribute(`data-SKU`, itemSKU)
+    subtract.textContent = `-`
+    quantityButtons.appendChild(subtract)
 
-  const subtract = document.createElement(`div`);
-  subtract.classList.add(`item-quantity-subtract`);
-  subtract.setAttribute(`data-SKU`, itemSKU);
-  subtract.textContent = `-`;
-  quantityButtons.appendChild(subtract);
+    const amount = document.createElement(`div`)
+    amount.classList.add(`item-quantity-amount`)
+    amount.setAttribute(`data-SKU`, itemSKU)
+    amount.setAttribute(`data-value`, 0)
+    amount.textContent = amount.getAttribute(`data-value`)
+    quantityButtons.appendChild(amount)
 
-  const amount = document.createElement(`div`);
-  amount.classList.add(`item-quantity-amount`);
-  amount.setAttribute(`data-SKU`, itemSKU);
-  amount.textContent = `0`;
-  quantityButtons.appendChild(amount);
+    const add = document.createElement(`div`)
+    add.classList.add(`item-quantity-add`)
+    add.setAttribute(`data-SKU`, itemSKU)
+    add.textContent = `+`
+    quantityButtons.appendChild(add)
+}
 
-  const add = document.createElement(`div`);
-  add.classList.add(`item-quantity-add`);
-  add.setAttribute(`data-SKU`, itemSKU);
-  add.textContent = `+`;
-  quantityButtons.appendChild(add);
-};
-
-itemAppend(
-  plateGrid,
-  `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`,
-  `SM-CB-CM-DJ-24-BLK`,
-  `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-24-BLK.jpg`
-);
+itemAppend(plateGrid, `Strong Carbon Series Dual Joist Ceiling Mount - 24 IN - Black`, `SM-CB-CM-DJ-24-BLK`, `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-24-BLK.jpg`)
+itemAppend(plateGrid, `Strong Carbon Series Dual Joist Ceiling Mount - 16 IN - Black`, `SM-CB-CM-DJ-16-BLK`, `./product_images/products_thumbnail_150x150/ceiling_mount/SM-CB-CM-DJ-16-BLK.jpg`)
 
 const nextAnswer = (target) => {
-  if (target.classList.contains(`next`)) {
-    console.log(returnAnswer);
-    for (let i = 0; i < surveys.length; i++) {
-      if (
-        target.parentElement.parentElement === surveys[i] &&
-        surveys[i].classList.contains(`question-picked`)
-      ) {
-        surveys[i].style.display = `none`;
-        surveys[i + 1].style.display = `flex`;
-        break;
-      }
+    if (target.classList.contains(`next`)) {
+        for (let i = 0; i < surveys.length; i++) {
+            if (target.parentElement.parentElement === surveys[i] && surveys[i].classList.contains(`question-picked`)) {
+                surveys[i].style.display = `none`
+                surveys[i + 1].style.display = `flex`
+                break
+            }
+        }
+        returnAnswer = ``
+
     }
-    returnAnswer = ``;
   }
-};
 
 const prevAnswer = (target) => {
   if (

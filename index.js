@@ -34,18 +34,14 @@ btn.addEventListener("click", function () {
 });
 
 function makePostRequest() {
-  let xhr = new XMLHttpRequest();
-
-  xhr.open("POST", "http://localhost:3000/");
-
-  xhr.setRequestHeader("Accept", "application/json");
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  xhr.onload = () => console.log(xhr.responseText);
-
-  let data = answers;
-
-  xhr.send(data);
+  const Http = new XMLHttpRequest();
+  Http.open("post", "http://localhost:3000/");
+  Http.setRequestHeader("Content-Type", "text/plain");
+  const data = JSON.stringify(answers);
+  Http.send(data);
+  Http.onload = function () {
+    console.log(Http.response);
+  };
 }
 
 document.addEventListener(`click`, (event) => {
@@ -58,7 +54,7 @@ document.addEventListener(`click`, (event) => {
   prevAnswer(selectionTargeter);
   addOrSubtractPlate(event.target);
   requiredPlatesDisplay();
-  // console.table(answers)
+  console.log(answers);
 });
 
 document.addEventListener(`input`, (event) => {

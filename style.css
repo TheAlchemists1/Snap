@@ -228,6 +228,7 @@ label {
     grid-template-columns: 45% 45%;
     gap: 10%;
     grid-template-rows: repeat(auto-fit, 200px);
+    padding-bottom: 60px;
 }
 
 .item-container {

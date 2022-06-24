@@ -225,7 +225,7 @@ label {
   border-bottom: var(--border-bottom);
   display: grid;
   grid-template-columns: 45% 45%;
-  gap: 10%;
+  gap: 2rem;
   grid-template-rows: repeat(auto-fit, 200px);
   padding-bottom: 60px;
 }

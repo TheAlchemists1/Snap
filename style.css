@@ -224,6 +224,21 @@ label {
   color: var(--snap-orange);
   font-size: 1.75rem;
   font-weight: bold;
+  padding: 0 10px;
+}
+
+.required-struts-boxes-container {
+  display: grid;
+  justify-content: space-evenly;
+  gap: 50px;
+  grid-template-columns: auto auto;
+  padding: 30px;
+  padding-bottom: 60px;
+}
+
+.required-struts-text,
+.required-boxes-text {
+  max-width: 500px;
 }
 
 .item-grid {

@@ -162,6 +162,11 @@ document.addEventListener(`click`, (event) => {
     event.target.parentElement.parentElement.parentElement.parentElement
       .parentElement.classList[1]
   );
+  addOrSubtractPole(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
   // console.table(answers)
 });
 
@@ -256,7 +261,7 @@ const inputDimensionsAnswer = (target) => {
 };
 
 const addOrSubtractPlate = (target, gridLocation) => {
-  if (target.classList.contains(`item-quantity-subtract`)) {
+  if (target.classList.contains(`item-quantity-subtract-plate-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-${gridLocation}`
     );
@@ -272,10 +277,10 @@ const addOrSubtractPlate = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredItemsDirector();
+    requiredPlatesDisplay();
   }
 
-  if (target.classList.contains(`item-quantity-add`)) {
+  if (target.classList.contains(`item-quantity-add-plate-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-${gridLocation}`
     );
@@ -290,22 +295,61 @@ const addOrSubtractPlate = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredItemsDirector();
+    requiredPlatesDisplay();
   }
 };
 
-const requiredItemsDirector = () => {
-  if (
-    window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`
-  ) {
-    requiredPlatesDisplay();
+const addOrSubtractPole = (target, gridLocation) => {
+  if (target.classList.contains(`item-quantity-subtract-plate-grid-pole`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredPoles.textContent) < answers[3].displays &&
+        parseInt(itemQuantityAmountArray[i].textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) - 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredPolesDisplay();
   }
-  if (
-    window.getComputedStyle(document.querySelector(`.poles`)).display === `flex`
-  ) {
+
+  if (target.classList.contains(`item-quantity-add-plate-grid-pole`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredPoles.textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) + 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
     requiredPolesDisplay();
   }
 };
+
+// const requiredItemsDirector = () => {
+//   if (
+//     window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`
+//   ) {
+//     requiredPlatesDisplay();
+//   }
+//   if (
+//     window.getComputedStyle(document.querySelector(`.poles`)).display === `flex`
+//   ) {
+//     requiredPolesDisplay();
+//   }
+// };
 
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
@@ -386,6 +430,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   quantityContainer.appendChild(quantityButtons);
 
   const subtract = document.createElement(`div`);
+  subtract.classList.add(`item-quantity-subtract-${currentGrid}`);
   subtract.classList.add(`item-quantity-subtract`);
   subtract.setAttribute(`data-SKU`, itemSKU);
   subtract.textContent = `-`;
@@ -400,6 +445,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   quantityButtons.appendChild(amount);
 
   const add = document.createElement(`div`);
+  add.classList.add(`item-quantity-add-${currentGrid}`);
   add.classList.add(`item-quantity-add`);
   add.setAttribute(`data-SKU`, itemSKU);
   add.textContent = `+`;

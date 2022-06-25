@@ -16,6 +16,11 @@ body {
   justify-items: center;
 }
 
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .container {
   display: flex;
   flex-direction: column;

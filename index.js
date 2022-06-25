@@ -187,6 +187,15 @@ const wipeItemSelections = (target) => {
     }
     requiredPlatesDisplay();
   }
+  if (target.classList.contains(`poles`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-plate-grid-pole`
+    );
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      itemQuantityAmountArray[i].textContent = `0`;
+    }
+    requiredPolesDisplay();
+  }
 };
 
 const inputTileAnswer = (target) => {

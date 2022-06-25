@@ -199,12 +199,19 @@ const inputTileAnswer = (target) => {
         window.getComputedStyle(selection.parentElement.parentElement)
           .display === `flex`
       ) {
+        console.log(selection);
         selection.classList.remove(`picked`);
       }
     });
     // Make the current selection the only picked class for this question
     target.classList.add(`picked`);
-    target.parentElement.parentElement.classList.add(`question-picked`);
+    if (
+      target.parentElement.parentElement.classList.contains(`mount`) ||
+      target.parentElement.parentElement.classList.contains(`sides`) ||
+      target.parentElement.parentElement.classList.contains(`orientation`)
+    ) {
+      target.parentElement.parentElement.classList.add(`question-picked`);
+    }
   }
 };
 
@@ -226,8 +233,6 @@ const inputDimensionsAnswer = (target) => {
     }
     console.table(answers);
   }
-
-  //   console.table(answers);
 };
 
 const addOrSubtractPlate = (target, gridLocation) => {

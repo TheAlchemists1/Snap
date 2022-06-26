@@ -423,6 +423,10 @@ label {
   font-size: 1.3rem;
 }
 
+.arm-grid > .item-container {
+  max-width: 45%;
+}
+
 .overview-products-heading {
   color: var(--snap-blue);
   font-size: 1.6rem;

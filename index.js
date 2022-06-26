@@ -11,6 +11,7 @@ const strutGrid = document.querySelector(`.strut-grid`);
 const boxGrid = document.querySelector(`.box-grid`);
 const armGrid = document.querySelector(`.arm-grid`);
 
+
 let returnAnswer = ``;
 
 let sortedDataCeil = [];
@@ -168,6 +169,7 @@ document.addEventListener(`click`, (event) => {
     event.target.parentElement.parentElement.parentElement.parentElement
       .parentElement.classList[1]
   );
+
   addOrSubtractPole(
     event.target,
     event.target.parentElement.parentElement.parentElement.parentElement
@@ -191,11 +193,11 @@ document.addEventListener(`input`, (event) => {
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
-  requiredPlatesDisplay();
+  requiredPlatesDisplay(); ////// plate-grid-pole` <----------------------
 });
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
-  requiredPolesDisplay();
+  requiredPolesDisplay();  ////// plate-grid-pole` <----------------------
 });
 
 document.querySelector(`.strut-next`).addEventListener(`click`, () => {
@@ -284,7 +286,6 @@ const inputDimensionsAnswer = (target) => {
         `question-picked`
       );
     }
-    console.table(answers);
   }
 };
 

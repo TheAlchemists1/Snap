@@ -3,8 +3,14 @@ const selections = document.querySelectorAll(`.selection`);
 const dimensionInputs = document.querySelectorAll(`.dimension-input`);
 const requiredPlates = document.querySelector(`.required-plates`);
 const requiredPoles = document.querySelector(`.required-poles`);
+const requiredStruts = document.querySelector(`.required-struts`);
+const requiredBoxes = document.querySelector(`.required-boxes`);
 const plateGrid = document.querySelector(`.plate-grid`);
 const plateGridPole = document.querySelector(`.plate-grid-pole`);
+const strutGrid = document.querySelector(`.strut-grid`);
+const boxGrid = document.querySelector(`.box-grid`);
+const armGrid = document.querySelector(`.arm-grid`);
+
 
 let returnAnswer = ``;
 
@@ -27,6 +33,7 @@ const answers = [
     weight: ``,
   },
   { plate: `` },
+  { poles: `` },
 ];
 
 for (let i = 0; i < surveys.length; i++) {
@@ -162,7 +169,23 @@ document.addEventListener(`click`, (event) => {
     event.target.parentElement.parentElement.parentElement.parentElement
       .parentElement.classList[1]
   );
-  // console.table(answers)
+
+  addOrSubtractPole(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
+  addOrSubtractStrut(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
+  addOrSubtractBoxes(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
+  console.table(answers);
 });
 
 document.addEventListener(`input`, (event) => {
@@ -170,16 +193,44 @@ document.addEventListener(`input`, (event) => {
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
-  requiredPlatesDisplay(`plate-grid-pole`);
+  requiredPlatesDisplay(); ////// plate-grid-pole` <----------------------
 });
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
-  requiredPolesDisplay(`.plate-grid-pole`);
+  requiredPolesDisplay();  ////// plate-grid-pole` <----------------------
 });
+
+document.querySelector(`.strut-next`).addEventListener(`click`, () => {
+  document.querySelector(`.item-quantity-amount-box-grid`).textContent =
+    answers[3].displays;
+  requiredStrutsDisplay();
+});
+
+const wipeItemSelections = (target) => {
+  if (target.classList.contains(`plate`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-plate-grid`
+    );
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      itemQuantityAmountArray[i].textContent = `0`;
+    }
+    requiredPlatesDisplay();
+  }
+  if (target.classList.contains(`poles`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-plate-grid-pole`
+    );
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      itemQuantityAmountArray[i].textContent = `0`;
+    }
+    requiredPolesDisplay();
+  }
+};
 
 const inputTileAnswer = (target) => {
   // Check if target is an answer button
   if (target.classList.contains(`selection`)) {
+    wipeItemSelections(target);
     // Obtain data-question which will match the answers array key we are using
     const question = target.getAttribute(`data-question`);
     // Iterate through answers
@@ -201,9 +252,21 @@ const inputTileAnswer = (target) => {
         selection.classList.remove(`picked`);
       }
     });
-    // Make the current selection the only picked class for this question
-    target.classList.add(`picked`);
-    target.parentElement.parentElement.classList.add(`question-picked`);
+
+    if (
+      target.classList.contains(`struts`) === false &&
+      target.classList.contains(`boxes`) === false &&
+      target.classList.contains(`arm`) === false
+    ) {
+      target.classList.add(`picked`);
+    }
+    if (
+      target.parentElement.parentElement.classList.contains(`mount`) ||
+      target.parentElement.parentElement.classList.contains(`sides`) ||
+      target.parentElement.parentElement.classList.contains(`orientation`)
+    ) {
+      target.parentElement.parentElement.classList.add(`question-picked`);
+    }
   }
 };
 
@@ -227,7 +290,7 @@ const inputDimensionsAnswer = (target) => {
 };
 
 const addOrSubtractPlate = (target, gridLocation) => {
-  if (target.classList.contains(`item-quantity-subtract`)) {
+  if (target.classList.contains(`item-quantity-subtract-plate-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-${gridLocation}`
     );
@@ -238,17 +301,15 @@ const addOrSubtractPlate = (target, gridLocation) => {
         parseInt(requiredPlates.textContent) < answers[3].displays &&
         parseInt(itemQuantityAmountArray[i].textContent) > 0
       ) {
-        let currentQuantity =
-          itemQuantityAmountArray[i].getAttribute(`data-value`);
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) - 1;
-        itemQuantityAmountArray[i].setAttribute(`data-value`, newQuantity);
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredItemsDirector(gridLocation);
+    requiredPlatesDisplay();
   }
 
-  if (target.classList.contains(`item-quantity-add`)) {
+  if (target.classList.contains(`item-quantity-add-plate-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-${gridLocation}`
     );
@@ -258,33 +319,130 @@ const addOrSubtractPlate = (target, gridLocation) => {
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
         parseInt(requiredPlates.textContent) > 0
       ) {
-        let currentQuantity =
-          itemQuantityAmountArray[i].getAttribute(`data-value`);
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
-        itemQuantityAmountArray[i].setAttribute(`data-value`, newQuantity);
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredItemsDirector(gridLocation);
+    requiredPlatesDisplay();
   }
 };
 
-const requiredItemsDirector = (gridLocation) => {
-  if (
-    window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`
-  ) {
-    requiredPlatesDisplay(gridLocation);
+const addOrSubtractPole = (target, gridLocation) => {
+  if (target.classList.contains(`item-quantity-subtract-plate-grid-pole`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredPoles.textContent) < answers[3].displays &&
+        parseInt(itemQuantityAmountArray[i].textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) - 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredPolesDisplay();
   }
-  if (
-    window.getComputedStyle(document.querySelector(`.poles`)).display === `flex`
-  ) {
-    requiredPolesDisplay(gridLocation);
+
+  if (target.classList.contains(`item-quantity-add-plate-grid-pole`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-${gridLocation}`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredPoles.textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) + 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredPolesDisplay();
   }
 };
 
-const requiredPlatesDisplay = (gridLocation) => {
+const addOrSubtractStrut = (target, gridLocation) => {
+  if (target.classList.contains(`item-quantity-subtract-strut-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-strut-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) - 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredStrutsDisplay();
+  }
+
+  if (target.classList.contains(`item-quantity-add-strut-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-strut-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) + 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredStrutsDisplay();
+  }
+};
+
+const addOrSubtractBoxes = (target, gridLocation) => {
+  if (target.classList.contains(`item-quantity-subtract-box-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-box-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) - 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredStrutsDisplay();
+  }
+
+  if (target.classList.contains(`item-quantity-add-box-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-box-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredBoxes.textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) + 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredStrutsDisplay();
+  }
+};
+
+const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
-    `.item-quantity-amount-${gridLocation}`
+    `.item-quantity-amount-plate-grid`
   );
   let totalQuantity = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
@@ -297,9 +455,9 @@ const requiredPlatesDisplay = (gridLocation) => {
   requiredChecker(requiredPlates);
 };
 
-const requiredPolesDisplay = (gridLocation) => {
+const requiredPolesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
-    `.item-quantity-amount-${gridLocation}`
+    `.item-quantity-amount-plate-grid-pole`
   );
   let totalQuantity = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
@@ -310,6 +468,48 @@ const requiredPolesDisplay = (gridLocation) => {
   const difference = displaysChosen - totalQuantity;
   requiredPoles.textContent = difference;
   requiredChecker(requiredPoles);
+};
+
+const requiredStrutsDisplay = () => {
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-strut-grid`
+  );
+  let totalLength = 0;
+  for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+    const itemLength = parseInt(
+      itemQuantityAmountArray[i].getAttribute(`data-length`)
+    );
+    const itemAmount = parseInt(itemQuantityAmountArray[i].textContent);
+    let currentLength = itemLength * itemAmount;
+    console.log(currentLength);
+    totalLength += currentLength;
+  }
+  if (totalLength >= 120) {
+    document
+      .querySelector(`.required-struts-text-warning`)
+      .classList.remove(`show`);
+  } else {
+    document
+      .querySelector(`.required-struts-text-warning`)
+      .classList.add(`show`);
+  }
+  requiredBoxesDisplay(totalLength);
+};
+
+const requiredBoxesDisplay = (strutLength) => {
+  requiredBoxes.textContent = answers[3].displays;
+  requiredStrutsBoxesChecker(
+    strutLength,
+    document.querySelector(`.item-quantity-amount-box-grid`).textContent
+  );
+};
+
+const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
+  if (strutLength >= 120 && chosenBoxes >= answers[3].displays) {
+    document.querySelector(`.struts`).classList.add(`question-picked`);
+  } else {
+    document.querySelector(`.struts`).classList.remove(`question-picked`);
+  }
 };
 
 const requiredChecker = (remainingChoices) => {
@@ -326,7 +526,10 @@ const requiredChecker = (remainingChoices) => {
 };
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
-  const currentGrid = itemDestination.classList[1];
+  let currentGrid = itemDestination.classList[1];
+  if (itemDestination === strutGrid || itemDestination === boxGrid) {
+    currentGrid = itemDestination.classList;
+  }
 
   const container = document.createElement(`div`);
   container.classList.add(`item-container`);
@@ -361,6 +564,7 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   quantityContainer.appendChild(quantityButtons);
 
   const subtract = document.createElement(`div`);
+  subtract.classList.add(`item-quantity-subtract-${currentGrid}`);
   subtract.classList.add(`item-quantity-subtract`);
   subtract.setAttribute(`data-SKU`, itemSKU);
   subtract.textContent = `-`;
@@ -370,16 +574,57 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   amount.classList.add(`item-quantity-amount-${currentGrid}`);
   amount.classList.add(`item-quantity-amount`);
   amount.setAttribute(`data-SKU`, itemSKU);
-  amount.setAttribute(`data-value`, 0);
-  amount.textContent = amount.getAttribute(`data-value`);
+  amount.textContent = `0`;
   quantityButtons.appendChild(amount);
 
   const add = document.createElement(`div`);
+  add.classList.add(`item-quantity-add-${currentGrid}`);
   add.classList.add(`item-quantity-add`);
   add.setAttribute(`data-SKU`, itemSKU);
   add.textContent = `+`;
   quantityButtons.appendChild(add);
+
+  if (itemSKU === `SM-CB-CM-ST-30`) {
+    subtract.setAttribute(`data-length`, 30);
+    amount.setAttribute(`data-length`, 30);
+    add.setAttribute(`data-length`, 30);
+  }
+  if (itemSKU === `SM-CB-CM-ST-50`) {
+    subtract.setAttribute(`data-length`, 50);
+    amount.setAttribute(`data-length`, 50);
+    add.setAttribute(`data-length`, 50);
+  }
+  if (itemSKU === `SM-CB-CM-ST-100`) {
+    subtract.setAttribute(`data-length`, 100);
+    amount.setAttribute(`data-length`, 100);
+    add.setAttribute(`data-length`, 100);
+  }
 };
+
+itemAppend(
+  strutGrid,
+  `test`,
+  `SM-CB-CM-ST-30`,
+  `./product_images/products_thumbnail_150x150/strut/SM-CB-CM-ST-30.jpg`
+);
+itemAppend(
+  strutGrid,
+  `test`,
+  `SM-CB-CM-ST-50`,
+  `./product_images/products_thumbnail_150x150/strut/SM-CB-CM-ST-50.jpg`
+);
+itemAppend(
+  boxGrid,
+  `test`,
+  `SM-CB-CM-D`,
+  `./product_images/products_thumbnail_150x150/mounting_box/SM-CB-CM-D.jpg`
+);
+itemAppend(
+  armGrid,
+  `test`,
+  `SM-CB-CM-LARM-55`,
+  `./product_images/products_thumbnail_150x150/display_arm/SM-CB-CM-LARM-55.jpg`
+);
 
 const nextAnswer = (target) => {
   if (target.classList.contains(`next`)) {

@@ -29,6 +29,16 @@ const answers = [
   { plate: `` },
 ];
 
+let stagedItems = [
+  (ceiling = []),
+  (poles = []),
+  (arms = []),
+  (mounts = []),
+  (struts = []),
+  (adapters = []),
+];
+let orderedList = [];
+
 for (let i = 0; i < surveys.length; i++) {
   if (i === 0) {
     continue;
@@ -44,9 +54,43 @@ document.getElementById("sub").addEventListener("click", function () {
 
 document.getElementById("sub-poles").addEventListener("click", function () {
   propigatePole();
+  checkStagedItemsCeiling();
 });
 
-//filtering system for ceiling plate type uni-strut
+document.getElementById("sub-struts").addEventListener("click", function () {
+  propigateStruts();
+  checkStagedItemsPoles();
+});
+
+function checkStagedItemsCeiling() {
+  let items = document.querySelectorAll(".ceiling");
+  stagedItems.ceiling = [];
+  for (let i = 0; i < items.length; i++) {
+    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    var numb = x.match(/\d/g);
+    numb = numb.join("");
+    if (numb > 0) {
+      stagedItems.ceiling.push(items[i].innerText);
+    }
+  }
+  console.log(stagedItems.ceiling);
+}
+
+function checkStagedItemsPoles() {
+  let items = document.querySelectorAll(".poles");
+  stagedItems.poles = [];
+  for (let i = 0; i < items.length; i++) {
+    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    var numb = x.match(/\d/g);
+    numb = numb.join("");
+    if (numb > 0) {
+      stagedItems.poles.push(items[i].innerText);
+    }
+  }
+  console.log(stagedItems.poles);
+}
+
+//filtering system for ceiling plate i-beam
 document.getElementById("i-beam").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
@@ -58,7 +102,7 @@ document.getElementById("i-beam").addEventListener("click", function () {
   }
 });
 
-//filtering system for ceiling plate type joists
+//filtering system for ceiling plates not i-beam
 let allCeilingFilter = document.querySelectorAll("#all-ceiling-plates");
 
 allCeilingFilter.forEach((item) => {
@@ -74,7 +118,7 @@ allCeilingFilter.forEach((item) => {
   });
 });
 
-//filtering system for ceiling plate type uni-strut
+//filtering system for fixed pole
 document.getElementById("fixed-pole").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
@@ -87,19 +131,17 @@ document.getElementById("fixed-pole").addEventListener("click", function () {
   }
 });
 
-//filtering system for ceiling plate type joists
-document
-  .getElementById("adjustable-pole")
-  .addEventListener("click", function () {
-    let x = document.getElementsByClassName("item-container");
-    for (let i = 0; i < x.length; i++) {
-      if (x[i].childNodes[1].innerText.includes("ADJUSTABLE")) {
-        x[i].style.display = `flex`;
-      } else {
-        x[i].style.display = `none`;
-      }
+//filtering system for adjustable pole
+document.getElementById("adj-pole").addEventListener("click", function () {
+  let x = document.getElementsByClassName("item-container");
+  for (let i = 0; i < x.length; i++) {
+    if (x[i].childNodes[1].innerText.includes("ADJUSTABLE")) {
+      x[i].style.display = `flex`;
+    } else {
+      x[i].style.display = `none`;
     }
-  });
+  }
+});
 
 axios
   .get("http://localhost:3000/")
@@ -137,7 +179,8 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataCeil[i].description}`,
         `${sortedDataCeil[i].sku}`,
-        `./product_images/products_thumbnail_150x150/ceiling_mount/${sortedDataCeil[i].sku}.jpg`
+        `./product_images/products_thumbnail_150x150/ceiling_mount/${sortedDataCeil[i].sku}.jpg`,
+        `ceiling`
       );
     }
   } else {
@@ -152,7 +195,8 @@ function propigatePole() {
       plateGridPole,
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
-      `./product_images/products_thumbnail_150x150/poles/${sortedDataPole[i].sku}.jpg`
+      `./product_images/products_thumbnail_150x150/poles/${sortedDataPole[i].sku}.jpg`,
+      `pole`
     );
   }
 }
@@ -255,6 +299,10 @@ const addOrSubtractPlate = (target, gridLocation) => {
       }
     }
     requiredItemsDirector(gridLocation);
+
+    itemQuantityAmountArray.forEach((item) => {
+      console.log(itemQuantityAmountArray);
+    });
   }
 
   if (target.classList.contains(`item-quantity-add`)) {
@@ -334,11 +382,12 @@ const requiredChecker = (remainingChoices) => {
   }
 };
 
-const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
+const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
   const currentGrid = itemDestination.classList[1];
 
   const container = document.createElement(`div`);
   container.classList.add(`item-container`);
+  container.classList.add(`${page}`);
   itemDestination.appendChild(container);
 
   const img = document.createElement(`img`);

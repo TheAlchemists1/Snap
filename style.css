@@ -277,6 +277,7 @@ label {
 
 .item-info-title {
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .item-info-SKU {
@@ -358,4 +359,35 @@ label {
 
 .required-boxes-text {
   text-align: start;
+}
+
+.arm-answer {
+  align-self: center;
+  padding: 30px;
+  padding-bottom: 60px;
+}
+
+.required-arm-text {
+  align-self: center;
+}
+
+.arm > .tile-img,
+.struts > .tile-img,
+.boxes > .tile-img {
+  cursor: auto;
+}
+
+.arm-grid {
+  border-bottom: var(--border-bottom);
+  display: grid;
+  padding-bottom: 60px;
+}
+
+.arm-grid > .item-container > .item-img {
+  width: auto;
+  height: 200px;
+}
+
+.arm-grid > .item-container {
+  justify-self: center;
 }

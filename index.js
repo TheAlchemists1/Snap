@@ -9,6 +9,7 @@ const plateGrid = document.querySelector(`.plate-grid`);
 const plateGridPole = document.querySelector(`.plate-grid-pole`);
 const strutGrid = document.querySelector(`.strut-grid`);
 const boxGrid = document.querySelector(`.box-grid`);
+const armGrid = document.querySelector(`.arm-grid`);
 
 let returnAnswer = ``;
 
@@ -252,7 +253,8 @@ const inputTileAnswer = (target) => {
 
     if (
       target.classList.contains(`struts`) === false &&
-      target.classList.contains(`boxes`) === false
+      target.classList.contains(`boxes`) === false &&
+      target.classList.contains(`arm`) === false
     ) {
       target.classList.add(`picked`);
     }
@@ -436,18 +438,6 @@ const addOrSubtractBoxes = (target, gridLocation) => {
     requiredStrutsDisplay();
   }
 };
-// const requiredItemsDirector = () => {
-//   if (
-//     window.getComputedStyle(document.querySelector(`.plate`)).display === `flex`
-//   ) {
-//     requiredPlatesDisplay();
-//   }
-//   if (
-//     window.getComputedStyle(document.querySelector(`.poles`)).display === `flex`
-//   ) {
-//     requiredPolesDisplay();
-//   }
-// };
 
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
@@ -620,13 +610,19 @@ itemAppend(
   strutGrid,
   `test`,
   `SM-CB-CM-ST-50`,
-  `./product_images/products_thumbnail_150x150/strut/SM-CB-CM-ST-30.jpg`
+  `./product_images/products_thumbnail_150x150/strut/SM-CB-CM-ST-50.jpg`
 );
 itemAppend(
   boxGrid,
   `test`,
   `SM-CB-CM-D`,
   `./product_images/products_thumbnail_150x150/mounting_box/SM-CB-CM-D.jpg`
+);
+itemAppend(
+  armGrid,
+  `test`,
+  `SM-CB-CM-LARM-55`,
+  `./product_images/products_thumbnail_150x150/display_arm/SM-CB-CM-LARM-55.jpg`
 );
 
 const nextAnswer = (target) => {

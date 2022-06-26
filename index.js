@@ -47,6 +47,10 @@ for (let i = 0; i < surveys.length; i++) {
   }
 }
 
+// <----------------------Varaible ending---------------------------->
+
+// <----------------------Event handling for prop and checking items staged Start---------------------------->
+
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
   propigateCeiling();
@@ -61,6 +65,10 @@ document.getElementById("sub-struts").addEventListener("click", function () {
   propigateStruts();
   checkStagedItemsPoles();
 });
+
+// <----------------------Events ending---------------------------->
+
+// <----------------------Item Staging Checking Functions Start---------------------------->
 
 function checkStagedItemsCeiling() {
   let items = document.querySelectorAll(".ceiling");
@@ -89,6 +97,10 @@ function checkStagedItemsPoles() {
   }
   console.log(stagedItems.poles);
 }
+
+// <----------------------Item Staging Checking Functions End---------------------------->
+
+// <----------------------Filtering Functions Start--------------------------------->
 
 //filtering system for ceiling plate i-beam
 document.getElementById("i-beam").addEventListener("click", function () {
@@ -143,6 +155,10 @@ document.getElementById("adj-pole").addEventListener("click", function () {
   }
 });
 
+// <----------------------Filtering Functions End--------------------------------->
+
+// <----------------------Axios Call Start--------------------------------->
+
 axios
   .get("http://localhost:3000/")
   .then(function (response) {
@@ -170,6 +186,10 @@ axios
     // handle error
     console.log(error);
   });
+
+// <----------------------Axios Call End--------------------------------->
+
+// <----------------------Item Propifation Functions Start--------------------------------->
 
 function propigateCeiling() {
   if (answers[0].mount == "ceiling-mount") {
@@ -200,6 +220,21 @@ function propigatePole() {
     );
   }
 }
+
+function propigatePole() {
+  for (let i = 0; i < sortedDataPole.length; i++) {
+    console.log(sortedDataPole[i]);
+    items = itemAppend(
+      plateGridPole,
+      `${sortedDataPole[i].description}`,
+      `${sortedDataPole[i].sku}`,
+      `./product_images/products_thumbnail_150x150/poles/${sortedDataPole[i].sku}.jpg`,
+      `pole`
+    );
+  }
+}
+
+// <----------------------Item Propigation Functions End--------------------------------->
 
 document.addEventListener(`click`, (event) => {
   let selectionTargeter = event.target;

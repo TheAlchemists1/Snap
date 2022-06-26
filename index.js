@@ -47,22 +47,31 @@ document.getElementById("sub-poles").addEventListener("click", function () {
 });
 
 //filtering system for ceiling plate type uni-strut
-document.getElementById("uni-plate").addEventListener("click", function () {
+document.getElementById("i-beam").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
-    // console.log(x[i].childNodes[1].innerText);
-    if (!x[i].childNodes[1].innerText.includes("8 IN")) {
+    if (x[i].childNodes[1].innerText.includes("I-BEAM")) {
+      x[i].style.display = `flex`;
+    } else {
       x[i].style.display = `none`;
     }
   }
 });
 
 //filtering system for ceiling plate type joists
-document.getElementById("joist-plate").addEventListener("click", function () {
-  let x = document.getElementsByClassName("item-container");
-  for (let i = 0; i < x.length; i++) {
-    x[i].style.display = `flex`;
-  }
+let allCeilingFilter = document.querySelectorAll("#all-ceiling-plates");
+
+allCeilingFilter.forEach((item) => {
+  item.addEventListener("click", function () {
+    let x = document.getElementsByClassName("item-container");
+    for (let i = 0; i < x.length; i++) {
+      if (!x[i].childNodes[1].innerText.includes("I-BEAM")) {
+        x[i].style.display = `flex`;
+      } else {
+        x[i].style.display = `none`;
+      }
+    }
+  });
 });
 
 //filtering system for ceiling plate type uni-strut

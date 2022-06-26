@@ -217,6 +217,16 @@ document.querySelector(`.arm-next`).addEventListener(`click`, () => {
   requiredArmsDisplay();
 });
 
+document.querySelector(`.overview-next`).addEventListener(`click`, () => {
+  overviewSpecsPopulate();
+});
+
+document
+  .querySelector(`.overview-dropdown`)
+  .addEventListener(`click`, (event) => {
+    overviewDropdownAlternator(event.target);
+  });
+
 const wipeItemSelections = (target) => {
   if (target.classList.contains(`plate`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
@@ -586,6 +596,36 @@ const requiredChecker = (remainingChoices) => {
     remainingChoices.parentElement.parentElement.classList.remove(
       `question-picked`
     );
+  }
+};
+
+const overviewSpecsPopulate = () => {
+  document.querySelector(
+    `.overview-displays`
+  ).textContent = `# of Displays: ${answers[3].displays}`;
+  document.querySelector(
+    `.overview-width`
+  ).textContent = `Width: ${answers[3].width}in`;
+  document.querySelector(
+    `.overview-height`
+  ).textContent = `Height: ${answers[3].height}in`;
+  document.querySelector(
+    `.overview-weight`
+  ).textContent = `Weight: ${answers[3].weight}lbs`;
+  document.querySelector(
+    `.overview-gap`
+  ).textContent = `Gap: ${answers[3].gap}in`;
+};
+
+const overviewDropdownAlternator = (target) => {
+  if (target.classList.contains(`show`)) {
+    document.querySelector(`.overview-info`).style.display = `none`;
+    target.textContent = `expand_more`;
+    target.classList.remove(`show`);
+  } else {
+    document.querySelector(`.overview-info`).style.display = `flex`;
+    target.textContent = `expand_less`;
+    target.classList.add(`show`);
   }
 };
 

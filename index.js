@@ -15,10 +15,10 @@ const armGrid = document.querySelector(`.arm-grid`);
 let returnAnswer = ``;
 
 let sortedDataCeil = [];
-let sortedDataArm = [];
 let sortedDataPole = [];
 let sortedDataMount = [];
 let sortedDataStrut = [];
+let sortedDataArm = [];
 let sortedDataAdapter = [];
 
 const answers = [
@@ -70,7 +70,13 @@ document.getElementById("sub-poles").addEventListener("click", function () {
 
 document.getElementById("sub-struts").addEventListener("click", function () {
   propigateStruts();
-  checkStagedItemsPoles();
+  propigateBox();
+  // checkStagedItemsPoles();
+});
+
+document.getElementById("sub-arm").addEventListener("click", function () {
+  propigateArm();
+  // checkStagedItemsPoles();
 });
 
 // <----------------------Events ending---------------------------->
@@ -202,7 +208,7 @@ function propigateCeiling() {
   if (answers[0].mount == "ceiling-mount") {
     for (let i = 0; i < sortedDataCeil.length; i++) {
       console.log(sortedDataCeil[i]);
-      items = itemAppend(
+      itemAppend(
         plateGrid,
         `${sortedDataCeil[i].description}`,
         `${sortedDataCeil[i].sku}`,
@@ -218,7 +224,7 @@ function propigateCeiling() {
 function propigatePole() {
   for (let i = 0; i < sortedDataPole.length; i++) {
     console.log(sortedDataPole[i]);
-    items = itemAppend(
+    itemAppend(
       plateGridPole,
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
@@ -228,15 +234,41 @@ function propigatePole() {
   }
 }
 
-function propigatePole() {
-  for (let i = 0; i < sortedDataPole.length; i++) {
-    console.log(sortedDataPole[i]);
-    items = itemAppend(
-      plateGridPole,
-      `${sortedDataPole[i].description}`,
-      `${sortedDataPole[i].sku}`,
-      `./product_images/products_thumbnail_150x150/poles/${sortedDataPole[i].sku}.jpg`,
-      `pole`
+function propigateStruts() {
+  for (let i = 0; i < sortedDataStrut.length; i++) {
+    console.log(sortedDataStrut[i]);
+    itemAppend(
+      strutGrid,
+      `${sortedDataStrut[i].description}`,
+      `${sortedDataStrut[i].sku}`,
+      `./product_images/products_thumbnail_150x150/strut/${sortedDataStrut[i].sku}.jpg`,
+      `strut`
+    );
+  }
+}
+
+function propigateBox() {
+  for (let i = 0; i < sortedDataMount.length; i++) {
+    console.log(sortedDataMount[i]);
+    itemAppend(
+      boxGrid,
+      `${sortedDataMount[i].description}`,
+      `${sortedDataMount[i].sku}`,
+      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[i].sku}.jpg`,
+      `box`
+    );
+  }
+}
+
+function propigateArm() {
+  for (let i = 0; i < sortedDataArm.length; i++) {
+    console.log(sortedDataArm[i]);
+    itemAppend(
+      armGrid,
+      `${sortedDataArm[i].description}`,
+      `${sortedDataArm[i].sku}`,
+      `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+      `arm`
     );
   }
 }
@@ -290,9 +322,7 @@ document.querySelector(`.plate-next`).addEventListener(`click`, () => {
 });
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
-
   requiredPolesDisplay();
-
 });
 
 document.querySelector(`.strut-next`).addEventListener(`click`, () => {
@@ -718,7 +748,6 @@ const overviewDropdownAlternator = (target) => {
     target.classList.add(`show`);
   }
 };
-
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
   let currentGrid = itemDestination.classList[1];

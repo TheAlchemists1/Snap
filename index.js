@@ -5,12 +5,12 @@ const requiredPlates = document.querySelector(`.required-plates`);
 const requiredPoles = document.querySelector(`.required-poles`);
 const requiredStruts = document.querySelector(`.required-struts`);
 const requiredBoxes = document.querySelector(`.required-boxes`);
+const requiredArms = document.querySelector(`.required-arm`);
 const plateGrid = document.querySelector(`.plate-grid`);
 const plateGridPole = document.querySelector(`.plate-grid-pole`);
 const strutGrid = document.querySelector(`.strut-grid`);
 const boxGrid = document.querySelector(`.box-grid`);
 const armGrid = document.querySelector(`.arm-grid`);
-
 
 let returnAnswer = ``;
 
@@ -185,7 +185,12 @@ document.addEventListener(`click`, (event) => {
     event.target.parentElement.parentElement.parentElement.parentElement
       .parentElement.classList[1]
   );
-  console.table(answers);
+  addOrSubtractArms(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
+  // console.table(answers);
 });
 
 document.addEventListener(`input`, (event) => {
@@ -193,17 +198,23 @@ document.addEventListener(`input`, (event) => {
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
-  requiredPlatesDisplay(); ////// plate-grid-pole` <----------------------
+  requiredPlatesDisplay();
 });
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
-  requiredPolesDisplay();  ////// plate-grid-pole` <----------------------
+  requiredPolesDisplay();
 });
 
 document.querySelector(`.strut-next`).addEventListener(`click`, () => {
   document.querySelector(`.item-quantity-amount-box-grid`).textContent =
     answers[3].displays;
   requiredStrutsDisplay();
+});
+
+document.querySelector(`.arm-next`).addEventListener(`click`, () => {
+  document.querySelector(`.item-quantity-amount-arm-grid`).textContent =
+    answers[3].displays;
+  requiredArmsDisplay();
 });
 
 const wipeItemSelections = (target) => {
@@ -440,6 +451,44 @@ const addOrSubtractBoxes = (target, gridLocation) => {
   }
 };
 
+const addOrSubtractArms = (target, gridLocation) => {
+  if (target.classList.contains(`item-quantity-subtract-arm-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-arm-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) - 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredArmsDisplay();
+  }
+
+  if (target.classList.contains(`item-quantity-add-arm-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-arm-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredArms.textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) + 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredArmsDisplay();
+  }
+};
+
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid`
@@ -504,11 +553,26 @@ const requiredBoxesDisplay = (strutLength) => {
   );
 };
 
+const requiredArmsDisplay = () => {
+  requiredArms.textContent = answers[3].displays;
+  requiredArmsChecker(
+    document.querySelector(`.item-quantity-amount-arm-grid`).textContent
+  );
+};
+
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
   if (strutLength >= 120 && chosenBoxes >= answers[3].displays) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);
+  }
+};
+
+const requiredArmsChecker = (chosenArms) => {
+  if (chosenArms >= answers[3].displays) {
+    document.querySelector(`.arm`).classList.add(`question-picked`);
+  } else {
+    document.querySelector(`.arm`).classList.remove(`question-picked`);
   }
 };
 
@@ -527,7 +591,11 @@ const requiredChecker = (remainingChoices) => {
 
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage) => {
   let currentGrid = itemDestination.classList[1];
-  if (itemDestination === strutGrid || itemDestination === boxGrid) {
+  if (
+    itemDestination === strutGrid ||
+    itemDestination === boxGrid ||
+    itemDestination === armGrid
+  ) {
     currentGrid = itemDestination.classList;
   }
 

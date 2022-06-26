@@ -222,7 +222,8 @@ label {
 .required-plates,
 .required-poles,
 .required-struts,
-.required-boxes {
+.required-boxes,
+.required-arm {
   color: var(--snap-orange);
   font-size: 1.75rem;
   font-weight: bold;

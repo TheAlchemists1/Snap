@@ -395,8 +395,8 @@
             type="button"
             class="selection struts"
             data-question="struts"
-            id="fixed-pole"
-            value="fixed"
+            id="struts"
+            value="struts"
           >
             <img
               class="tile-img selection-child selection-icon"
@@ -410,10 +410,10 @@
           </button>
           <button
             type="button"
-            class="selection struts"
-            data-question="struts"
-            id="adjustable-pole"
-            value="adjustable"
+            class="selection boxes"
+            data-question="boxes"
+            id="boxes"
+            value="boxes"
           >
             <img
               class="tile-img selection-child selection-icon"
@@ -428,18 +428,21 @@
         </div>
         <div class="required-struts-boxes-container">
           <div class="required-struts-text">
-            Select the desired quantity of each strut to reach recommended minimum length of the <span class="required-struts"></span> inches.
-          <div class="required-struts-text-warning">Your selection does not meet the minimum length required.</div>
+            Select the desired quantity of each strut to reach recommended minimum length of the <span class="required-struts">120</span> inches.
+          <div class="required-struts-text-warning show">Note: Your selection does not meet the minimum length required.</div>
           </div>
           <div class="required-boxes-text">
-            You will need <span class="required-boxes"></span> mounting boxes. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.
+            You will need <span class="required-boxes">3</span> mounting boxes. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.
           </div>
         </div>
         <div class="subtext-reminder">
           If you would like more than the recommended amount you may update the
           quantities below.
         </div>
-        <div class="item-grid strut-grid"></div>
+        <div class="strut-box-grid-container">
+          <div class="strut-grid"></div>
+          <div class="box-grid"></div>
+        </div>
         <div class="prev-or-next">
           <button type="button" class="prev">< Back</button>
           <button type="button" class="next">Display Arms</button>

@@ -33,7 +33,7 @@ img {
   width: 8rem;
 }
 .question {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color: var(--snap-blue);
 }
 
@@ -49,6 +49,7 @@ img {
 
 .subtext {
   padding-bottom: 15px;
+  font-size: 1.3rem;
   border-bottom: var(--border-bottom);
 }
 
@@ -222,7 +223,8 @@ label {
 .required-plates,
 .required-poles,
 .required-struts,
-.required-boxes {
+.required-boxes,
+.required-arm {
   color: var(--snap-orange);
   font-size: 1.75rem;
   font-weight: bold;
@@ -390,4 +392,45 @@ label {
 
 .arm-grid > .item-container {
   justify-self: center;
+}
+
+.overview-heading-container {
+  display: flex;
+  align-items: center;
+  padding-top: 50px;
+  gap: 10px;
+}
+
+.overview-heading {
+  font-size: 1.6rem;
+}
+
+.overview-dropdown {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 2rem;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.overview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.overview-info > * {
+  font-size: 1.3rem;
+}
+
+.overview-products-heading {
+  color: var(--snap-blue);
+  font-size: 1.6rem;
+  padding-top: 40px;
+}
+
+.overview-products-grid {
+  border-bottom: var(--border-bottom);
+  display: grid;
+  padding-bottom: 60px;
 }

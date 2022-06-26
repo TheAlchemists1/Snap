@@ -5,6 +5,7 @@ const requiredPlates = document.querySelector(`.required-plates`);
 const requiredPoles = document.querySelector(`.required-poles`);
 const requiredStruts = document.querySelector(`.required-struts`);
 const requiredBoxes = document.querySelector(`.required-boxes`);
+const requiredArms = document.querySelector(`.required-arm`);
 const plateGrid = document.querySelector(`.plate-grid`);
 const plateGridPole = document.querySelector(`.plate-grid-pole`);
 const strutGrid = document.querySelector(`.strut-grid`);
@@ -272,7 +273,12 @@ document.addEventListener(`click`, (event) => {
     event.target.parentElement.parentElement.parentElement.parentElement
       .parentElement.classList[1]
   );
-  console.table(answers);
+  addOrSubtractArms(
+    event.target,
+    event.target.parentElement.parentElement.parentElement.parentElement
+      .parentElement.classList[1]
+  );
+  // console.table(answers);
 });
 
 document.addEventListener(`input`, (event) => {
@@ -280,11 +286,13 @@ document.addEventListener(`input`, (event) => {
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
-  requiredPlatesDisplay(); ////// plate-grid-pole` <----------------------
+  requiredPlatesDisplay();
 });
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
-  requiredPolesDisplay(); ////// plate-grid-pole` <----------------------
+
+  requiredPolesDisplay();
+
 });
 
 document.querySelector(`.strut-next`).addEventListener(`click`, () => {
@@ -292,6 +300,22 @@ document.querySelector(`.strut-next`).addEventListener(`click`, () => {
     answers[3].displays;
   requiredStrutsDisplay();
 });
+
+document.querySelector(`.arm-next`).addEventListener(`click`, () => {
+  document.querySelector(`.item-quantity-amount-arm-grid`).textContent =
+    answers[3].displays;
+  requiredArmsDisplay();
+});
+
+document.querySelector(`.overview-next`).addEventListener(`click`, () => {
+  overviewSpecsPopulate();
+});
+
+document
+  .querySelector(`.overview-dropdown`)
+  .addEventListener(`click`, (event) => {
+    overviewDropdownAlternator(event.target);
+  });
 
 const wipeItemSelections = (target) => {
   if (target.classList.contains(`plate`)) {
@@ -527,6 +551,44 @@ const addOrSubtractBoxes = (target, gridLocation) => {
   }
 };
 
+const addOrSubtractArms = (target, gridLocation) => {
+  if (target.classList.contains(`item-quantity-subtract-arm-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-arm-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) - 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredArmsDisplay();
+  }
+
+  if (target.classList.contains(`item-quantity-add-arm-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-arm-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredArms.textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) + 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+    requiredArmsDisplay();
+  }
+};
+
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid`
@@ -591,11 +653,26 @@ const requiredBoxesDisplay = (strutLength) => {
   );
 };
 
+const requiredArmsDisplay = () => {
+  requiredArms.textContent = answers[3].displays;
+  requiredArmsChecker(
+    document.querySelector(`.item-quantity-amount-arm-grid`).textContent
+  );
+};
+
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
   if (strutLength >= 120 && chosenBoxes >= answers[3].displays) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);
+  }
+};
+
+const requiredArmsChecker = (chosenArms) => {
+  if (chosenArms >= answers[3].displays) {
+    document.querySelector(`.arm`).classList.add(`question-picked`);
+  } else {
+    document.querySelector(`.arm`).classList.remove(`question-picked`);
   }
 };
 
@@ -612,9 +689,44 @@ const requiredChecker = (remainingChoices) => {
   }
 };
 
+const overviewSpecsPopulate = () => {
+  document.querySelector(
+    `.overview-displays`
+  ).textContent = `# of Displays: ${answers[3].displays}`;
+  document.querySelector(
+    `.overview-width`
+  ).textContent = `Width: ${answers[3].width}in`;
+  document.querySelector(
+    `.overview-height`
+  ).textContent = `Height: ${answers[3].height}in`;
+  document.querySelector(
+    `.overview-weight`
+  ).textContent = `Weight: ${answers[3].weight}lbs`;
+  document.querySelector(
+    `.overview-gap`
+  ).textContent = `Gap: ${answers[3].gap}in`;
+};
+
+const overviewDropdownAlternator = (target) => {
+  if (target.classList.contains(`show`)) {
+    document.querySelector(`.overview-info`).style.display = `none`;
+    target.textContent = `expand_more`;
+    target.classList.remove(`show`);
+  } else {
+    document.querySelector(`.overview-info`).style.display = `flex`;
+    target.textContent = `expand_less`;
+    target.classList.add(`show`);
+  }
+};
+
+
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
   let currentGrid = itemDestination.classList[1];
-  if (itemDestination === strutGrid || itemDestination === boxGrid) {
+  if (
+    itemDestination === strutGrid ||
+    itemDestination === boxGrid ||
+    itemDestination === armGrid
+  ) {
     currentGrid = itemDestination.classList;
   }
 

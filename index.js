@@ -290,7 +290,9 @@ document.querySelector(`.plate-next`).addEventListener(`click`, () => {
 });
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
+
   requiredPolesDisplay();
+
 });
 
 document.querySelector(`.strut-next`).addEventListener(`click`, () => {
@@ -717,6 +719,7 @@ const overviewDropdownAlternator = (target) => {
   }
 };
 
+
 const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
   let currentGrid = itemDestination.classList[1];
   if (
@@ -726,7 +729,6 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
   ) {
     currentGrid = itemDestination.classList;
   }
-
 
   const container = document.createElement(`div`);
   container.classList.add(`item-container`);
@@ -798,31 +800,6 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
     add.setAttribute(`data-length`, 100);
   }
 };
-
-itemAppend(
-  strutGrid,
-  `test`,
-  `SM-CB-CM-ST-30`,
-  `./product_images/products_thumbnail_150x150/strut/SM-CB-CM-ST-30.jpg`
-);
-itemAppend(
-  strutGrid,
-  `test`,
-  `SM-CB-CM-ST-50`,
-  `./product_images/products_thumbnail_150x150/strut/SM-CB-CM-ST-50.jpg`
-);
-itemAppend(
-  boxGrid,
-  `test`,
-  `SM-CB-CM-D`,
-  `./product_images/products_thumbnail_150x150/mounting_box/SM-CB-CM-D.jpg`
-);
-itemAppend(
-  armGrid,
-  `test`,
-  `SM-CB-CM-LARM-55`,
-  `./product_images/products_thumbnail_150x150/display_arm/SM-CB-CM-LARM-55.jpg`
-);
 
 const nextAnswer = (target) => {
   if (target.classList.contains(`next`)) {

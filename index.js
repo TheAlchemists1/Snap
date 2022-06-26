@@ -197,6 +197,12 @@ document.querySelector(`.pole-next`).addEventListener(`click`, () => {
   requiredPolesDisplay();
 });
 
+document.querySelector(`.strut-next`).addEventListener(`click`, () => {
+  document.querySelector(`.item-quantity-amount-box-grid`).textContent =
+    answers[3].displays;
+  requiredStrutsDisplay();
+});
+
 const wipeItemSelections = (target) => {
   if (target.classList.contains(`plate`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
@@ -402,7 +408,6 @@ const addOrSubtractBoxes = (target, gridLocation) => {
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredBoxes.textContent) < answers[3].displays &&
         parseInt(itemQuantityAmountArray[i].textContent) > 0
       ) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
@@ -410,7 +415,7 @@ const addOrSubtractBoxes = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    // requiredBoxesDisplay();
+    requiredStrutsDisplay();
   }
 
   if (target.classList.contains(`item-quantity-add-box-grid`)) {
@@ -428,7 +433,7 @@ const addOrSubtractBoxes = (target, gridLocation) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    // requiredBoxesDisplay();
+    requiredStrutsDisplay();
   }
 };
 // const requiredItemsDirector = () => {
@@ -497,22 +502,24 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
+  requiredBoxesDisplay(totalLength);
 };
 
-// const requiredBoxesDisplay = () => {
-//   const itemQuantityAmountArray = document.querySelectorAll(
-//     `.item-quantity-amount-strut-grid`
-//   );
-//   let totalQuantity = 0;
-//   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-//     let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
-//     totalQuantity += currentQuantity;
-//   }
-//   const displaysChosen = answers[3].displays;
-//   const difference = displaysChosen - totalQuantity;
-//   requiredBoxes.textContent = difference;
-//   requiredChecker(requiredBoxes);
-// };
+const requiredBoxesDisplay = (strutLength) => {
+  requiredBoxes.textContent = answers[3].displays;
+  requiredStrutsBoxesChecker(
+    strutLength,
+    document.querySelector(`.item-quantity-amount-box-grid`).textContent
+  );
+};
+
+const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
+  if (strutLength >= 120 && chosenBoxes >= answers[3].displays) {
+    document.querySelector(`.struts`).classList.add(`question-picked`);
+  } else {
+    document.querySelector(`.struts`).classList.remove(`question-picked`);
+  }
+};
 
 const requiredChecker = (remainingChoices) => {
   if (remainingChoices.textContent === `0`) {
@@ -619,12 +626,6 @@ itemAppend(
   boxGrid,
   `test`,
   `SM-CB-CM-D`,
-  `./product_images/products_thumbnail_150x150/mounting_box/SM-CB-CM-D.jpg`
-);
-itemAppend(
-  boxGrid,
-  `test`,
-  `SM-CB-CM-D2`,
   `./product_images/products_thumbnail_150x150/mounting_box/SM-CB-CM-D.jpg`
 );
 

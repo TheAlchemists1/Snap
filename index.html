@@ -21,7 +21,7 @@
       </div>
 
       <form class="survey mount">
-        <h1 class="question">Celing or Wall Mount</h1>
+        <h1 class="question">Ceiling or Wall Mount</h1>
         <div class="subtext">
           Please select by clicking on the appropriate tile below.
         </div>
@@ -381,8 +381,111 @@
         <div class="item-grid plate-grid-pole"></div>
         <div class="prev-or-next">
           <button type="button" class="prev">< Back</button>
-          <button type="button" id="sub-struts" class="next">Strut & Mounting</button>
+          <button type="button" id="sub-struts" class="next strut-next">Strut & Mounting</button>
 
+
+        </div>
+      </form>
+
+      <form action="POST" class="survey struts">
+        <h1 class="question">Support Strut & Mounting Box</h1>
+        <div class="subtext">
+          Please select the amount of recommended products. You may filter the
+          results by clicking on the appropriate tile below.
+        </div>
+        <div class="tile-answers">
+          <button
+            type="button"
+            class="selection struts"
+            data-question="struts"
+            id="struts"
+            value="struts"
+          >
+            <img
+              class="tile-img selection-child selection-icon"
+              src="./mount_svgs/strut.svg"
+            />
+            <i
+              class="material-icons-outlined selection-child selection-checkbox"
+              >check_circle_outline</i
+            >
+            <div class="selection-child selection-text">Support Strut</div>
+          </button>
+          <button
+            type="button"
+            class="selection boxes"
+            data-question="boxes"
+            id="boxes"
+            value="boxes"
+          >
+            <img
+              class="tile-img selection-child selection-icon"
+              src="./mount_svgs/single_mounting-box.svg"
+            />
+            <i
+              class="material-icons-outlined selection-child selection-checkbox"
+              >check_circle_outline</i
+            >
+            <div class="selection-child selection-text">Mounting Box</div>
+          </button>
+        </div>
+        <div class="required-struts-boxes-container">
+          <div class="required-struts-text">
+            Select the desired quantity of each strut to reach recommended minimum length of the <span class="required-struts">120</span> inches.
+          <div class="required-struts-text-warning show">Note: Your selection does not meet the minimum length required.</div>
+          </div>
+          <div class="required-boxes-text">
+            You will need <span class="required-boxes"></span> mounting boxes. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.
+          </div>
+        </div>
+        <div class="subtext-reminder">
+          If you would like more than the recommended amount you may update the
+          quantities below.
+        </div>
+        <div class="strut-box-grid-container">
+          <div class="strut-grid"></div>
+          <div class="box-grid"></div>
+        </div>
+        <div class="prev-or-next">
+          <button type="button" class="prev">< Back</button>
+          <button type="button" class="next arm-next">Display Arms</button>
+
+        </div>
+      </form>
+      <form action="POST" class="survey arm">
+        <h1 class="question">Display Arm</h1>
+        <div class="subtext">
+          Please select the amount of recommended products. You may filter the
+          results by clicking on the appropriate tile below.
+        </div>
+        <div class="arm-answer">
+          <button
+            type="button"
+            class="selection arm"
+            data-question="arm"
+            id="arm"
+          >
+            <img
+              class="tile-img selection-child selection-icon"
+              src="./mount_svgs/strut.svg"
+            />
+            <i
+              class="material-icons-outlined selection-child selection-checkbox"
+              >check_circle_outline</i
+            >
+            <div class="selection-child selection-text">Support Strut</div>
+          </button>
+        </div>
+          <div class="required-arm-text">
+            You will need <span class="required-arm"></span> display arms for this install.
+          </div>
+        <div class="subtext-reminder">
+          For your convenience we have already updated the quantity. If you would like more than the recommended amount you may update the quantities below.
+        </div>
+        <div class="arm-grid"></div>
+        <div class="prev-or-next">
+          <button type="button" class="prev">< Back</button>
+          <button type="button" class="next">Overview</button>
         </div>
       </form>
     </div>

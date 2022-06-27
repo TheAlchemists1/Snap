@@ -21,6 +21,11 @@ let sortedDataStrut = [];
 let sortedDataArm = [];
 let sortedDataAdapter = [];
 
+let strutMin;
+let strutMax;
+let totalDisplayLength;
+let totalWeight;
+
 let ceilingFlag;
 let poleFlag;
 let strutFlag;
@@ -52,24 +57,27 @@ for (let i = 0; i < surveys.length; i++) {
 
 // <----------------------Varaible ending---------------------------->
 
-/**
-  min strut length
-  ((E4×E7)+((E4−1)×E6)+2)−(E7−(E5÷25.4))
+// <----------------------Algorithm for specs start---------------------------->
 
-((numScreens x width) + ((numScreens - 1) x spacing) / 2) - (width - (mountingWidth / 25.4))
- 
-max strut length
+function algorithmSetup() {
+  const answerArr = answers[3];
+  const display = parseInt(answerArr.displays);
+  const width = parseInt(answerArr.width);
+  const gap = parseInt(answerArr.gap);
+  const weight = parseInt(answerArr.weight);
+  const vesaWidth = display / 2;
 
-(numScreens x width)
+  strutMin = display * width + ((display - 1) * gap) / 2 - (width - vesaWidth);
 
-Total Display Length
+  strutMax = display * width;
 
-(numScreens x width) + (numScreens - 1) x spacing
+  totalDisplayLength = display * width + (display - 1) * gap;
 
-Total Weight
+  totalWeight = display * weight;
+}
 
-numScreens x weightdisplays
- */
+// <----------------------Algorithm for specs end---------------------------->
+
 // <----------------------Page Population function---------------------------->
 
 function loadChecker(token, propigate) {
@@ -80,10 +88,6 @@ function loadChecker(token, propigate) {
   }
 }
 
-// function algorithmSetup(){
-//   const answerArr
-//   parseint(.displays) *
-// }
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates

@@ -11,6 +11,7 @@ const plateGridPole = document.querySelector(`.plate-grid-pole`);
 const strutGrid = document.querySelector(`.strut-grid`);
 const boxGrid = document.querySelector(`.box-grid`);
 const armGrid = document.querySelector(`.arm-grid`);
+const overviewGrid = document.querySelector(`.overview-products-grid`);
 
 let returnAnswer = ``;
 
@@ -126,6 +127,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
   for (let i = 0; i < stagedItems.length; i++) {
     console.log(stagedItems[i]);
   }
+  overviewAppend();
 });
 
 // <----------------------Events ending---------------------------->
@@ -933,14 +935,73 @@ const overviewDropdownAlternator = (target) => {
   }
 };
 
-const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
-  let currentGrid = itemDestination.classList[1];
-  if (
-    itemDestination === strutGrid ||
-    itemDestination === boxGrid ||
-    itemDestination === armGrid
-  ) {
-    currentGrid = itemDestination.classList;
+const overviewAppend = () => {
+  console.log(stagedItems);
+  console.log(overviewGrid);
+  stagedItems.arm.forEach((item) => {
+    itemAppend(
+      overviewGrid,
+      item.title,
+      item.sku,
+      item.img,
+      `overview-page`,
+      item.quantity
+    );
+  });
+
+  stagedItems.box.forEach((item) => {
+    itemAppend(
+      overviewGrid,
+      item.title,
+      item.sku,
+      item.img,
+      `overview-page`,
+      item.quantity
+    );
+  });
+  stagedItems.ceiling.forEach((item) => {
+    itemAppend(
+      overviewGrid,
+      item.title,
+      item.sku,
+      item.img,
+      `overview-page`,
+      item.quantity
+    );
+  });
+  stagedItems.pole.forEach((item) => {
+    itemAppend(
+      overviewGrid,
+      item.title,
+      item.sku,
+      item.img,
+      `overview-page`,
+      item.quantity
+    );
+  });
+  stagedItems.strut.forEach((item) => {
+    itemAppend(
+      overviewGrid,
+      item.title,
+      item.sku,
+      item.img,
+      `overview-page`,
+      item.quantity
+    );
+  });
+};
+
+const itemAppend = (
+  itemDestination,
+  itemTitle,
+  itemSKU,
+  itemImage,
+  page,
+  quantity
+) => {
+  let currentGrid = itemDestination.classList;
+  if (itemDestination === plateGrid || itemDestination === plateGridPole) {
+    currentGrid = itemDestination.classList[1];
   }
 
   const container = document.createElement(`div`);
@@ -1011,6 +1072,10 @@ const itemAppend = (itemDestination, itemTitle, itemSKU, itemImage, page) => {
     subtract.setAttribute(`data-length`, 100);
     amount.setAttribute(`data-length`, 100);
     add.setAttribute(`data-length`, 100);
+  }
+
+  if (quantity) {
+    amount.textContent = quantity;
   }
 };
 

@@ -20,18 +20,18 @@ let sortedDataPole = [];
 let sortedDataMount = [];
 let sortedDataStrut = [];
 let sortedDataArm = [];
-let sortedDataAdapter = [];
+let sortedDataWall = [];
 
 let strutMin;
 let strutMax;
 let totalDisplayLength;
 let totalWeight;
 
-let ceilingFlag;
-let poleFlag;
-let strutFlag;
-let boxFlag;
-let armFlag;
+let ceilingFlag = false;
+let poleFlag = false;
+let strutFlag = false;
+let boxFlag = false;
+let armFlag = false;
 
 const answers = [
   { mount: `` },
@@ -79,7 +79,7 @@ function algorithmSetup() {
 
 // <----------------------Algorithm for specs end---------------------------->
 
-// <----------------------Page Population function---------------------------->
+// <----------------------Page Population/Unpop function---------------------------->
 
 function loadChecker(token, propigate) {
   if (token) {
@@ -89,13 +89,21 @@ function loadChecker(token, propigate) {
   }
 }
 
+function unpopulatePage(grid) {
+  for (let i = 0; i < grid.length; i++) {
+    console.log(grid[i]);
+  }
+}
+
+// <----------------------Page Population/Unpop function---------------------------->
+
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
   loadChecker(ceilingFlag, propigateCeiling);
-  ceilingFlag = true;
   algorithmSetup();
+  ceilingFlag = true;
   console.log(answers);
 });
 
@@ -128,6 +136,18 @@ document.getElementById("sub-overview").addEventListener("click", function () {
     console.log(stagedItems[i]);
   }
   overviewAppend();
+});
+
+// <----------------------Events ending---------------------------->
+
+// <----------------------Event listeners to Unpop---------------------------->
+
+document.getElementById("back-1").addEventListener("click", function () {
+  try {
+    unpopulatePage(plateGrid);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // <----------------------Events ending---------------------------->
@@ -312,7 +332,7 @@ axios
       sortedDataStrut.push(item);
     });
     apiData[5].forEach((item) => {
-      sortedDataAdapter.push(item);
+      sortedDataWall.push(item);
     });
   })
   .catch(function (error) {
@@ -337,7 +357,16 @@ function propigateCeiling() {
       );
     }
   } else {
-    console.log(answers[0]);
+    for (let i = 0; i < sortedDataWall.length; i++) {
+      console.log(sortedDataWall[i]);
+      itemAppend(
+        plateGrid,
+        `${sortedDataWall[i].description}`,
+        `${sortedDataWall[i].sku}`,
+        `./product_images/products_thumbnail_150x150/wall_plate/${sortedDataWall[i].sku}.jpg`,
+        `ceiling`
+      );
+    }
   }
 }
 
@@ -388,26 +417,76 @@ function propigateBox() {
 }
 
 function propigateArm() {
+  const width = parseInt(answers[3].width);
+  console.log(width);
   for (let i = 0; i < sortedDataArm.length; i++) {
     if (answers[2].orientation == "landscape") {
       if (sortedDataArm[i].sku.includes("LARM")) {
-        itemAppend(
-          armGrid,
-          `${sortedDataArm[i].description}`,
-          `${sortedDataArm[i].sku}`,
-          `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
-          `arms`
-        );
+        if (width <= 42) {
+          if (sortedDataArm[i].description.includes("24")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else if (width <= 64 && width > 42) {
+          if (sortedDataArm[i].description.includes("40")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else {
+          if (sortedDataArm[i].description.includes("100")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        }
       }
     } else if (answers[2].orientation == "portrait") {
       if (sortedDataArm[i].sku.includes("PARM")) {
-        itemAppend(
-          armGrid,
-          `${sortedDataArm[i].description}`,
-          `${sortedDataArm[i].sku}`,
-          `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
-          `arms`
-        );
+        if (width <= 42) {
+          if (sortedDataArm[i].description.includes("24")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else if (width <= 64 && width > 42) {
+          if (sortedDataArm[i].description.includes("40")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else {
+          if (sortedDataArm[i].description.includes("100")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        }
       }
     }
   }

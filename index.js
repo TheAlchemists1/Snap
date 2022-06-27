@@ -1045,8 +1045,12 @@ const itemAppend = (
 
   const quantityContainer = document.createElement(`div`);
   quantityContainer.classList.add(`item-quantity-container`);
-  quantityContainer.textContent = `Qty:`;
-  infoContainer.appendChild(quantityContainer);
+  if (page === `overview-page`) {
+    container.appendChild(quantityContainer);
+  } else {
+    quantityContainer.textContent = `Qty:`;
+    infoContainer.appendChild(quantityContainer);
+  }
 
   const quantityButtons = document.createElement(`div`);
   quantityButtons.classList.add(`item-quantity-buttons`);

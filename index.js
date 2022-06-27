@@ -747,14 +747,51 @@ const addOrSubtractOverview = (target) => {
       `.item-quantity-amount-overview-products-grid`
     );
     const targetSKU = target.getAttribute(`data-sku`);
+    let stagedItemQuantity;
+    stagedItems.arm.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+
+    stagedItems.box.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.ceiling.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.pole.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.strut.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(itemQuantityAmountArray[i].textContent) > 0
+        parseInt(itemQuantityAmountArray[i].textContent) > 0 &&
+        parseInt(itemQuantityAmountArray[i].textContent) >
+          parseInt(stagedItemQuantity)
       ) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) - 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) ===
+          parseInt(stagedItemQuantity)
+      ) {
+        target.classList.add(`disable`);
       }
     }
   }
@@ -769,6 +806,12 @@ const addOrSubtractOverview = (target) => {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
+        document
+          .querySelectorAll(`.item-quantity-subtract-overview-products-grid`)
+          .forEach((subButton) => {
+            if (targetSKU === subButton.getAttribute(`data-sku`))
+              subButton.classList.remove(`disable`);
+          });
       }
     }
   }
@@ -951,8 +994,6 @@ const overviewDropdownAlternator = (target) => {
 };
 
 const overviewAppend = () => {
-  console.log(stagedItems);
-  console.log(overviewGrid);
   stagedItems.arm.forEach((item) => {
     itemAppend(
       overviewGrid,
@@ -1004,6 +1045,11 @@ const overviewAppend = () => {
       item.quantity
     );
   });
+  document
+    .querySelectorAll(`.item-quantity-subtract-overview-products-grid`)
+    .forEach((subButton) => {
+      subButton.classList.add(`disable`);
+    });
 };
 
 const itemAppend = (

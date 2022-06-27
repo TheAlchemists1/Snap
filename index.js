@@ -40,15 +40,7 @@ const answers = [
   },
 ];
 
-let stagedItems = [
-  (ceiling = []),
-  (poles = []),
-  (arms = []),
-  (mounts = []),
-  (struts = []),
-  (adapters = []),
-];
-let orderedList = [];
+let stagedItems = [];
 
 for (let i = 0; i < surveys.length; i++) {
   if (i === 0) {
@@ -96,7 +88,14 @@ document.getElementById("sub-struts").addEventListener("click", function () {
 document.getElementById("sub-arm").addEventListener("click", function () {
   loadChecker(armFlag, propigateArm);
   armFlag = true;
-  // checkStagedItemsPoles();
+  checkStagedItemsStrut();
+  checkStagedItemsBox();
+});
+
+document.getElementById("sub-overview").addEventListener("click", function () {
+  // loadChecker(armFlag, propigateArm);
+  // armFlag = true;
+  console.log(stagedItems);
 });
 
 // <----------------------Events ending---------------------------->
@@ -114,21 +113,59 @@ function checkStagedItemsCeiling() {
       stagedItems.ceiling.push(items[i].innerText);
     }
   }
-  console.log(stagedItems.ceiling);
 }
 
 function checkStagedItemsPoles() {
-  let items = document.querySelectorAll(".poles");
-  stagedItems.poles = [];
+  let items = document.querySelectorAll(".pole");
+  stagedItems.pole = [];
   for (let i = 0; i < items.length; i++) {
     let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
     var numb = x.match(/\d/g);
     numb = numb.join("");
     if (numb > 0) {
-      stagedItems.poles.push(items[i].innerText);
+      stagedItems.pole.push(items[i].innerText);
     }
   }
-  console.log(stagedItems.poles);
+}
+
+function checkStagedItemsStrut() {
+  let items = document.querySelectorAll(".strut");
+  stagedItems.strut = [];
+  for (let i = 0; i < items.length; i++) {
+    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    var numb = x.match(/\d/g);
+    numb = numb.join("");
+    if (numb > 0) {
+      stagedItems.strut.push(items[i].innerText);
+    }
+  }
+}
+
+function checkStagedItemsBox() {
+  let items = document.querySelectorAll(".box");
+  stagedItems.box = [];
+  for (let i = 0; i < items.length; i++) {
+    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    var numb = x.match(/\d/g);
+    numb = numb.join("");
+    if (numb > 0) {
+      stagedItems.box.push(items[i].innerText);
+    }
+  }
+}
+
+function checkStagedItemsArm() {
+  let items = document.querySelectorAll(".arms");
+  stagedItems.arm = [];
+  for (let i = 0; i < items.length; i++) {
+    console.log(items);
+    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    var numb = x.match(/\d/g);
+    numb = numb.join("");
+    if (numb > 0) {
+      stagedItems.arm.push(items[i].innerText);
+    }
+  }
 }
 
 // <----------------------Item Staging Checking Functions End---------------------------->
@@ -296,7 +333,7 @@ function propigateArm() {
           `${sortedDataArm[i].description}`,
           `${sortedDataArm[i].sku}`,
           `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
-          `arm`
+          `arms`
         );
       }
     } else if (answers[2].orientation == "portrait") {
@@ -306,7 +343,7 @@ function propigateArm() {
           `${sortedDataArm[i].description}`,
           `${sortedDataArm[i].sku}`,
           `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
-          `arm`
+          `arms`
         );
       }
     }

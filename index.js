@@ -424,32 +424,12 @@ document.addEventListener(`click`, (event) => {
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
 
-  addOrSubtractPlate(
-    event.target,
-    event.target.parentElement.parentElement.parentElement.parentElement
-      .parentElement.classList[1]
-  );
-
-  addOrSubtractPole(
-    event.target,
-    event.target.parentElement.parentElement.parentElement.parentElement
-      .parentElement.classList[1]
-  );
-  addOrSubtractStrut(
-    event.target,
-    event.target.parentElement.parentElement.parentElement.parentElement
-      .parentElement.classList[1]
-  );
-  addOrSubtractBoxes(
-    event.target,
-    event.target.parentElement.parentElement.parentElement.parentElement
-      .parentElement.classList[1]
-  );
-  addOrSubtractArms(
-    event.target,
-    event.target.parentElement.parentElement.parentElement.parentElement
-      .parentElement.classList[1]
-  );
+  addOrSubtractPlate(event.target);
+  addOrSubtractPole(event.target);
+  addOrSubtractStrut(event.target);
+  addOrSubtractBoxes(event.target);
+  addOrSubtractArms(event.target);
+  addOrSubtractOverview(event.target);
   // console.table(answers);
 });
 
@@ -570,10 +550,10 @@ const inputDimensionsAnswer = (target) => {
   }
 };
 
-const addOrSubtractPlate = (target, gridLocation) => {
+const addOrSubtractPlate = (target) => {
   if (target.classList.contains(`item-quantity-subtract-plate-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-${gridLocation}`
+      `.item-quantity-amount-plate-grid`
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
@@ -592,7 +572,7 @@ const addOrSubtractPlate = (target, gridLocation) => {
 
   if (target.classList.contains(`item-quantity-add-plate-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-${gridLocation}`
+      `.item-quantity-amount-plate-grid`
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
@@ -609,10 +589,10 @@ const addOrSubtractPlate = (target, gridLocation) => {
   }
 };
 
-const addOrSubtractPole = (target, gridLocation) => {
+const addOrSubtractPole = (target) => {
   if (target.classList.contains(`item-quantity-subtract-plate-grid-pole`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-${gridLocation}`
+      `.item-quantity-amount-plate-grid-pole`
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
@@ -631,7 +611,7 @@ const addOrSubtractPole = (target, gridLocation) => {
 
   if (target.classList.contains(`item-quantity-add-plate-grid-pole`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-${gridLocation}`
+      `.item-quantity-amount-plate-grid-pole`
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
@@ -648,7 +628,7 @@ const addOrSubtractPole = (target, gridLocation) => {
   }
 };
 
-const addOrSubtractStrut = (target, gridLocation) => {
+const addOrSubtractStrut = (target) => {
   if (target.classList.contains(`item-quantity-subtract-strut-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-strut-grid`
@@ -683,7 +663,7 @@ const addOrSubtractStrut = (target, gridLocation) => {
   }
 };
 
-const addOrSubtractBoxes = (target, gridLocation) => {
+const addOrSubtractBoxes = (target) => {
   if (target.classList.contains(`item-quantity-subtract-box-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-box-grid`
@@ -721,7 +701,7 @@ const addOrSubtractBoxes = (target, gridLocation) => {
   }
 };
 
-const addOrSubtractArms = (target, gridLocation) => {
+const addOrSubtractArms = (target) => {
   if (target.classList.contains(`item-quantity-subtract-arm-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
       `.item-quantity-amount-arm-grid`
@@ -756,6 +736,41 @@ const addOrSubtractArms = (target, gridLocation) => {
       }
     }
     requiredArmsDisplay();
+  }
+};
+
+const addOrSubtractOverview = (target) => {
+  if (
+    target.classList.contains(`item-quantity-subtract-overview-products-grid`)
+  ) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-overview-products-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) > 0
+      ) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) - 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
+  }
+
+  if (target.classList.contains(`item-quantity-add-overview-products-grid`)) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-overview-products-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
+        let currentQuantity = itemQuantityAmountArray[i].textContent;
+        let newQuantity = parseInt(currentQuantity) + 1;
+        itemQuantityAmountArray[i].textContent = newQuantity;
+      }
+    }
   }
 };
 

@@ -40,7 +40,7 @@ const answers = [
   },
 ];
 
-let stagedItems = [];
+let stagedItems = {};
 
 for (let i = 0; i < surveys.length; i++) {
   if (i === 0) {
@@ -93,9 +93,12 @@ document.getElementById("sub-arm").addEventListener("click", function () {
 });
 
 document.getElementById("sub-overview").addEventListener("click", function () {
-  // loadChecker(armFlag, propigateArm);
-  // armFlag = true;
+  checkStagedItemsArm();
+
   console.log(stagedItems);
+  for (let i = 0; i < stagedItems.length; i++) {
+    console.log(stagedItems[i]);
+  }
 });
 
 // <----------------------Events ending---------------------------->

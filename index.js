@@ -40,7 +40,7 @@ const answers = [
   },
 ];
 
-let stagedItems = [];
+let stagedItems = {};
 
 for (let i = 0; i < surveys.length; i++) {
   if (i === 0) {
@@ -52,6 +52,24 @@ for (let i = 0; i < surveys.length; i++) {
 
 // <----------------------Varaible ending---------------------------->
 
+/**
+  min strut length
+  ((E4×E7)+((E4−1)×E6)+2)−(E7−(E5÷25.4))
+
+((numScreens x width) + ((numScreens - 1) x spacing) / 2) - (width - (mountingWidth / 25.4))
+ 
+max strut length
+
+(numScreens x width)
+
+Total Display Length
+
+(numScreens x width) + (numScreens - 1) x spacing
+
+Total Weight
+
+numScreens x weightdisplays
+ */
 // <----------------------Page Population function---------------------------->
 
 function loadChecker(token, propigate) {
@@ -62,12 +80,17 @@ function loadChecker(token, propigate) {
   }
 }
 
+// function algorithmSetup(){
+//   const answerArr
+//   parseint(.displays) *
+// }
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
   loadChecker(ceilingFlag, propigateCeiling);
   ceilingFlag = true;
+  algorithmSetup();
   console.log(answers);
 });
 
@@ -93,9 +116,12 @@ document.getElementById("sub-arm").addEventListener("click", function () {
 });
 
 document.getElementById("sub-overview").addEventListener("click", function () {
-  // loadChecker(armFlag, propigateArm);
-  // armFlag = true;
+  checkStagedItemsArm();
+
   console.log(stagedItems);
+  for (let i = 0; i < stagedItems.length; i++) {
+    console.log(stagedItems[i]);
+  }
 });
 
 // <----------------------Events ending---------------------------->
@@ -106,11 +132,18 @@ function checkStagedItemsCeiling() {
   let items = document.querySelectorAll(".ceiling");
   stagedItems.ceiling = [];
   for (let i = 0; i < items.length; i++) {
-    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    let z = items[i].childNodes[1];
+    let x = z.childNodes[2].childNodes[1].innerText;
+    console.log(items);
     var numb = x.match(/\d/g);
     numb = numb.join("");
     if (numb > 0) {
-      stagedItems.ceiling.push(items[i].innerText);
+      stagedItems.ceiling.push({
+        quantity: numb,
+        title: z.childNodes[0].innerText,
+        sku: z.childNodes[1].innerText,
+        img: items[i].childNodes[0].currentSrc,
+      });
     }
   }
 }
@@ -119,11 +152,17 @@ function checkStagedItemsPoles() {
   let items = document.querySelectorAll(".pole");
   stagedItems.pole = [];
   for (let i = 0; i < items.length; i++) {
-    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    let z = items[i].childNodes[1];
+    let x = z.childNodes[2].childNodes[1].innerText;
     var numb = x.match(/\d/g);
     numb = numb.join("");
     if (numb > 0) {
-      stagedItems.pole.push(items[i].innerText);
+      stagedItems.pole.push({
+        quantity: numb,
+        title: z.childNodes[0].innerText,
+        sku: z.childNodes[1].innerText,
+        img: items[i].childNodes[0].currentSrc,
+      });
     }
   }
 }
@@ -132,11 +171,17 @@ function checkStagedItemsStrut() {
   let items = document.querySelectorAll(".strut");
   stagedItems.strut = [];
   for (let i = 0; i < items.length; i++) {
-    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    let z = items[i].childNodes[1];
+    let x = z.childNodes[2].childNodes[1].innerText;
     var numb = x.match(/\d/g);
     numb = numb.join("");
     if (numb > 0) {
-      stagedItems.strut.push(items[i].innerText);
+      stagedItems.strut.push({
+        quantity: numb,
+        title: z.childNodes[0].innerText,
+        sku: z.childNodes[1].innerText,
+        img: items[i].childNodes[0].currentSrc,
+      });
     }
   }
 }
@@ -145,11 +190,17 @@ function checkStagedItemsBox() {
   let items = document.querySelectorAll(".box");
   stagedItems.box = [];
   for (let i = 0; i < items.length; i++) {
-    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    let z = items[i].childNodes[1];
+    let x = z.childNodes[2].childNodes[1].innerText;
     var numb = x.match(/\d/g);
     numb = numb.join("");
     if (numb > 0) {
-      stagedItems.box.push(items[i].innerText);
+      stagedItems.box.push({
+        quantity: numb,
+        title: z.childNodes[0].innerText,
+        sku: z.childNodes[1].innerText,
+        img: items[i].childNodes[0].currentSrc,
+      });
     }
   }
 }
@@ -159,11 +210,17 @@ function checkStagedItemsArm() {
   stagedItems.arm = [];
   for (let i = 0; i < items.length; i++) {
     console.log(items);
-    let x = items[i].childNodes[1].childNodes[2].childNodes[1].innerText;
+    let z = items[i].childNodes[1];
+    let x = z.childNodes[2].childNodes[1].innerText;
     var numb = x.match(/\d/g);
     numb = numb.join("");
     if (numb > 0) {
-      stagedItems.arm.push(items[i].innerText);
+      stagedItems.arm.push({
+        quantity: numb,
+        title: z.childNodes[0].innerText,
+        sku: z.childNodes[1].innerText,
+        img: items[i].childNodes[0].currentSrc,
+      });
     }
   }
 }

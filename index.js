@@ -631,6 +631,14 @@ const requiredPlatesDisplay = () => {
   const displaysChosen = answers[3].displays;
   const difference = displaysChosen - totalQuantity;
   requiredPlates.textContent = difference;
+
+  requiredTextManipulator(
+    requiredPlates,
+    document.querySelector(`.required-plates-text`),
+    `You will need `,
+    ` ceiling plate for this install`,
+    ` ceiling plates for this install`
+  );
   requiredChecker(requiredPlates);
 };
 
@@ -646,6 +654,14 @@ const requiredPolesDisplay = () => {
   const displaysChosen = answers[3].displays;
   const difference = displaysChosen - totalQuantity;
   requiredPoles.textContent = difference;
+
+  requiredTextManipulator(
+    requiredPoles,
+    document.querySelector(`.required-poles-text`),
+    `You will need `,
+    ` drop pole for this install`,
+    ` drop poles for this install`
+  );
   requiredChecker(requiredPoles);
 };
 
@@ -677,6 +693,13 @@ const requiredStrutsDisplay = () => {
 
 const requiredBoxesDisplay = (strutLength) => {
   requiredBoxes.textContent = answers[3].displays;
+  requiredTextManipulator(
+    requiredBoxes,
+    document.querySelector(`.required-boxes-text`),
+    `You will need `,
+    ` mounting box. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.`,
+    ` mounting boxes. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.`
+  );
   requiredStrutsBoxesChecker(
     strutLength,
     document.querySelector(`.item-quantity-amount-box-grid`).textContent
@@ -685,9 +708,32 @@ const requiredBoxesDisplay = (strutLength) => {
 
 const requiredArmsDisplay = () => {
   requiredArms.textContent = answers[3].displays;
+  requiredTextManipulator(
+    requiredArms,
+    document.querySelector(`.required-arm-text`),
+    `You will need `,
+    ` display arm for this install.`,
+    ` display arms for this install.`
+  );
   requiredArmsChecker(
     document.querySelector(`.item-quantity-amount-arm-grid`).textContent
   );
+};
+
+const requiredTextManipulator = (
+  numberLocation,
+  textLocation,
+  firstText,
+  singularText,
+  pluralText
+) => {
+  if (numberLocation.textContent === `1`) {
+    textLocation.childNodes[0].textContent = firstText;
+    textLocation.childNodes[2].textContent = singularText;
+  } else {
+    textLocation.childNodes[0].textContent = firstText;
+    textLocation.childNodes[2].textContent = pluralText;
+  }
 };
 
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {

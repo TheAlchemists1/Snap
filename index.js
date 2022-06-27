@@ -291,7 +291,7 @@ document.getElementById("adj-pole").addEventListener("click", function () {
 // <----------------------Axios Call Start--------------------------------->
 
 axios
-  .get("http://localhost:3000/")
+  .get("https://snap-server2508.herokuapp.com/api")
   .then(function (response) {
     let apiData = response.data;
     apiData[0].forEach((item) => {

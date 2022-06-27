@@ -19,7 +19,7 @@ let sortedDataPole = [];
 let sortedDataMount = [];
 let sortedDataStrut = [];
 let sortedDataArm = [];
-let sortedDataAdapter = [];
+let sortedDataWall = [];
 
 let strutMin;
 let strutMax;
@@ -310,7 +310,7 @@ axios
       sortedDataStrut.push(item);
     });
     apiData[5].forEach((item) => {
-      sortedDataAdapter.push(item);
+      sortedDataWall.push(item);
     });
   })
   .catch(function (error) {
@@ -335,7 +335,16 @@ function propigateCeiling() {
       );
     }
   } else {
-    console.log(answers[0]);
+    for (let i = 0; i < sortedDataWall.length; i++) {
+      console.log(sortedDataWall[i]);
+      itemAppend(
+        plateGrid,
+        `${sortedDataWall[i].description}`,
+        `${sortedDataWall[i].sku}`,
+        `./product_images/products_thumbnail_150x150/wall_plate/${sortedDataWall[i].sku}.jpg`,
+        `ceiling`
+      );
+    }
   }
 }
 
@@ -386,26 +395,76 @@ function propigateBox() {
 }
 
 function propigateArm() {
+  const width = parseInt(answers[3].width);
+  console.log(width);
   for (let i = 0; i < sortedDataArm.length; i++) {
     if (answers[2].orientation == "landscape") {
       if (sortedDataArm[i].sku.includes("LARM")) {
-        itemAppend(
-          armGrid,
-          `${sortedDataArm[i].description}`,
-          `${sortedDataArm[i].sku}`,
-          `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
-          `arms`
-        );
+        if (width <= 42) {
+          if (sortedDataArm[i].description.includes("24")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else if (width <= 64 && width > 42) {
+          if (sortedDataArm[i].description.includes("40")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else {
+          if (sortedDataArm[i].description.includes("100")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        }
       }
     } else if (answers[2].orientation == "portrait") {
       if (sortedDataArm[i].sku.includes("PARM")) {
-        itemAppend(
-          armGrid,
-          `${sortedDataArm[i].description}`,
-          `${sortedDataArm[i].sku}`,
-          `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
-          `arms`
-        );
+        if (width <= 42) {
+          if (sortedDataArm[i].description.includes("24")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else if (width <= 64 && width > 42) {
+          if (sortedDataArm[i].description.includes("40")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        } else {
+          if (sortedDataArm[i].description.includes("100")) {
+            itemAppend(
+              armGrid,
+              `${sortedDataArm[i].description}`,
+              `${sortedDataArm[i].sku}`,
+              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `arms`
+            );
+          }
+        }
       }
     }
   }

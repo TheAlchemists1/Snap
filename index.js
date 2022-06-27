@@ -21,6 +21,12 @@ let sortedDataStrut = [];
 let sortedDataArm = [];
 let sortedDataAdapter = [];
 
+let ceilingFlag;
+let poleFlag;
+let strutFlag;
+let boxFlag;
+let armFlag;
+
 const answers = [
   { mount: `` },
   { sides: `` },
@@ -32,8 +38,6 @@ const answers = [
     height: ``,
     weight: ``,
   },
-  { plate: `` },
-  { poles: `` },
 ];
 
 let stagedItems = [
@@ -56,26 +60,42 @@ for (let i = 0; i < surveys.length; i++) {
 
 // <----------------------Varaible ending---------------------------->
 
+// <----------------------Page Population function---------------------------->
+
+function loadChecker(token, propigate) {
+  if (token) {
+    console.log(`${token} already populated`);
+  } else {
+    propigate();
+  }
+}
+
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
-  propigateCeiling();
+  loadChecker(ceilingFlag, propigateCeiling);
+  ceilingFlag = true;
+  console.log(answers);
 });
 
 document.getElementById("sub-poles").addEventListener("click", function () {
-  propigatePole();
+  loadChecker(poleFlag, propigatePole);
+  poleFlag = true;
   checkStagedItemsCeiling();
 });
 
 document.getElementById("sub-struts").addEventListener("click", function () {
-  propigateStruts();
-  propigateBox();
-  // checkStagedItemsPoles();
+  loadChecker(strutFlag, propigateStruts);
+  loadChecker(boxFlag, propigateBox);
+  strutFlag = true;
+  boxFlag = true;
+  checkStagedItemsPoles();
 });
 
 document.getElementById("sub-arm").addEventListener("click", function () {
-  propigateArm();
+  loadChecker(armFlag, propigateArm);
+  armFlag = true;
   // checkStagedItemsPoles();
 });
 
@@ -248,13 +268,20 @@ function propigateStruts() {
 }
 
 function propigateBox() {
-  for (let i = 0; i < sortedDataMount.length; i++) {
-    console.log(sortedDataMount[i]);
+  if (answers[1].sides == "single") {
     itemAppend(
       boxGrid,
-      `${sortedDataMount[i].description}`,
-      `${sortedDataMount[i].sku}`,
-      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[i].sku}.jpg`,
+      `${sortedDataMount[0].description}`,
+      `${sortedDataMount[0].sku}`,
+      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[0].sku}.jpg`,
+      `box`
+    );
+  } else {
+    itemAppend(
+      boxGrid,
+      `${sortedDataMount[1].description}`,
+      `${sortedDataMount[1].sku}`,
+      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[1].sku}.jpg`,
       `box`
     );
   }
@@ -262,14 +289,27 @@ function propigateBox() {
 
 function propigateArm() {
   for (let i = 0; i < sortedDataArm.length; i++) {
-    console.log(sortedDataArm[i]);
-    itemAppend(
-      armGrid,
-      `${sortedDataArm[i].description}`,
-      `${sortedDataArm[i].sku}`,
-      `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
-      `arm`
-    );
+    if (answers[2].orientation == "landscape") {
+      if (sortedDataArm[i].sku.includes("LARM")) {
+        itemAppend(
+          armGrid,
+          `${sortedDataArm[i].description}`,
+          `${sortedDataArm[i].sku}`,
+          `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+          `arm`
+        );
+      }
+    } else if (answers[2].orientation == "portrait") {
+      if (sortedDataArm[i].sku.includes("PARM")) {
+        itemAppend(
+          armGrid,
+          `${sortedDataArm[i].description}`,
+          `${sortedDataArm[i].sku}`,
+          `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+          `arm`
+        );
+      }
+    }
   }
 }
 

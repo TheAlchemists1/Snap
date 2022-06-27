@@ -936,7 +936,7 @@ const requiredTextManipulator = (
 };
 
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
-  if (strutLength >= 120 && chosenBoxes >= answers[3].displays) {
+  if (strutLength >= strutMin && chosenBoxes >= answers[3].displays) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);

@@ -26,11 +26,11 @@ let strutMax;
 let totalDisplayLength;
 let totalWeight;
 
-let ceilingFlag;
-let poleFlag;
-let strutFlag;
-let boxFlag;
-let armFlag;
+let ceilingFlag = false;
+let poleFlag = false;
+let strutFlag = false;
+let boxFlag = false;
+let armFlag = false;
 
 const answers = [
   { mount: `` },
@@ -78,7 +78,7 @@ function algorithmSetup() {
 
 // <----------------------Algorithm for specs end---------------------------->
 
-// <----------------------Page Population function---------------------------->
+// <----------------------Page Population/Unpop function---------------------------->
 
 function loadChecker(token, propigate) {
   if (token) {
@@ -88,13 +88,21 @@ function loadChecker(token, propigate) {
   }
 }
 
+function unpopulatePage(grid) {
+  for (let i = 0; i < grid.length; i++) {
+    console.log(grid[i]);
+  }
+}
+
+// <----------------------Page Population/Unpop function---------------------------->
+
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
   loadChecker(ceilingFlag, propigateCeiling);
-  ceilingFlag = true;
   algorithmSetup();
+  ceilingFlag = true;
   console.log(answers);
 });
 
@@ -125,6 +133,18 @@ document.getElementById("sub-overview").addEventListener("click", function () {
   console.log(stagedItems);
   for (let i = 0; i < stagedItems.length; i++) {
     console.log(stagedItems[i]);
+  }
+});
+
+// <----------------------Events ending---------------------------->
+
+// <----------------------Event listeners to Unpop---------------------------->
+
+document.getElementById("back-1").addEventListener("click", function () {
+  try {
+    unpopulatePage(plateGrid);
+  } catch (error) {
+    console.log(error);
   }
 });
 

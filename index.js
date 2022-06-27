@@ -69,7 +69,7 @@ function algorithmSetup() {
   const vesaWidth = display / 2;
 
   strutMin = display * width + ((display - 1) * gap) / 2 - (width - vesaWidth);
-
+  console.log(strutMin);
   strutMax = display * width;
 
   totalDisplayLength = display * width + (display - 1) * gap;
@@ -867,6 +867,7 @@ const requiredStrutsDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-strut-grid`
   );
+  requiredStruts.textContent = strutMin;
   let totalLength = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
     const itemLength = parseInt(
@@ -877,7 +878,7 @@ const requiredStrutsDisplay = () => {
     console.log(currentLength);
     totalLength += currentLength;
   }
-  if (totalLength >= 120) {
+  if (totalLength >= strutMin) {
     document
       .querySelector(`.required-struts-text-warning`)
       .classList.remove(`show`);

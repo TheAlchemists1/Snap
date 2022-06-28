@@ -41,6 +41,7 @@ const answers = [
 ];
 
 let stagedItems = {};
+let finalData;
 
 for (let i = 0; i < surveys.length; i++) {
   if (i === 0) {
@@ -51,6 +52,30 @@ for (let i = 0; i < surveys.length; i++) {
 }
 
 // <----------------------Varaible ending---------------------------->
+
+// <----------------------Popup Container---------------------------->
+
+document.getElementById("open-snap").addEventListener("click", function () {
+  window.open("https://snapav.com");
+});
+const popupContainer = document.querySelector(`.pop-up-container`);
+
+popupContainer.style.display = "none";
+
+document.getElementById("order-btn").addEventListener("click", function () {
+  popupContainer.style.display = "flex";
+});
+
+document.getElementById("x").addEventListener("click", function () {
+  popupContainer.style.display = "none";
+});
+
+function copyText() {
+  navigator.clipboard.writeText(`${finalData}`);
+}
+
+// <----------------------Popup Container End---------------------------->
+
 /////Axios call to wake up server
 axios
   .get("https://snap-server2508.herokuapp.com/api")
@@ -1103,8 +1128,9 @@ const overviewItemsSaver = () => {
   axios
     .post("http://localhost:3000/api", finalItems)
     .then(function (response) {
-      let finalData = response.data;
+      finalData = response.data.toString();
       console.log(finalData);
+      copyText();
     })
     .catch(function (error) {
       // handle error

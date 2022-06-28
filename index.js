@@ -26,12 +26,6 @@ let strutMax;
 let totalDisplayLength;
 let totalWeight;
 
-let ceilingFlag = false;
-let poleFlag = false;
-let strutFlag = false;
-let boxFlag = false;
-let armFlag = false;
-
 const answers = [
   { mount: `` },
   { sides: `` },
@@ -78,51 +72,55 @@ function algorithmSetup() {
 
 // <----------------------Algorithm for specs end---------------------------->
 
-// <----------------------Page Population/Unpop function---------------------------->
-
-function loadChecker(token, propigate) {
-  if (token) {
-    console.log(`${token} already populated`);
-  } else {
-    propigate();
-  }
-}
-
-function unpopulatePage(grid) {
-  for (let i = 0; i < grid.length; i++) {
-    console.log(grid[i]);
-  }
-}
-
-// <----------------------Page Population/Unpop function---------------------------->
-
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
-  loadChecker(ceilingFlag, propigateCeiling);
+  if (plateGrid.childNodes.length > 0) {
+    for (let i = 0; i < plateGrid.childNodes.length; i++) {
+      plateGrid.innerHTML = "";
+    }
+  }
+  propigateCeiling();
   algorithmSetup();
-  ceilingFlag = true;
-  console.log(answers);
 });
 
 document.getElementById("sub-poles").addEventListener("click", function () {
-  loadChecker(poleFlag, propigatePole);
-  poleFlag = true;
+  if (plateGridPole.childNodes.length > 0) {
+    for (let i = 0; i < plateGridPole.childNodes.length; i++) {
+      plateGridPole.innerHTML = "";
+    }
+  }
+  propigatePole();
   checkStagedItemsCeiling();
 });
 
 document.getElementById("sub-struts").addEventListener("click", function () {
-  loadChecker(strutFlag, propigateStruts);
-  loadChecker(boxFlag, propigateBox);
-  strutFlag = true;
-  boxFlag = true;
+  if (strutGrid.childNodes.length > 0) {
+    for (let i = 0; i < strutGrid.childNodes.length; i++) {
+      strutGrid.innerHTML = "";
+    }
+  }
+  if (boxGrid.childNodes.length > 0) {
+    for (let i = 0; i < boxGrid.childNodes.length; i++) {
+      boxGrid.innerHTML = "";
+    }
+  }
+
+  propigateStruts();
+  propigateBox();
+
   checkStagedItemsPoles();
 });
 
 document.getElementById("sub-arm").addEventListener("click", function () {
-  loadChecker(armFlag, propigateArm);
-  armFlag = true;
+  if (armGrid.childNodes.length > 0) {
+    for (let i = 0; i < armGrid.childNodes.length; i++) {
+      armGrid.innerHTML = "";
+    }
+  }
+
+  propigateArm();
   checkStagedItemsStrut();
   checkStagedItemsBox();
 });
@@ -139,14 +137,6 @@ document.getElementById("sub-overview").addEventListener("click", function () {
 // <----------------------Events ending---------------------------->
 
 // <----------------------Event listeners to Unpop---------------------------->
-
-document.getElementById("back-1").addEventListener("click", function () {
-  try {
-    unpopulatePage(plateGrid);
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 // <----------------------Events ending---------------------------->
 
@@ -345,7 +335,6 @@ axios
 function propigateCeiling() {
   if (answers[0].mount == "ceiling-mount") {
     for (let i = 0; i < sortedDataCeil.length; i++) {
-      console.log(sortedDataCeil[i]);
       itemAppend(
         plateGrid,
         `${sortedDataCeil[i].description}`,
@@ -356,7 +345,6 @@ function propigateCeiling() {
     }
   } else {
     for (let i = 0; i < sortedDataWall.length; i++) {
-      console.log(sortedDataWall[i]);
       itemAppend(
         plateGrid,
         `${sortedDataWall[i].description}`,

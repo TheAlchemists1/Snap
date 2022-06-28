@@ -528,6 +528,10 @@ document.querySelector(`.overview-next`).addEventListener(`click`, () => {
   overviewSpecsPopulate();
 });
 
+document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
+  overviewItemsSaver();
+});
+
 document
   .querySelector(`.overview-dropdown`)
   .addEventListener(`click`, (event) => {
@@ -1047,6 +1051,50 @@ const overviewSpecsPopulate = () => {
   document.querySelector(
     `.overview-gap`
   ).textContent = `Gap: ${answers[3].gap}in`;
+};
+
+const overviewItemsSaver = () => {
+  let finalItems = stagedItems;
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-overview-products-grid`
+  );
+
+  finalItems.arm.forEach((item) => {
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (itemQuantityAmountArray[i].getAttribute(`data-sku`) === item.sku) {
+        item.quantity = itemQuantityAmountArray[i].textContent;
+      }
+    }
+  });
+  finalItems.box.forEach((item) => {
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (itemQuantityAmountArray[i].getAttribute(`data-sku`) === item.sku) {
+        item.quantity = itemQuantityAmountArray[i].textContent;
+      }
+    }
+  });
+  finalItems.ceiling.forEach((item) => {
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (itemQuantityAmountArray[i].getAttribute(`data-sku`) === item.sku) {
+        item.quantity = itemQuantityAmountArray[i].textContent;
+      }
+    }
+  });
+  finalItems.pole.forEach((item) => {
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (itemQuantityAmountArray[i].getAttribute(`data-sku`) === item.sku) {
+        item.quantity = itemQuantityAmountArray[i].textContent;
+      }
+    }
+  });
+  finalItems.strut.forEach((item) => {
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (itemQuantityAmountArray[i].getAttribute(`data-sku`) === item.sku) {
+        item.quantity = itemQuantityAmountArray[i].textContent;
+      }
+    }
+  });
+  console.log(finalItems);
 };
 
 const overviewDropdownAlternator = (target) => {

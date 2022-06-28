@@ -504,16 +504,32 @@
         <div class="overview-products-grid"></div>
         <div class="prev-or-next">
         <button type="button" class="prev">< Back</button>
-        <button type="button" class="next quick-order-next">Next</button>
+        <button type="button" id="order-btn" class="quick-order-next">Next</button>
         </div>
       </form>
     </div>
-    <form action="POST" class="survey quick-order">
-      <div class="prev-or-next">
-      <button type="button" class="prev">< Back</button>
-      <button type="button" class="next">Next</button>
+    <div class="pop-up-container">
+      <div class="pop-up-div">
+        <div class="x-box"><img src="product_images/X.png" id="x"/>
+
+        </div>
+        <div style="display:flex;padding:4%">
+          <div style="display:flex; flex-direction:column;align-items:start;width:60%">
+            <h2 style="color:darkblue; margin-top: 0px; margin-bottom:1rem">Next Steps:</h2>
+            <p style="margin-top:1rem; margin-bottom:2rem;padding-right:2rem;  ">All of the appropriate data has been already been copied to your clipboard in the appropriate format.<br><br>
+
+            By clicking on the proceed to quick order button below you will be redirected to quick order page on SnapAV.com where you can simply click in the enter SKU field and paste the data.<br><br>
+
+            This will open in a new window so be mindful of any pop-up blockers you have
+            </p>
+            <button type="button" id="open-snap" class="quick-order-next">Proceed to Quick Order</button>
+          </div>
+          <div style="width:40%"><img src="product_images/QuickOrder.png" class="order-img"/></div>
+          
+        </div>
+
       </div>
-    </form>
+    </div>
   </div>
   </body>
 </html>

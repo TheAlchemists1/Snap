@@ -51,6 +51,15 @@ for (let i = 0; i < surveys.length; i++) {
 }
 
 // <----------------------Varaible ending---------------------------->
+/////Axios call to wake up server
+axios
+  .get("https://snap-server2508.herokuapp.com/api")
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
 // <----------------------Algorithm for specs start---------------------------->
 
@@ -150,7 +159,6 @@ function checkStagedItemsCeiling() {
   for (let i = 0; i < items.length; i++) {
     let z = items[i].childNodes[1];
     let x = z.childNodes[2].childNodes[1].innerText;
-    console.log(items);
     var numb = x.match(/\d/g);
     numb = numb.join("");
     if (numb > 0) {
@@ -225,7 +233,6 @@ function checkStagedItemsArm() {
   let items = document.querySelectorAll(".arms");
   stagedItems.arm = [];
   for (let i = 0; i < items.length; i++) {
-    console.log(items);
     let z = items[i].childNodes[1];
     let x = z.childNodes[2].childNodes[1].innerText;
     var numb = x.match(/\d/g);
@@ -360,7 +367,6 @@ function propigateCeiling() {
 
 function propigatePole() {
   for (let i = 0; i < sortedDataPole.length; i++) {
-    console.log(sortedDataPole[i]);
     itemAppend(
       plateGridPole,
       `${sortedDataPole[i].description}`,
@@ -373,7 +379,6 @@ function propigatePole() {
 
 function propigateStruts() {
   for (let i = 0; i < sortedDataStrut.length; i++) {
-    console.log(sortedDataStrut[i]);
     itemAppend(
       strutGrid,
       `${sortedDataStrut[i].description}`,
@@ -406,7 +411,6 @@ function propigateBox() {
 
 function propigateArm() {
   const width = parseInt(answers[3].width);
-  console.log(width);
   for (let i = 0; i < sortedDataArm.length; i++) {
     if (answers[2].orientation == "landscape") {
       if (sortedDataArm[i].sku.includes("LARM")) {
@@ -1095,6 +1099,17 @@ const overviewItemsSaver = () => {
     }
   });
   console.log(finalItems);
+
+  axios
+    .post("http://localhost:3000/api", finalItems)
+    .then(function (response) {
+      let finalData = response.data;
+      console.log(finalData);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
 };
 
 const overviewDropdownAlternator = (target) => {

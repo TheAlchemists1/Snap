@@ -590,31 +590,32 @@ document
     overviewDropdownAlternator(event.target);
   });
 
-const wipeItemSelections = (target) => {
-  if (target.classList.contains(`plate`)) {
-    const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-plate-grid`
-    );
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      itemQuantityAmountArray[i].textContent = `0`;
-    }
-    requiredPlatesDisplay();
-  }
-  if (target.classList.contains(`poles`)) {
-    const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-plate-grid-pole`
-    );
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      itemQuantityAmountArray[i].textContent = `0`;
-    }
-    requiredPolesDisplay();
-  }
-};
+// Client does not want items to wipe when selecting other tiles
+// const wipeItemSelections = (target) => {
+//   if (target.classList.contains(`plate`)) {
+//     const itemQuantityAmountArray = document.querySelectorAll(
+//       `.item-quantity-amount-plate-grid`
+//     );
+//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+//       itemQuantityAmountArray[i].textContent = `0`;
+//     }
+//     requiredPlatesDisplay();
+//   }
+//   if (target.classList.contains(`poles`)) {
+//     const itemQuantityAmountArray = document.querySelectorAll(
+//       `.item-quantity-amount-plate-grid-pole`
+//     );
+//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+//       itemQuantityAmountArray[i].textContent = `0`;
+//     }
+//     requiredPolesDisplay();
+//   }
+// };
 
 const inputTileAnswer = (target) => {
   // Check if target is an answer button
   if (target.classList.contains(`selection`)) {
-    wipeItemSelections(target);
+    // wipeItemSelections(target);
     // Obtain data-question which will match the answers array key we are using
     const question = target.getAttribute(`data-question`);
     // Iterate through answers

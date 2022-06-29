@@ -167,13 +167,14 @@ document.getElementById("sub-overview").addEventListener("click", function () {
     }
   }
   checkStagedItemsArm();
-
-  console.log(stagedItems);
-  for (let i = 0; i < stagedItems.length; i++) {
-    console.log(stagedItems[i]);
-  }
   overviewAppend();
 });
+
+// <----------------------Events ending---------------------------->
+
+// <----------------------Event listeners to Unpop---------------------------->
+
+// <----------------------Events ending---------------------------->
 
 // <----------------------Item Staging Checking Functions Start---------------------------->
 
@@ -195,12 +196,6 @@ function checkStagedItemsCeiling() {
     }
   }
 }
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -409,10 +404,6 @@ function propigateCeiling() {
 //
 //
 //
-//
-//
-//
-//
 
 function propigatePole() {
   for (let i = 0; i < sortedDataPole.length; i++) {
@@ -420,7 +411,7 @@ function propigatePole() {
       plateGridPole,
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dde4d03e4f6358526339_SM-ADJPOLE-24-BLK.png`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dde4d03e4f6358526339_SM-ADJPOLE-24-BLK.jpg`,
       `pole`
     );
   }
@@ -432,7 +423,7 @@ function propigateStruts() {
       strutGrid,
       `${sortedDataStrut[i].description}`,
       `${sortedDataStrut[i].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dd995490b96a10d829cf_SM-CB-CM-ST-30.png`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dd995490b96a10d829cf_SM-CB-CM-ST-30.jpg`,
       `strut`
     );
   }
@@ -584,8 +575,6 @@ document.querySelector(`.overview-next`).addEventListener(`click`, () => {
 document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
   overviewItemsSaver();
 });
-
-//
 //
 //
 //
@@ -638,29 +627,45 @@ const inputTileAnswer = (target) => {
       }
     });
 
-    selections.forEach((selection) => {
-      // if the selections are visible remove the picked class
-      if (
-        window.getComputedStyle(selection.parentElement.parentElement)
-          .display === `flex`
-      ) {
-        selection.classList.remove(`picked`);
-      }
-    });
-
     if (
       target.classList.contains(`struts`) === false &&
       target.classList.contains(`boxes`) === false &&
-      target.classList.contains(`arm`) === false
+      target.classList.contains(`arm`) === false &&
+      target.classList.contains(`picked`) === false
     ) {
+      selections.forEach((selection) => {
+        if (
+          window.getComputedStyle(selection.parentElement.parentElement)
+            .display === `flex`
+        ) {
+          selection.classList.remove(`picked`);
+        }
+      });
+
       target.classList.add(`picked`);
-    }
-    if (
-      target.parentElement.parentElement.classList.contains(`mount`) ||
-      target.parentElement.parentElement.classList.contains(`sides`) ||
-      target.parentElement.parentElement.classList.contains(`orientation`)
+
+      if (
+        target.parentElement.parentElement.classList.contains(`mount`) ||
+        target.parentElement.parentElement.classList.contains(`sides`) ||
+        target.parentElement.parentElement.classList.contains(`orientation`)
+      ) {
+        target.parentElement.parentElement.classList.add(`question-picked`);
+      }
+    } else if (
+      target.classList.contains(`struts`) === false &&
+      target.classList.contains(`boxes`) === false &&
+      target.classList.contains(`arm`) === false &&
+      target.classList.contains(`picked`) === true
     ) {
-      target.parentElement.parentElement.classList.add(`question-picked`);
+      selections.forEach((selection) => {
+        if (
+          window.getComputedStyle(selection.parentElement.parentElement)
+            .display === `flex`
+        ) {
+          selection.classList.remove(`picked`);
+        }
+      });
+      target.parentElement.parentElement.classList.remove(`question-picked`);
     }
   }
 };
@@ -761,13 +766,6 @@ const addOrSubtractPole = (target) => {
     requiredPolesDisplay();
   }
 };
-
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -963,9 +961,6 @@ const addOrSubtractOverview = (target) => {
     }
   }
 };
-
-//
-//
 //
 //
 //
@@ -1184,16 +1179,7 @@ const overviewItemsSaver = () => {
   console.log(finalItems);
 
   axios
-    .post("https://snap-server2508.herokuapp.com/api", finalItems, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Vary: "Origin",
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    })
-
-    // add_header Access-Control-Allow-Credentials "true";
-    //add_header Access-Control-Allow-Headers "Content-Type"
+    .post("http://localhost:3000/api", finalItems)
     .then(function (response) {
       finalData = response.data.toString();
       console.log(finalData);
@@ -1204,10 +1190,6 @@ const overviewItemsSaver = () => {
       console.log(error);
     });
 };
-
-//
-//
-//
 //
 //
 //
@@ -1319,8 +1301,9 @@ const itemAppend = (
   title.textContent = itemTitle;
   infoContainer.appendChild(title);
 
-  const SKU = document.createElement(`div`);
+  const SKU = document.createElement(`a`);
   SKU.classList.add(`item-info-SKU`);
+  SKU.setAttribute(`href`, ``);
   SKU.textContent = itemSKU;
   infoContainer.appendChild(SKU);
 

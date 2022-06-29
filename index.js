@@ -161,9 +161,9 @@ document.getElementById("sub-arm").addEventListener("click", function () {
 });
 
 document.getElementById("sub-overview").addEventListener("click", function () {
-  if (armGrid.childNodes.length > 0) {
-    for (let i = 0; i < armGrid.childNodes.length; i++) {
-      armGrid.innerHTML = "";
+  if (overviewGrid.childNodes.length > 0) {
+    for (let i = 0; i < overviewGrid.childNodes.length; i++) {
+      overviewGrid.innerHTML = "";
     }
   }
   checkStagedItemsArm();

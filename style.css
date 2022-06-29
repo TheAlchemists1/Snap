@@ -1,20 +1,25 @@
 * {
   margin: 0;
   padding: 0;
-  --selection-bg: #50ccbf;
-  --selection-darker-bg: #378f86;
-  --snap-orange: #ff5000;
+  --selection-bg: #66d7d1;
+  --selection-darker-bg: #4da39f;
+  --snap-orange: #ff7b59;
   --border-bottom: solid 1px rgba(128, 128, 128, 0.25);
   --snap-blue: #2d4860;
   --grey-border: rgba(128, 128, 128, 0.387);
   font-size: 1rem;
+  font-family: "poppins";
+  font-weight: 400;
 }
 
 body {
-  position: relative;
   display: grid;
   /* justify-content: center; */
   justify-items: center;
+}
+
+.body {
+  position: relative;
 }
 
 img {
@@ -66,7 +71,7 @@ img {
 }
 
 .tile-img {
-  width: 8rem;
+  width: 10rem;
 }
 
 .disclaimer {

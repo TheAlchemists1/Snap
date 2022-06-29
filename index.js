@@ -161,6 +161,11 @@ document.getElementById("sub-arm").addEventListener("click", function () {
 });
 
 document.getElementById("sub-overview").addEventListener("click", function () {
+  if (overviewGrid.childNodes.length > 0) {
+    for (let i = 0; i < overviewGrid.childNodes.length; i++) {
+      overviewGrid.innerHTML = "";
+    }
+  }
   checkStagedItemsArm();
 
   console.log(stagedItems);
@@ -169,12 +174,6 @@ document.getElementById("sub-overview").addEventListener("click", function () {
   }
   overviewAppend();
 });
-
-// <----------------------Events ending---------------------------->
-
-// <----------------------Event listeners to Unpop---------------------------->
-
-// <----------------------Events ending---------------------------->
 
 // <----------------------Item Staging Checking Functions Start---------------------------->
 
@@ -196,6 +195,20 @@ function checkStagedItemsCeiling() {
     }
   }
 }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 function checkStagedItemsPoles() {
   let items = document.querySelectorAll(".pole");
@@ -281,7 +294,7 @@ function checkStagedItemsArm() {
 document.getElementById("i-beam").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
-    if (x[i].childNodes[1].innerText.includes("I-BEAM")) {
+    if (x[i].childNodes[1].innerText.includes("I-Beam")) {
       x[i].style.display = `flex`;
     } else {
       x[i].style.display = `none`;
@@ -296,7 +309,7 @@ allCeilingFilter.forEach((item) => {
   item.addEventListener("click", function () {
     let x = document.getElementsByClassName("item-container");
     for (let i = 0; i < x.length; i++) {
-      if (!x[i].childNodes[1].innerText.includes("I-BEAM")) {
+      if (!x[i].childNodes[1].innerText.includes("I-Beam")) {
         x[i].style.display = `flex`;
       } else {
         x[i].style.display = `none`;
@@ -310,7 +323,7 @@ document.getElementById("fixed-pole").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
     // console.log(x[i].childNodes[1].innerText);
-    if (x[i].childNodes[1].innerText.includes("ADJUSTABLE")) {
+    if (x[i].childNodes[1].innerText.includes("Adjustable")) {
       x[i].style.display = `none`;
     } else {
       x[i].style.display = `flex`;
@@ -322,7 +335,7 @@ document.getElementById("fixed-pole").addEventListener("click", function () {
 document.getElementById("adj-pole").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
-    if (x[i].childNodes[1].innerText.includes("ADJUSTABLE")) {
+    if (x[i].childNodes[1].innerText.includes("Adjustable")) {
       x[i].style.display = `flex`;
     } else {
       x[i].style.display = `none`;
@@ -373,7 +386,7 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataCeil[i].description}`,
         `${sortedDataCeil[i].sku}`,
-        `./product_images/products_thumbnail_150x150/ceiling_mount/${sortedDataCeil[i].sku}.jpg`,
+        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de38fd35624084815294_SM-CB-CM-SPLT-6-BLK.jpg`,
         `ceiling`
       );
     }
@@ -383,12 +396,23 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataWall[i].description}`,
         `${sortedDataWall[i].sku}`,
-        `./product_images/products_thumbnail_150x150/wall_plate/${sortedDataWall[i].sku}.jpg`,
+        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de4396616624b1460e4b_SM-CB-CM-WPLT-BRKT.jpg`,
         `ceiling`
       );
     }
   }
 }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 function propigatePole() {
   for (let i = 0; i < sortedDataPole.length; i++) {
@@ -396,7 +420,7 @@ function propigatePole() {
       plateGridPole,
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
-      `./product_images/products_thumbnail_150x150/poles/${sortedDataPole[i].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dde4d03e4f6358526339_SM-ADJPOLE-24-BLK.png`,
       `pole`
     );
   }
@@ -408,7 +432,7 @@ function propigateStruts() {
       strutGrid,
       `${sortedDataStrut[i].description}`,
       `${sortedDataStrut[i].sku}`,
-      `./product_images/products_thumbnail_150x150/strut/${sortedDataStrut[i].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dd995490b96a10d829cf_SM-CB-CM-ST-30.png`,
       `strut`
     );
   }
@@ -420,7 +444,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[0].description}`,
       `${sortedDataMount[0].sku}`,
-      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[0].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67f48ce20948625d1f_SM-CB-CM-S.jpg`,
       `box`
     );
   } else {
@@ -428,7 +452,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[1].description}`,
       `${sortedDataMount[1].sku}`,
-      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[1].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67dd076c322a1afa16_SM-CB-CM-D.jpg`,
       `box`
     );
   }
@@ -445,7 +469,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
               `arms`
             );
           }
@@ -455,7 +479,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
               `arms`
             );
           }
@@ -465,7 +489,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
               `arms`
             );
           }
@@ -479,7 +503,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
               `arms`
             );
           }
@@ -489,7 +513,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
               `arms`
             );
           }
@@ -499,7 +523,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
               `arms`
             );
           }
@@ -560,6 +584,16 @@ document.querySelector(`.overview-next`).addEventListener(`click`, () => {
 document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
   overviewItemsSaver();
 });
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 document
   .querySelector(`.overview-dropdown`)
@@ -727,6 +761,19 @@ const addOrSubtractPole = (target) => {
     requiredPolesDisplay();
   }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 const addOrSubtractStrut = (target) => {
   if (target.classList.contains(`item-quantity-subtract-strut-grid`)) {
@@ -916,6 +963,17 @@ const addOrSubtractOverview = (target) => {
     }
   }
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
@@ -1126,7 +1184,16 @@ const overviewItemsSaver = () => {
   console.log(finalItems);
 
   axios
-    .post("http://localhost:3000/api", finalItems)
+    .post("https://snap-server2508.herokuapp.com/api", finalItems, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Vary: "Origin",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
+
+    // add_header Access-Control-Allow-Credentials "true";
+    //add_header Access-Control-Allow-Headers "Content-Type"
     .then(function (response) {
       finalData = response.data.toString();
       console.log(finalData);
@@ -1137,6 +1204,17 @@ const overviewItemsSaver = () => {
       console.log(error);
     });
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 const overviewDropdownAlternator = (target) => {
   if (target.classList.contains(`show`)) {

@@ -715,10 +715,7 @@ const addOrSubtractPlate = (target) => {
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      if (
-        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredPlates.textContent) > 0
-      ) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
@@ -754,10 +751,7 @@ const addOrSubtractPole = (target) => {
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      if (
-        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredPoles.textContent) > 0
-      ) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
@@ -979,7 +973,12 @@ const requiredPlatesDisplay = () => {
     let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
     totalQuantity += currentQuantity;
   }
+
   const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
+  }
+
   const difference = displaysChosen - totalQuantity;
   requiredPlates.textContent = difference;
 
@@ -1002,7 +1001,12 @@ const requiredPolesDisplay = () => {
     let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
     totalQuantity += currentQuantity;
   }
+
   const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
+  }
+
   const difference = displaysChosen - totalQuantity;
   requiredPoles.textContent = difference;
 

@@ -604,23 +604,39 @@ const inputTileAnswer = (target) => {
       }
     });
 
-    selections.forEach((selection) => {
-      // if the selections are visible remove the picked class
-      if (
-        window.getComputedStyle(selection.parentElement.parentElement)
-          .display === `flex`
-      ) {
-        selection.classList.remove(`picked`);
-      }
-    });
-
     if (
       target.classList.contains(`struts`) === false &&
       target.classList.contains(`boxes`) === false &&
-      target.classList.contains(`arm`) === false
+      target.classList.contains(`arm`) === false &&
+      target.classList.contains(`picked`) === false
     ) {
+      console.log(`adding`);
+      selections.forEach((selection) => {
+        if (
+          window.getComputedStyle(selection.parentElement.parentElement)
+            .display === `flex`
+        ) {
+          selection.classList.remove(`picked`);
+        }
+      });
       target.classList.add(`picked`);
+    } else if (
+      target.classList.contains(`struts`) === false &&
+      target.classList.contains(`boxes`) === false &&
+      target.classList.contains(`arm`) === false &&
+      target.classList.contains(`picked`) === true
+    ) {
+      console.log(`removing`);
+      selections.forEach((selection) => {
+        if (
+          window.getComputedStyle(selection.parentElement.parentElement)
+            .display === `flex`
+        ) {
+          selection.classList.remove(`picked`);
+        }
+      });
     }
+
     if (
       target.parentElement.parentElement.classList.contains(`mount`) ||
       target.parentElement.parentElement.classList.contains(`sides`) ||

@@ -618,8 +618,16 @@ const inputTileAnswer = (target) => {
           selection.classList.remove(`picked`);
         }
       });
+
       target.classList.add(`picked`);
-      target.parentElement.parentElement.classList.add(`question-picked`);
+
+      if (
+        target.parentElement.parentElement.classList.contains(`mount`) ||
+        target.parentElement.parentElement.classList.contains(`sides`) ||
+        target.parentElement.parentElement.classList.contains(`orientation`)
+      ) {
+        target.parentElement.parentElement.classList.add(`question-picked`);
+      }
     } else if (
       target.classList.contains(`struts`) === false &&
       target.classList.contains(`boxes`) === false &&

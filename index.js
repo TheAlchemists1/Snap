@@ -644,14 +644,6 @@ const inputTileAnswer = (target) => {
       });
       target.parentElement.parentElement.classList.remove(`question-picked`);
     }
-
-    // if (
-    //   target.parentElement.parentElement.classList.contains(`mount`) ||
-    //   target.parentElement.parentElement.classList.contains(`sides`) ||
-    //   target.parentElement.parentElement.classList.contains(`orientation`)
-    // ) {
-    //   target.parentElement.parentElement.classList.add(`question-picked`);
-    // }
   }
 };
 

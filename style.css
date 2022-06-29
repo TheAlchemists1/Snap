@@ -72,6 +72,15 @@ img {
   margin-bottom: 1px;
 }
 
+.start {
+  align-self: center;
+}
+
+.opening-page > :nth-child(4) {
+  flex-grow: 1;
+  border-bottom: var(--border-bottom);
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -100,6 +109,7 @@ img {
 .survey {
   display: flex;
   flex-direction: column;
+  min-height: 80vh;
   gap: 15px;
 }
 

@@ -638,30 +638,54 @@ const inputTileAnswer = (target) => {
       }
     });
 
-    selections.forEach((selection) => {
-      // if the selections are visible remove the picked class
-      if (
-        window.getComputedStyle(selection.parentElement.parentElement)
-          .display === `flex`
-      ) {
-        selection.classList.remove(`picked`);
-      }
-    });
-
     if (
       target.classList.contains(`struts`) === false &&
       target.classList.contains(`boxes`) === false &&
-      target.classList.contains(`arm`) === false
+      target.classList.contains(`arm`) === false &&
+      target.classList.contains(`picked`) === false
     ) {
+      selections.forEach((selection) => {
+        if (
+          window.getComputedStyle(selection.parentElement.parentElement)
+            .display === `flex`
+        ) {
+          selection.classList.remove(`picked`);
+        }
+      });
+
       target.classList.add(`picked`);
-    }
-    if (
-      target.parentElement.parentElement.classList.contains(`mount`) ||
-      target.parentElement.parentElement.classList.contains(`sides`) ||
-      target.parentElement.parentElement.classList.contains(`orientation`)
+
+      if (
+        target.parentElement.parentElement.classList.contains(`mount`) ||
+        target.parentElement.parentElement.classList.contains(`sides`) ||
+        target.parentElement.parentElement.classList.contains(`orientation`)
+      ) {
+        target.parentElement.parentElement.classList.add(`question-picked`);
+      }
+    } else if (
+      target.classList.contains(`struts`) === false &&
+      target.classList.contains(`boxes`) === false &&
+      target.classList.contains(`arm`) === false &&
+      target.classList.contains(`picked`) === true
     ) {
-      target.parentElement.parentElement.classList.add(`question-picked`);
+      selections.forEach((selection) => {
+        if (
+          window.getComputedStyle(selection.parentElement.parentElement)
+            .display === `flex`
+        ) {
+          selection.classList.remove(`picked`);
+        }
+      });
+      target.parentElement.parentElement.classList.remove(`question-picked`);
     }
+
+    // if (
+    //   target.parentElement.parentElement.classList.contains(`mount`) ||
+    //   target.parentElement.parentElement.classList.contains(`sides`) ||
+    //   target.parentElement.parentElement.classList.contains(`orientation`)
+    // ) {
+    //   target.parentElement.parentElement.classList.add(`question-picked`);
+    // }
   }
 };
 
@@ -1319,8 +1343,9 @@ const itemAppend = (
   title.textContent = itemTitle;
   infoContainer.appendChild(title);
 
-  const SKU = document.createElement(`div`);
+  const SKU = document.createElement(`a`);
   SKU.classList.add(`item-info-SKU`);
+  SKU.setAttribute(`href`, ``);
   SKU.textContent = itemSKU;
   infoContainer.appendChild(SKU);
 

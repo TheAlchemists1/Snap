@@ -546,6 +546,7 @@ document.addEventListener(`click`, (event) => {
 
 document.addEventListener(`input`, (event) => {
   inputDimensionsAnswer(event.target);
+  inputItemQuantity(event.target);
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
@@ -686,6 +687,77 @@ const inputDimensionsAnswer = (target) => {
       target.parentElement.parentElement.parentElement.classList.add(
         `question-picked`
       );
+    }
+  }
+};
+
+const inputItemQuantity = (target) => {
+  target.textContent = parseInt(target.textContent);
+  if (target.textContent < 0 || !parseInt(target.textContent)) {
+    target.textContent = `0`;
+  }
+  if (target.classList.contains(`item-quantity-amount-plate-grid`)) {
+    requiredPlatesDisplay();
+  }
+  if (target.classList.contains(`item-quantity-amount-plate-grid-pole`)) {
+    requiredPolesDisplay();
+  }
+  if (target.classList.contains(`item-quantity-amount-strut-grid`)) {
+    requiredStrutsDisplay();
+  }
+  if (target.classList.contains(`item-quantity-amount-arm-grid`)) {
+    requiredArmsDisplay();
+  }
+  if (
+    target.classList.contains(`item-quantity-amount-overview-products-grid`)
+  ) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-overview-products-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    let stagedItemQuantity;
+    stagedItems.arm.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+
+    stagedItems.box.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.ceiling.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.pole.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.strut.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) <
+          parseInt(stagedItemQuantity)
+      ) {
+        itemQuantityAmountArray[i].textContent = stagedItemQuantity;
+      }
+      // if (
+      //   targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+      //   parseInt(itemQuantityAmountArray[i].textContent) ===
+      //     parseInt(stagedItemQuantity)
+      // ) {
+      //   target.classList.add(`disable`);
+      // }
     }
   }
 };
@@ -1336,6 +1408,7 @@ const itemAppend = (
   amount.classList.add(`item-quantity-amount-${currentGrid}`);
   amount.classList.add(`item-quantity-amount`);
   amount.setAttribute(`data-SKU`, itemSKU);
+  amount.setAttribute(`contenteditable`, true);
   amount.textContent = `0`;
   quantityButtons.appendChild(amount);
 

@@ -95,6 +95,15 @@ img {
   margin-bottom: 1px;
 }
 
+.start {
+  align-self: center;
+}
+
+.opening-page > :nth-child(4) {
+  flex-grow: 1;
+  border-bottom: var(--border-bottom);
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -104,7 +113,7 @@ img {
 }
 
 .tile-img {
-  width: 10rem;
+  width: 8rem;
 }
 
 .disclaimer {
@@ -123,12 +132,13 @@ img {
 .survey {
   display: flex;
   flex-direction: column;
+  min-height: 80vh;
   gap: 15px;
 }
 
 .subtext {
   padding-bottom: 15px;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   border-bottom: var(--border-bottom);
 }
 
@@ -137,7 +147,7 @@ img {
   justify-content: space-evenly;
   gap: 20px;
   grid-template-columns: auto auto;
-  padding: 60px 30px 30px 30px;
+  padding: 30px;
   padding-bottom: 60px;
 }
 
@@ -170,14 +180,12 @@ button {
 }
 
 .prev {
-  font-size: 1.2rem;
   background: none;
   padding: 12px;
   color: var(--snap-orange);
 }
 
 .next {
-  font-size: 1.2rem;
   opacity: 0.2;
   background-color: #000;
   pointer-events: none;
@@ -272,7 +280,7 @@ h2 {
 }
 
 .dimension-input {
-  border-radius: 7.5px;
+  border-radius: 10px;
   padding: 10px;
   border: 2px solid var(--grey-border);
 }
@@ -288,9 +296,7 @@ h2 {
 }
 
 label {
-  font-size: 18px;
   font-weight: bold;
-  color: #303030;
 }
 
 .plate-answers {

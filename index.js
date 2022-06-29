@@ -610,7 +610,6 @@ const inputTileAnswer = (target) => {
       target.classList.contains(`arm`) === false &&
       target.classList.contains(`picked`) === false
     ) {
-      console.log(`adding`);
       selections.forEach((selection) => {
         if (
           window.getComputedStyle(selection.parentElement.parentElement)
@@ -626,7 +625,6 @@ const inputTileAnswer = (target) => {
       target.classList.contains(`arm`) === false &&
       target.classList.contains(`picked`) === true
     ) {
-      console.log(`removing`);
       selections.forEach((selection) => {
         if (
           window.getComputedStyle(selection.parentElement.parentElement)

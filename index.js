@@ -751,13 +751,6 @@ const inputItemQuantity = (target) => {
       ) {
         itemQuantityAmountArray[i].textContent = stagedItemQuantity;
       }
-      // if (
-      //   targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-      //   parseInt(itemQuantityAmountArray[i].textContent) ===
-      //     parseInt(stagedItemQuantity)
-      // ) {
-      //   target.classList.add(`disable`);
-      // }
     }
   }
 };

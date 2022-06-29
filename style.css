@@ -103,7 +103,7 @@ img {
   align-self: center;
 }
 
-.opening-page > :nth-child(4) {
+.opening-page > :nth-child(3) {
   flex-grow: 1;
   border-bottom: var(--border-bottom);
 }

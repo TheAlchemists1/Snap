@@ -113,7 +113,7 @@ img {
 }
 
 .tile-img {
-  width: 8rem;
+  width: 10rem;
 }
 
 .disclaimer {
@@ -138,7 +138,7 @@ img {
 
 .subtext {
   padding-bottom: 15px;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   border-bottom: var(--border-bottom);
 }
 
@@ -147,8 +147,7 @@ img {
   justify-content: space-evenly;
   gap: 20px;
   grid-template-columns: auto auto;
-  padding: 30px;
-  padding-bottom: 60px;
+  padding: 60px 30px 30px 30px;
 }
 
 .struts > .tile-answers {
@@ -180,12 +179,14 @@ button {
 }
 
 .prev {
+  font-size: 1.2rem;
   background: none;
   padding: 12px;
   color: var(--snap-orange);
 }
 
 .next {
+  font-size: 1.2rem;
   opacity: 0.2;
   background-color: #000;
   pointer-events: none;
@@ -280,7 +281,7 @@ h2 {
 }
 
 .dimension-input {
-  border-radius: 10px;
+  border-radius: 7.5px;
   padding: 10px;
   border: 2px solid var(--grey-border);
 }
@@ -296,7 +297,9 @@ h2 {
 }
 
 label {
+  font-size: 18px;
   font-weight: bold;
+  color: #303030;
 }
 
 .plate-answers {

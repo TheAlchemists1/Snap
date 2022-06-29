@@ -289,7 +289,7 @@ function checkStagedItemsArm() {
 document.getElementById("i-beam").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
-    if (x[i].childNodes[1].innerText.includes("I-BEAM")) {
+    if (x[i].childNodes[1].innerText.includes("I-Beam")) {
       x[i].style.display = `flex`;
     } else {
       x[i].style.display = `none`;
@@ -304,7 +304,7 @@ allCeilingFilter.forEach((item) => {
   item.addEventListener("click", function () {
     let x = document.getElementsByClassName("item-container");
     for (let i = 0; i < x.length; i++) {
-      if (!x[i].childNodes[1].innerText.includes("I-BEAM")) {
+      if (!x[i].childNodes[1].innerText.includes("I-Beam")) {
         x[i].style.display = `flex`;
       } else {
         x[i].style.display = `none`;
@@ -318,7 +318,7 @@ document.getElementById("fixed-pole").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
     // console.log(x[i].childNodes[1].innerText);
-    if (x[i].childNodes[1].innerText.includes("ADJUSTABLE")) {
+    if (x[i].childNodes[1].innerText.includes("Adjustable")) {
       x[i].style.display = `none`;
     } else {
       x[i].style.display = `flex`;
@@ -330,7 +330,7 @@ document.getElementById("fixed-pole").addEventListener("click", function () {
 document.getElementById("adj-pole").addEventListener("click", function () {
   let x = document.getElementsByClassName("item-container");
   for (let i = 0; i < x.length; i++) {
-    if (x[i].childNodes[1].innerText.includes("ADJUSTABLE")) {
+    if (x[i].childNodes[1].innerText.includes("Adjustable")) {
       x[i].style.display = `flex`;
     } else {
       x[i].style.display = `none`;
@@ -381,7 +381,7 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataCeil[i].description}`,
         `${sortedDataCeil[i].sku}`,
-        `./product_images/products_thumbnail_150x150/ceiling_mount/${sortedDataCeil[i].sku}.jpg`,
+        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de38fd35624084815294_SM-CB-CM-SPLT-6-BLK.jpg`,
         `ceiling`
       );
     }
@@ -391,7 +391,7 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataWall[i].description}`,
         `${sortedDataWall[i].sku}`,
-        `./product_images/products_thumbnail_150x150/wall_plate/${sortedDataWall[i].sku}.jpg`,
+        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de4396616624b1460e4b_SM-CB-CM-WPLT-BRKT.jpg`,
         `ceiling`
       );
     }
@@ -411,7 +411,7 @@ function propigatePole() {
       plateGridPole,
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
-      `./product_images/products_thumbnail_150x150/poles/${sortedDataPole[i].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dde4d03e4f6358526339_SM-ADJPOLE-24-BLK.jpg`,
       `pole`
     );
   }
@@ -423,7 +423,7 @@ function propigateStruts() {
       strutGrid,
       `${sortedDataStrut[i].description}`,
       `${sortedDataStrut[i].sku}`,
-      `./product_images/products_thumbnail_150x150/strut/${sortedDataStrut[i].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dd995490b96a10d829cf_SM-CB-CM-ST-30.jpg`,
       `strut`
     );
   }
@@ -435,7 +435,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[0].description}`,
       `${sortedDataMount[0].sku}`,
-      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[0].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67f48ce20948625d1f_SM-CB-CM-S.jpg`,
       `box`
     );
   } else {
@@ -443,7 +443,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[1].description}`,
       `${sortedDataMount[1].sku}`,
-      `./product_images/products_thumbnail_150x150/mounting_box/${sortedDataMount[1].sku}.jpg`,
+      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67dd076c322a1afa16_SM-CB-CM-D.jpg`,
       `box`
     );
   }
@@ -460,7 +460,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
               `arms`
             );
           }
@@ -470,7 +470,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
               `arms`
             );
           }
@@ -480,7 +480,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
               `arms`
             );
           }
@@ -494,7 +494,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
               `arms`
             );
           }
@@ -504,7 +504,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
               `arms`
             );
           }
@@ -514,7 +514,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `./product_images/products_thumbnail_150x150/display_arm/${sortedDataArm[i].sku}.jpg`,
+              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
               `arms`
             );
           }

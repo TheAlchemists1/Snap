@@ -1241,8 +1241,9 @@ const itemAppend = (
   title.textContent = itemTitle;
   infoContainer.appendChild(title);
 
-  const SKU = document.createElement(`div`);
+  const SKU = document.createElement(`a`);
   SKU.classList.add(`item-info-SKU`);
+  SKU.setAttribute(`href`, ``);
   SKU.textContent = itemSKU;
   infoContainer.appendChild(SKU);
 

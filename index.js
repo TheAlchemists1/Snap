@@ -640,17 +640,25 @@ document
 // };
 
 const wallMountDisablesDualSided = (target) => {
+  const singleSided = document.querySelector(`.single-sided`);
+  const dualSided = document.querySelector(`.dual-sided`);
+
   if (document.querySelector(`.wall-mount`).classList.contains(`picked`)) {
-    document.querySelector(`.dual-sided`).classList.add(`disabled`);
-    document.querySelector(`.dual-sided`).classList.remove(`picked`);
-    document.querySelector(`.single-sided`).classList.add(`picked`);
-    document
-      .querySelector(`.single-sided`)
-      .parentElement.parentElement.classList.add(`question-picked`);
+    document.querySelector(`.plate-question`).textContent = `Wall Plate`;
+    dualSided.classList.add(`disabled`);
+    dualSided.classList.remove(`picked`);
+    singleSided.classList.add(`picked`);
+    singleSided.parentElement.parentElement.classList.add(`question-picked`);
   } else if (
     document.querySelector(`.wall-mount`).classList.contains(`picked`) === false
   ) {
-    document.querySelector(`.dual-sided`).classList.remove(`disabled`);
+    document.querySelector(`.plate-question`).textContent = `Ceiling Plate`;
+    dualSided.classList.remove(`disabled`);
+  }
+
+  if (target.classList.contains(`ceiling-mount`)) {
+    singleSided.classList.remove(`picked`);
+    singleSided.parentElement.parentElement.classList.remove(`question-picked`);
   }
 };
 
@@ -1133,8 +1141,8 @@ const requiredPlatesDisplay = () => {
     requiredPlates,
     document.querySelector(`.required-plates-text`),
     `You will need `,
-    ` ceiling plate for this install`,
-    ` ceiling plates for this install`
+    ` mounting plate for this install`,
+    ` mounting plates for this install`
   );
   requiredChecker(requiredPlates);
 };

@@ -541,6 +541,7 @@ document.addEventListener(`click`, (event) => {
   addOrSubtractBoxes(event.target);
   addOrSubtractArms(event.target);
   addOrSubtractOverview(event.target);
+  highlightSelectedQuantity(event.target);
   // console.table(answers);
 });
 
@@ -612,6 +613,16 @@ document
 //     requiredPolesDisplay();
 //   }
 // };
+
+const highlightSelectedQuantity = (target) => {
+  if (target.classList.contains(`item-quantity-amount`)) {
+    var range = document.createRange();
+    range.selectNodeContents(target);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+};
 
 const inputTileAnswer = (target) => {
   // Check if target is an answer button

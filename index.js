@@ -382,7 +382,9 @@ function propigateCeiling() {
         `${sortedDataCeil[i].description}`,
         `${sortedDataCeil[i].sku}`,
         `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de38fd35624084815294_SM-CB-CM-SPLT-6-BLK.jpg`,
-        `ceiling`
+        `ceiling`,
+        `0`,
+        `${sortedDataCeil[i].link}`
       );
     }
   } else {
@@ -392,7 +394,9 @@ function propigateCeiling() {
         `${sortedDataWall[i].description}`,
         `${sortedDataWall[i].sku}`,
         `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de4396616624b1460e4b_SM-CB-CM-WPLT-BRKT.jpg`,
-        `ceiling`
+        `ceiling`,
+        `0`,
+        `${sortedDataCeil[i].link}`
       );
     }
   }
@@ -412,7 +416,9 @@ function propigatePole() {
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
       `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dde4d03e4f6358526339_SM-ADJPOLE-24-BLK.jpg`,
-      `pole`
+      `pole`,
+      `0`,
+      `${sortedDataPole[i].link}`
     );
   }
 }
@@ -424,7 +430,9 @@ function propigateStruts() {
       `${sortedDataStrut[i].description}`,
       `${sortedDataStrut[i].sku}`,
       `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dd995490b96a10d829cf_SM-CB-CM-ST-30.jpg`,
-      `strut`
+      `strut`,
+      `0`,
+      `${sortedDataStrut[i].link}`
     );
   }
 }
@@ -436,7 +444,9 @@ function propigateBox() {
       `${sortedDataMount[0].description}`,
       `${sortedDataMount[0].sku}`,
       `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67f48ce20948625d1f_SM-CB-CM-S.jpg`,
-      `box`
+      `box`,
+      `0`,
+      `${sortedDataMount[i].link}`
     );
   } else {
     itemAppend(
@@ -444,7 +454,9 @@ function propigateBox() {
       `${sortedDataMount[1].description}`,
       `${sortedDataMount[1].sku}`,
       `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67dd076c322a1afa16_SM-CB-CM-D.jpg`,
-      `box`
+      `box`,
+      `0`,
+      `${sortedDataMount[i].link}`
     );
   }
 }
@@ -461,7 +473,9 @@ function propigateArm() {
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
               `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
-              `arms`
+              `arms`,
+              `0`,
+              `${sortedDataArm[i].link}`
             );
           }
         } else if (width <= 64 && width > 42) {
@@ -471,7 +485,9 @@ function propigateArm() {
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
               `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
-              `arms`
+              `arms`,
+              `0`,
+              `${sortedDataArm[i].link}`
             );
           }
         } else {
@@ -481,7 +497,9 @@ function propigateArm() {
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
               `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
-              `arms`
+              `arms`,
+              `0`,
+              `${sortedDataArm[i].link}`
             );
           }
         }
@@ -495,7 +513,9 @@ function propigateArm() {
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
               `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
-              `arms`
+              `arms`,
+              `0`,
+              `${sortedDataArm[i].link}`
             );
           }
         } else if (width <= 64 && width > 42) {
@@ -505,7 +525,9 @@ function propigateArm() {
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
               `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
-              `arms`
+              `arms`,
+              `0`,
+              `${sortedDataArm[i].link}`
             );
           }
         } else {
@@ -515,7 +537,9 @@ function propigateArm() {
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
               `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
-              `arms`
+              `arms`,
+              `0`,
+              `${sortedDataArm[i].link}`
             );
           }
         }
@@ -1275,7 +1299,8 @@ const itemAppend = (
   itemSKU,
   itemImage,
   page,
-  quantity
+  quantity,
+  link
 ) => {
   let currentGrid = itemDestination.classList;
   if (itemDestination === plateGrid || itemDestination === plateGridPole) {
@@ -1303,7 +1328,9 @@ const itemAppend = (
 
   const SKU = document.createElement(`a`);
   SKU.classList.add(`item-info-SKU`);
-  SKU.setAttribute(`href`, ``);
+  SKU.setAttribute(`href`, `${link}`);
+  SKU.setAttribute(`target`, `_blank`);
+  SKU.setAttribute(`rel`, `noopener noreferrer`);
   SKU.textContent = itemSKU;
   infoContainer.appendChild(SKU);
 

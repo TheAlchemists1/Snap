@@ -49,6 +49,12 @@ img {
   user-select: none;
 }
 
+.disabled {
+  font-size: 1.2rem;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .pop-up-container {
   position: absolute;
   display: flex;

@@ -558,6 +558,7 @@ document.addEventListener(`click`, (event) => {
   inputTileAnswer(selectionTargeter);
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
+  wallMountDisablesDualSided(selectionTargeter);
 
   addOrSubtractPlate(event.target);
   addOrSubtractPole(event.target);
@@ -637,6 +638,21 @@ document
 //     requiredPolesDisplay();
 //   }
 // };
+
+const wallMountDisablesDualSided = (target) => {
+  if (document.querySelector(`.wall-mount`).classList.contains(`picked`)) {
+    document.querySelector(`.dual-sided`).classList.add(`disabled`);
+    document.querySelector(`.dual-sided`).classList.remove(`picked`);
+    document.querySelector(`.single-sided`).classList.add(`picked`);
+    document
+      .querySelector(`.single-sided`)
+      .parentElement.parentElement.classList.add(`question-picked`);
+  } else if (
+    document.querySelector(`.wall-mount`).classList.contains(`picked`) === false
+  ) {
+    document.querySelector(`.dual-sided`).classList.remove(`disabled`);
+  }
+};
 
 const highlightSelectedQuantity = (target) => {
   if (target.classList.contains(`item-quantity-amount`)) {

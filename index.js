@@ -751,6 +751,7 @@ const inputItemQuantity = (target) => {
         itemQuantityAmountArray[i].textContent = stagedItemQuantity;
       }
 
+      // Updates previous page item quantities
       document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
         if (
           targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
@@ -1000,6 +1001,7 @@ const addOrSubtractOverview = (target) => {
         let newQuantity = parseInt(currentQuantity) - 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
 
+        // Updates previous page item quantities
         document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
           if (
             targetSKU === e.getAttribute(`data-sku`) &&
@@ -1036,6 +1038,7 @@ const addOrSubtractOverview = (target) => {
               subButton.classList.remove(`disable`);
           });
 
+        // Updates previous page item quantities
         document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
           if (
             targetSKU === e.getAttribute(`data-sku`) &&

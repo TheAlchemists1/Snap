@@ -721,7 +721,6 @@ const inputItemQuantity = (target) => {
         stagedItemQuantity = item.quantity;
       }
     });
-
     stagedItems.box.forEach((item) => {
       if (targetSKU === item.sku) {
         stagedItemQuantity = item.quantity;
@@ -751,6 +750,16 @@ const inputItemQuantity = (target) => {
       ) {
         itemQuantityAmountArray[i].textContent = stagedItemQuantity;
       }
+
+      document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
+        if (
+          targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+          targetSKU === e.getAttribute(`data-sku`) &&
+          !e.classList.contains(`item-quantity-amount-overview-products-grid`)
+        ) {
+          e.textContent = itemQuantityAmountArray[i].textContent;
+        }
+      });
     }
   }
 };
@@ -990,6 +999,15 @@ const addOrSubtractOverview = (target) => {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) - 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
+
+        document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
+          if (
+            targetSKU === e.getAttribute(`data-sku`) &&
+            !e.classList.contains(`item-quantity-amount-overview-products-grid`)
+          ) {
+            e.textContent = itemQuantityAmountArray[i].textContent;
+          }
+        });
       }
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
@@ -1017,6 +1035,15 @@ const addOrSubtractOverview = (target) => {
             if (targetSKU === subButton.getAttribute(`data-sku`))
               subButton.classList.remove(`disable`);
           });
+
+        document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
+          if (
+            targetSKU === e.getAttribute(`data-sku`) &&
+            !e.classList.contains(`item-quantity-amount-overview-products-grid`)
+          ) {
+            e.textContent = itemQuantityAmountArray[i].textContent;
+          }
+        });
       }
     }
   }

@@ -565,11 +565,13 @@ document.addEventListener(`click`, (event) => {
   addOrSubtractBoxes(event.target);
   addOrSubtractArms(event.target);
   addOrSubtractOverview(event.target);
+  highlightSelectedQuantity(event.target);
   // console.table(answers);
 });
 
 document.addEventListener(`input`, (event) => {
   inputDimensionsAnswer(event.target);
+  inputItemQuantity(event.target);
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
@@ -614,31 +616,42 @@ document
     overviewDropdownAlternator(event.target);
   });
 
-const wipeItemSelections = (target) => {
-  if (target.classList.contains(`plate`)) {
-    const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-plate-grid`
-    );
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      itemQuantityAmountArray[i].textContent = `0`;
-    }
-    requiredPlatesDisplay();
-  }
-  if (target.classList.contains(`poles`)) {
-    const itemQuantityAmountArray = document.querySelectorAll(
-      `.item-quantity-amount-plate-grid-pole`
-    );
-    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      itemQuantityAmountArray[i].textContent = `0`;
-    }
-    requiredPolesDisplay();
+// Client does not want items to wipe when selecting other tiles
+// const wipeItemSelections = (target) => {
+//   if (target.classList.contains(`plate`)) {
+//     const itemQuantityAmountArray = document.querySelectorAll(
+//       `.item-quantity-amount-plate-grid`
+//     );
+//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+//       itemQuantityAmountArray[i].textContent = `0`;
+//     }
+//     requiredPlatesDisplay();
+//   }
+//   if (target.classList.contains(`poles`)) {
+//     const itemQuantityAmountArray = document.querySelectorAll(
+//       `.item-quantity-amount-plate-grid-pole`
+//     );
+//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+//       itemQuantityAmountArray[i].textContent = `0`;
+//     }
+//     requiredPolesDisplay();
+//   }
+// };
+
+const highlightSelectedQuantity = (target) => {
+  if (target.classList.contains(`item-quantity-amount`)) {
+    var range = document.createRange();
+    range.selectNodeContents(target);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 };
 
 const inputTileAnswer = (target) => {
   // Check if target is an answer button
   if (target.classList.contains(`selection`)) {
-    wipeItemSelections(target);
+    // wipeItemSelections(target);
     // Obtain data-question which will match the answers array key we are using
     const question = target.getAttribute(`data-question`);
     // Iterate through answers
@@ -713,6 +726,80 @@ const inputDimensionsAnswer = (target) => {
   }
 };
 
+const inputItemQuantity = (target) => {
+  target.textContent = parseInt(target.textContent);
+  if (target.textContent < 0 || !parseInt(target.textContent)) {
+    target.textContent = `0`;
+  }
+  if (target.classList.contains(`item-quantity-amount-plate-grid`)) {
+    requiredPlatesDisplay();
+  }
+  if (target.classList.contains(`item-quantity-amount-plate-grid-pole`)) {
+    requiredPolesDisplay();
+  }
+  if (target.classList.contains(`item-quantity-amount-strut-grid`)) {
+    requiredStrutsDisplay();
+  }
+  if (target.classList.contains(`item-quantity-amount-arm-grid`)) {
+    requiredArmsDisplay();
+  }
+  if (
+    target.classList.contains(`item-quantity-amount-overview-products-grid`)
+  ) {
+    const itemQuantityAmountArray = document.querySelectorAll(
+      `.item-quantity-amount-overview-products-grid`
+    );
+    const targetSKU = target.getAttribute(`data-sku`);
+    let stagedItemQuantity;
+    stagedItems.arm.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.box.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.ceiling.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.pole.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+    stagedItems.strut.forEach((item) => {
+      if (targetSKU === item.sku) {
+        stagedItemQuantity = item.quantity;
+      }
+    });
+
+    for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+      if (
+        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(itemQuantityAmountArray[i].textContent) <
+          parseInt(stagedItemQuantity)
+      ) {
+        itemQuantityAmountArray[i].textContent = stagedItemQuantity;
+      }
+
+      // Updates previous page item quantities
+      document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
+        if (
+          targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+          targetSKU === e.getAttribute(`data-sku`) &&
+          !e.classList.contains(`item-quantity-amount-overview-products-grid`)
+        ) {
+          e.textContent = itemQuantityAmountArray[i].textContent;
+        }
+      });
+    }
+  }
+};
+
 const addOrSubtractPlate = (target) => {
   if (target.classList.contains(`item-quantity-subtract-plate-grid`)) {
     const itemQuantityAmountArray = document.querySelectorAll(
@@ -739,10 +826,7 @@ const addOrSubtractPlate = (target) => {
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      if (
-        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredPlates.textContent) > 0
-      ) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
@@ -778,10 +862,7 @@ const addOrSubtractPole = (target) => {
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      if (
-        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredPoles.textContent) > 0
-      ) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
@@ -954,6 +1035,16 @@ const addOrSubtractOverview = (target) => {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) - 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
+
+        // Updates previous page item quantities
+        document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
+          if (
+            targetSKU === e.getAttribute(`data-sku`) &&
+            !e.classList.contains(`item-quantity-amount-overview-products-grid`)
+          ) {
+            e.textContent = itemQuantityAmountArray[i].textContent;
+          }
+        });
       }
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
@@ -981,6 +1072,16 @@ const addOrSubtractOverview = (target) => {
             if (targetSKU === subButton.getAttribute(`data-sku`))
               subButton.classList.remove(`disable`);
           });
+
+        // Updates previous page item quantities
+        document.querySelectorAll(`.item-quantity-amount`).forEach((e) => {
+          if (
+            targetSKU === e.getAttribute(`data-sku`) &&
+            !e.classList.contains(`item-quantity-amount-overview-products-grid`)
+          ) {
+            e.textContent = itemQuantityAmountArray[i].textContent;
+          }
+        });
       }
     }
   }
@@ -1003,7 +1104,12 @@ const requiredPlatesDisplay = () => {
     let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
     totalQuantity += currentQuantity;
   }
+
   const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
+  }
+
   const difference = displaysChosen - totalQuantity;
   requiredPlates.textContent = difference;
 
@@ -1026,7 +1132,12 @@ const requiredPolesDisplay = () => {
     let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
     totalQuantity += currentQuantity;
   }
+
   const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
+  }
+
   const difference = displaysChosen - totalQuantity;
   requiredPoles.textContent = difference;
 
@@ -1358,6 +1469,7 @@ const itemAppend = (
   amount.classList.add(`item-quantity-amount-${currentGrid}`);
   amount.classList.add(`item-quantity-amount`);
   amount.setAttribute(`data-SKU`, itemSKU);
+  amount.setAttribute(`contenteditable`, true);
   amount.textContent = `0`;
   quantityButtons.appendChild(amount);
 

@@ -111,9 +111,21 @@ function algorithmSetup() {
 
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
+  const plates = document.querySelectorAll(".selection.plate");
+  console.log(plates);
   if (plateGrid.childNodes.length > 0) {
     for (let i = 0; i < plateGrid.childNodes.length; i++) {
       plateGrid.innerHTML = "";
+    }
+  }
+
+  if (answers[0].mount === "wall-mount") {
+    for (let i = 0; i < plates.length; i++) {
+      plates[i].classList.add(`disabled`);
+    }
+  } else if (answers[0].mount === "ceiling-mount") {
+    for (let i = 0; i < plates.length; i++) {
+      plates[i].classList.remove(`disabled`);
     }
   }
   propigateCeiling();

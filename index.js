@@ -558,7 +558,7 @@ document.addEventListener(`click`, (event) => {
   inputTileAnswer(selectionTargeter);
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
-  wallMountDisablesDualSided(selectionTargeter);
+  // wallMountDisablesDualSided(selectionTargeter);
 
   addOrSubtractPlate(event.target);
   addOrSubtractPole(event.target);
@@ -567,6 +567,7 @@ document.addEventListener(`click`, (event) => {
   addOrSubtractArms(event.target);
   addOrSubtractOverview(event.target);
   highlightSelectedQuantity(event.target);
+  console.log(answers);
   // console.table(answers);
 });
 
@@ -679,9 +680,12 @@ const inputTileAnswer = (target) => {
     // Obtain data-question which will match the answers array key we are using
     const question = target.getAttribute(`data-question`);
     // Iterate through answers
+    console.log(question);
     answers.forEach((answer) => {
+      console.log(Object.keys(answer)[0]);
       // Find the matching object key
       if (Object.keys(answer)[0] === question) {
+        console.log(question);
         // Inject value we clicked on into
         answer[question] = target.value;
         returnAnswer = answer[question];

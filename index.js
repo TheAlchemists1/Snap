@@ -558,7 +558,7 @@ document.addEventListener(`click`, (event) => {
   inputTileAnswer(selectionTargeter);
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
-  // wallMountDisablesDualSided(selectionTargeter);
+  wallMountDisablesDualSided(selectionTargeter);
 
   addOrSubtractPlate(event.target);
   addOrSubtractPole(event.target);
@@ -650,6 +650,7 @@ const wallMountDisablesDualSided = (target) => {
     dualSided.classList.remove(`picked`);
     singleSided.classList.add(`picked`);
     singleSided.parentElement.parentElement.classList.add(`question-picked`);
+    answers[1].sides = `single`;
   } else if (
     document.querySelector(`.wall-mount`).classList.contains(`picked`) === false
   ) {
@@ -680,12 +681,9 @@ const inputTileAnswer = (target) => {
     // Obtain data-question which will match the answers array key we are using
     const question = target.getAttribute(`data-question`);
     // Iterate through answers
-    console.log(question);
     answers.forEach((answer) => {
-      console.log(Object.keys(answer)[0]);
       // Find the matching object key
       if (Object.keys(answer)[0] === question) {
-        console.log(question);
         // Inject value we clicked on into
         answer[question] = target.value;
         returnAnswer = answer[question];

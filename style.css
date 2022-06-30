@@ -157,7 +157,7 @@ img {
   justify-content: space-evenly;
   gap: 20px;
   grid-template-columns: auto auto;
-  padding: 60px 30px 30px 30px;
+  padding: 30px 30px 60px 30px;
 }
 
 .struts > .tile-answers {

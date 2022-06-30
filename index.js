@@ -446,7 +446,7 @@ function propigateBox() {
       `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67f48ce20948625d1f_SM-CB-CM-S.jpg`,
       `box`,
       `0`,
-      `${sortedDataMount[i].link}`
+      `${sortedDataMount[0].link}`
     );
   } else {
     itemAppend(
@@ -456,7 +456,7 @@ function propigateBox() {
       `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67dd076c322a1afa16_SM-CB-CM-D.jpg`,
       `box`,
       `0`,
-      `${sortedDataMount[i].link}`
+      `${sortedDataMount[1].link}`
     );
   }
 }

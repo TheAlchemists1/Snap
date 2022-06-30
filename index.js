@@ -111,9 +111,21 @@ function algorithmSetup() {
 
 //on click after display to propigate ceiling plates
 document.getElementById("sub").addEventListener("click", function () {
+  const plates = document.querySelectorAll(".selection.plate");
+  console.log(plates);
   if (plateGrid.childNodes.length > 0) {
     for (let i = 0; i < plateGrid.childNodes.length; i++) {
       plateGrid.innerHTML = "";
+    }
+  }
+
+  if (answers[0].mount === "wall-mount") {
+    for (let i = 0; i < plates.length; i++) {
+      plates[i].classList.add(`disabled`);
+    }
+  } else if (answers[0].mount === "ceiling-mount") {
+    for (let i = 0; i < plates.length; i++) {
+      plates[i].classList.remove(`disabled`);
     }
   }
   propigateCeiling();
@@ -567,6 +579,7 @@ document.addEventListener(`click`, (event) => {
   addOrSubtractArms(event.target);
   addOrSubtractOverview(event.target);
   highlightSelectedQuantity(event.target);
+  console.log(answers);
   // console.table(answers);
 });
 
@@ -640,17 +653,26 @@ document
 // };
 
 const wallMountDisablesDualSided = (target) => {
+  const singleSided = document.querySelector(`.single-sided`);
+  const dualSided = document.querySelector(`.dual-sided`);
+
   if (document.querySelector(`.wall-mount`).classList.contains(`picked`)) {
-    document.querySelector(`.dual-sided`).classList.add(`disabled`);
-    document.querySelector(`.dual-sided`).classList.remove(`picked`);
-    document.querySelector(`.single-sided`).classList.add(`picked`);
-    document
-      .querySelector(`.single-sided`)
-      .parentElement.parentElement.classList.add(`question-picked`);
+    document.querySelector(`.plate-question`).textContent = `Wall Plate`;
+    dualSided.classList.add(`disabled`);
+    dualSided.classList.remove(`picked`);
+    singleSided.classList.add(`picked`);
+    singleSided.parentElement.parentElement.classList.add(`question-picked`);
+    answers[1].sides = `single`;
   } else if (
     document.querySelector(`.wall-mount`).classList.contains(`picked`) === false
   ) {
-    document.querySelector(`.dual-sided`).classList.remove(`disabled`);
+    document.querySelector(`.plate-question`).textContent = `Ceiling Plate`;
+    dualSided.classList.remove(`disabled`);
+  }
+
+  if (target.classList.contains(`ceiling-mount`)) {
+    singleSided.classList.remove(`picked`);
+    singleSided.parentElement.parentElement.classList.remove(`question-picked`);
   }
 };
 
@@ -1133,8 +1155,8 @@ const requiredPlatesDisplay = () => {
     requiredPlates,
     document.querySelector(`.required-plates-text`),
     `You will need `,
-    ` ceiling plate for this install`,
-    ` ceiling plates for this install`
+    ` mounting plate for this install`,
+    ` mounting plates for this install`
   );
   requiredChecker(requiredPlates);
 };

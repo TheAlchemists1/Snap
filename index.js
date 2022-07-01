@@ -70,8 +70,37 @@ document.getElementById("x").addEventListener("click", function () {
   popupContainer.style.display = "none";
 });
 
-function copyText() {
-  navigator.clipboard.writeText(`${finalData}`);
+function copyText(lastCall) {
+  let stagingItems = [];
+  for (let i = 0; i < lastCall.ceiling.length; i++) {
+    console.log(lastCall.ceiling[i]);
+    stagingItems.push(
+      `${lastCall.ceiling[i].sku}	${lastCall.ceiling[i].quantity} `
+    );
+  }
+  for (let i = 0; i < lastCall.pole.length; i++) {
+    console.log(lastCall.pole[i]);
+    stagingItems.push(`${lastCall.pole[i].sku}	${lastCall.pole[i].quantity} `);
+  }
+  for (let i = 0; i < lastCall.strut.length; i++) {
+    console.log(lastCall.strut[i]);
+    stagingItems.push(`${lastCall.strut[i].sku}	${lastCall.strut[i].quantity} `);
+  }
+  for (let i = 0; i < lastCall.box.length; i++) {
+    console.log(lastCall.box[i]);
+    stagingItems.push(`${lastCall.box[i].sku}	${lastCall.box[i].quantity} `);
+  }
+  for (let i = 0; i < lastCall.arm.length; i++) {
+    console.log(lastCall.arm[i]);
+    stagingItems.push(`${lastCall.arm[i].sku}	${lastCall.arm[i].quantity} `);
+  }
+
+  console.log(stagingItems);
+  let CopyItems = `${stagingItems}`;
+  const finalItemList = CopyItems.replaceAll(",", "");
+  console.log(finalItemList);
+
+  navigator.clipboard.writeText(finalItemList);
 }
 
 // <----------------------Popup Container End---------------------------->
@@ -1350,18 +1379,7 @@ const overviewItemsSaver = () => {
     }
   });
   console.log(finalItems);
-
-  axios
-    .post("http://localhost:3000/api", finalItems)
-    .then(function (response) {
-      finalData = response.data.toString();
-      console.log(finalData);
-      copyText();
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    });
+  copyText(finalItems);
 };
 //
 //

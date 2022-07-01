@@ -422,7 +422,7 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataCeil[i].description}`,
         `${sortedDataCeil[i].sku}`,
-        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de38fd35624084815294_SM-CB-CM-SPLT-6-BLK.jpg`,
+        `https://snap-server2508.herokuapp.com/${sortedDataCeil[i].sku}.jpg`,
         `ceiling`,
         `0`,
         `${sortedDataCeil[i].link}`
@@ -434,7 +434,7 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataWall[i].description}`,
         `${sortedDataWall[i].sku}`,
-        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de4396616624b1460e4b_SM-CB-CM-WPLT-BRKT.jpg`,
+        `https://snap-server2508.herokuapp.com/${sortedDataWall[i].sku}.jpg`,
         `ceiling`,
         `0`,
         `${sortedDataCeil[i].link}`
@@ -456,7 +456,7 @@ function propigatePole() {
       plateGridPole,
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dde4d03e4f6358526339_SM-ADJPOLE-24-BLK.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataPole[i].sku}.jpg`,
       `pole`,
       `0`,
       `${sortedDataPole[i].link}`
@@ -470,7 +470,7 @@ function propigateStruts() {
       strutGrid,
       `${sortedDataStrut[i].description}`,
       `${sortedDataStrut[i].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dd995490b96a10d829cf_SM-CB-CM-ST-30.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataStrut[i].sku}.jpg`,
       `strut`,
       `0`,
       `${sortedDataStrut[i].link}`
@@ -484,7 +484,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[0].description}`,
       `${sortedDataMount[0].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67f48ce20948625d1f_SM-CB-CM-S.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataMount[0].sku}.jpg`,
       `box`,
       `0`,
       `${sortedDataMount[0].link}`
@@ -494,7 +494,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[1].description}`,
       `${sortedDataMount[1].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67dd076c322a1afa16_SM-CB-CM-D.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataMount[1].sku}.jpg`,
       `box`,
       `0`,
       `${sortedDataMount[1].link}`
@@ -513,7 +513,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -525,7 +525,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -537,7 +537,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -553,7 +553,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -565,7 +565,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -577,7 +577,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`

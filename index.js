@@ -1579,9 +1579,25 @@ const nextAnswer = (target) => {
         target.parentElement.parentElement === surveys[i] &&
         surveys[i].classList.contains(`question-picked`)
       ) {
-        surveys[i].style.display = `none`;
-        surveys[i + 1].style.display = `flex`;
-        break;
+        if (
+          target.classList.contains(`pole-next`) &&
+          answers[0].mount === `wall-mount`
+        ) {
+          surveys[i].style.display = `none`;
+          surveys[i + 1].style.display = `flex`;
+          document
+            .querySelector(`.survey.poles`)
+            .classList.add(`question-picked`);
+          document.querySelector(`#sub-struts`).click();
+          document
+            .querySelector(`.survey.poles`)
+            .classList.remove(`question-picked`);
+          break;
+        } else {
+          surveys[i].style.display = `none`;
+          surveys[i + 1].style.display = `flex`;
+          break;
+        }
       }
     }
     returnAnswer = ``;
@@ -1595,9 +1611,19 @@ const prevAnswer = (target) => {
   ) {
     for (let i = 0; i < surveys.length; i++) {
       if (target.parentElement.parentElement === surveys[i]) {
-        surveys[i].style.display = `none`;
-        surveys[i - 1].style.display = `flex`;
-        break;
+        if (
+          target.classList.contains(`back-to-poles`) &&
+          answers[0].mount === `wall-mount`
+        ) {
+          surveys[i].style.display = `none`;
+          surveys[i - 1].style.display = `flex`;
+          document.querySelector(`.back-to-plates`).click();
+          break;
+        } else {
+          surveys[i].style.display = `none`;
+          surveys[i - 1].style.display = `flex`;
+          break;
+        }
       }
     }
   }

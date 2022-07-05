@@ -56,7 +56,7 @@ for (let i = 0; i < surveys.length; i++) {
 // <----------------------Popup Container---------------------------->
 
 document.getElementById("open-snap").addEventListener("click", function () {
-  window.open("https://snapav.com");
+  window.open("https://www.snapav.com/shop/UserAccountView?currentSelection=quickOrderSlct&catalogId=10010&langId=-1&storeId=10151");
 });
 const popupContainer = document.querySelector(`.pop-up-container`);
 

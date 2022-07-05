@@ -64,14 +64,44 @@ popupContainer.style.display = "none";
 
 document.getElementById("order-btn").addEventListener("click", function () {
   popupContainer.style.display = "flex";
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("x").addEventListener("click", function () {
   popupContainer.style.display = "none";
 });
 
-function copyText() {
-  navigator.clipboard.writeText(`${finalData}`);
+function copyText(lastCall) {
+  let stagingItems = [];
+  for (let i = 0; i < lastCall.ceiling.length; i++) {
+    console.log(lastCall.ceiling[i]);
+    stagingItems.push(
+      `${lastCall.ceiling[i].sku}	${lastCall.ceiling[i].quantity} `
+    );
+  }
+  for (let i = 0; i < lastCall.pole.length; i++) {
+    console.log(lastCall.pole[i]);
+    stagingItems.push(`${lastCall.pole[i].sku}	${lastCall.pole[i].quantity} `);
+  }
+  for (let i = 0; i < lastCall.strut.length; i++) {
+    console.log(lastCall.strut[i]);
+    stagingItems.push(`${lastCall.strut[i].sku}	${lastCall.strut[i].quantity} `);
+  }
+  for (let i = 0; i < lastCall.box.length; i++) {
+    console.log(lastCall.box[i]);
+    stagingItems.push(`${lastCall.box[i].sku}	${lastCall.box[i].quantity} `);
+  }
+  for (let i = 0; i < lastCall.arm.length; i++) {
+    console.log(lastCall.arm[i]);
+    stagingItems.push(`${lastCall.arm[i].sku}	${lastCall.arm[i].quantity} `);
+  }
+
+  console.log(stagingItems);
+  let CopyItems = `${stagingItems}`;
+  const finalItemList = CopyItems.replaceAll(",", "");
+  console.log(finalItemList);
+
+  navigator.clipboard.writeText(finalItemList);
 }
 
 // <----------------------Popup Container End---------------------------->
@@ -179,6 +209,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
     }
   }
   checkStagedItemsArm();
+  console.log(stagedItems);
   overviewAppend();
 });
 
@@ -192,6 +223,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
 
 function checkStagedItemsCeiling() {
   let items = document.querySelectorAll(".ceiling");
+  console.log(items);
   stagedItems.ceiling = [];
   for (let i = 0; i < items.length; i++) {
     let z = items[i].childNodes[1];
@@ -204,6 +236,7 @@ function checkStagedItemsCeiling() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -231,6 +264,7 @@ function checkStagedItemsPoles() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -250,6 +284,7 @@ function checkStagedItemsStrut() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -269,6 +304,7 @@ function checkStagedItemsBox() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -288,6 +324,7 @@ function checkStagedItemsArm() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -393,7 +430,7 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataCeil[i].description}`,
         `${sortedDataCeil[i].sku}`,
-        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de38fd35624084815294_SM-CB-CM-SPLT-6-BLK.jpg`,
+        `https://snap-server2508.herokuapp.com/${sortedDataCeil[i].sku}.jpg`,
         `ceiling`,
         `0`,
         `${sortedDataCeil[i].link}`
@@ -405,7 +442,7 @@ function propigateCeiling() {
         plateGrid,
         `${sortedDataWall[i].description}`,
         `${sortedDataWall[i].sku}`,
-        `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de4396616624b1460e4b_SM-CB-CM-WPLT-BRKT.jpg`,
+        `https://snap-server2508.herokuapp.com/${sortedDataWall[i].sku}.jpg`,
         `ceiling`,
         `0`,
         `${sortedDataCeil[i].link}`
@@ -427,7 +464,7 @@ function propigatePole() {
       plateGridPole,
       `${sortedDataPole[i].description}`,
       `${sortedDataPole[i].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dde4d03e4f6358526339_SM-ADJPOLE-24-BLK.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataPole[i].sku}.jpg`,
       `pole`,
       `0`,
       `${sortedDataPole[i].link}`
@@ -441,7 +478,7 @@ function propigateStruts() {
       strutGrid,
       `${sortedDataStrut[i].description}`,
       `${sortedDataStrut[i].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dd995490b96a10d829cf_SM-CB-CM-ST-30.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataStrut[i].sku}.jpg`,
       `strut`,
       `0`,
       `${sortedDataStrut[i].link}`
@@ -455,7 +492,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[0].description}`,
       `${sortedDataMount[0].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67f48ce20948625d1f_SM-CB-CM-S.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataMount[0].sku}.jpg`,
       `box`,
       `0`,
       `${sortedDataMount[0].link}`
@@ -465,7 +502,7 @@ function propigateBox() {
       boxGrid,
       `${sortedDataMount[1].description}`,
       `${sortedDataMount[1].sku}`,
-      `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9de67dd076c322a1afa16_SM-CB-CM-D.jpg`,
+      `https://snap-server2508.herokuapp.com/${sortedDataMount[1].sku}.jpg`,
       `box`,
       `0`,
       `${sortedDataMount[1].link}`
@@ -484,7 +521,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -496,7 +533,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -508,7 +545,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea33fff4076a6a342a5_SM-CB-CM-LARM-80.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -524,7 +561,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -536,7 +573,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -548,7 +585,7 @@ function propigateArm() {
               armGrid,
               `${sortedDataArm[i].description}`,
               `${sortedDataArm[i].sku}`,
-              `https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dea25db66860c16444de_SM-CB-CM-PARM-100.jpg`,
+              `https://snap-server2508.herokuapp.com/${sortedDataArm[i].sku}.jpg`,
               `arms`,
               `0`,
               `${sortedDataArm[i].link}`
@@ -1133,6 +1170,8 @@ const addOrSubtractOverview = (target) => {
 //
 //
 
+// TODO: add required functionality for the mounting boxe and display arm
+
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid`
@@ -1350,18 +1389,7 @@ const overviewItemsSaver = () => {
     }
   });
   console.log(finalItems);
-
-  axios
-    .post("http://localhost:3000/api", finalItems)
-    .then(function (response) {
-      finalData = response.data.toString();
-      console.log(finalData);
-      copyText();
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    });
+  copyText(finalItems);
 };
 //
 //
@@ -1391,7 +1419,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
 
@@ -1402,7 +1431,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   stagedItems.ceiling.forEach((item) => {
@@ -1412,7 +1442,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   stagedItems.pole.forEach((item) => {
@@ -1422,7 +1453,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   stagedItems.strut.forEach((item) => {
@@ -1432,7 +1464,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   document

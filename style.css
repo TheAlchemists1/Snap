@@ -56,9 +56,10 @@ img {
 }
 
 .pop-up-container {
+  padding-top: 10rem;
   position: absolute;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
@@ -109,7 +110,11 @@ img {
   align-self: center;
 }
 
-.opening-page > :nth-child(3) {
+.opening-page > :nth-child(4) {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-grow: 1;
   border-bottom: var(--border-bottom);
 }
@@ -157,7 +162,7 @@ img {
   justify-content: space-evenly;
   gap: 20px;
   grid-template-columns: auto auto;
-  padding: 30px 30px 60px 30px;
+  padding: 60px 30px 90px 30px;
 }
 
 .struts > .tile-answers {

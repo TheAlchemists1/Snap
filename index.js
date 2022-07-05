@@ -1261,8 +1261,8 @@ const requiredBoxesDisplay = (strutLength) => {
     requiredBoxes,
     document.querySelector(`.required-boxes-text`),
     `You will need `,
-    ` mounting box. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.`,
-    ` mounting boxes. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.`
+    ` mounting box.`,
+    ` mounting boxes.`
   );
   requiredStrutsBoxesChecker(
     strutLength,

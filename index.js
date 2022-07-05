@@ -1173,10 +1173,22 @@ const requiredPlatesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  let displaysChosen;
+  if (answers[1].sides == "single") {
+    displaysChosen = Math.ceil(answers[3].displays / 2);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
+  } else if (answers[1].sides == "dual") {
+    displaysChosen = Math.ceil(answers[3].displays / 4);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
   }
+  // const displaysChosen = answers[3].displays;
+  // if (totalQuantity > displaysChosen) {
+  //   totalQuantity = displaysChosen;
+  // }
 
   const difference = displaysChosen - totalQuantity;
   requiredPlates.textContent = difference;
@@ -1268,8 +1280,10 @@ const requiredBoxesDisplay = (strutLength) => {
     requiredBoxes,
     document.querySelector(`.required-boxes-text`),
     `You will need `,
+
     ` mounting box for this install. If you would like more, please update the quantity below.`,
     ` mounting boxes for this install. If you would like more, please update the quantity below.`
+
   );
 
   requiredStrutsBoxesChecker(

@@ -1185,6 +1185,8 @@ const requiredPlatesDisplay = () => {
       totalQuantity = displaysChosen;
     }
   }
+
+  //
   // const displaysChosen = answers[3].displays;
   // if (totalQuantity > displaysChosen) {
   //   totalQuantity = displaysChosen;
@@ -1213,10 +1215,23 @@ const requiredPolesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  let displaysChosen;
+  if (answers[1].sides == "single") {
+    displaysChosen = Math.ceil(answers[3].displays / 2);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
+  } else if (answers[1].sides == "dual") {
+    displaysChosen = Math.ceil(answers[3].displays / 4);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
   }
+
+  // const displaysChosen = answers[3].displays;
+  // if (totalQuantity > displaysChosen) {
+  //   totalQuantity = displaysChosen;
+  // }
 
   const difference = displaysChosen - totalQuantity;
   requiredPoles.textContent = difference;
@@ -1268,9 +1283,17 @@ const requiredBoxesDisplay = (strutLength) => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  let displaysChosen;
+  if (answers[1].sides == "single") {
+    displaysChosen = Math.ceil(answers[3].displays / 2);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
+  } else if (answers[1].sides == "dual") {
+    displaysChosen = Math.ceil(answers[3].displays / 4);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
   }
 
   const difference = displaysChosen - totalQuantity;
@@ -1283,7 +1306,6 @@ const requiredBoxesDisplay = (strutLength) => {
 
     ` mounting box for this install. If you would like more, please update the quantity below.`,
     ` mounting boxes for this install. If you would like more, please update the quantity below.`
-
   );
 
   requiredStrutsBoxesChecker(
@@ -1337,7 +1359,10 @@ const requiredTextManipulator = (
 };
 
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
-  if (strutLength >= strutMin && chosenBoxes >= answers[3].displays) {
+  if (
+    strutLength >= strutMin &&
+    chosenBoxes >= answers[3].displays / (answers[1].sides == "single" ? 2 : 4)
+  ) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);

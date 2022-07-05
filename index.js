@@ -1182,10 +1182,22 @@ const requiredPlatesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  let displaysChosen;
+  if (answers[1].sides == "single") {
+    displaysChosen = Math.ceil(answers[3].displays / 2);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
+  } else if (answers[1].sides == "dual") {
+    displaysChosen = Math.ceil(answers[3].displays / 4);
+    if (totalQuantity > displaysChosen) {
+      totalQuantity = displaysChosen;
+    }
   }
+  // const displaysChosen = answers[3].displays;
+  // if (totalQuantity > displaysChosen) {
+  //   totalQuantity = displaysChosen;
+  // }
 
   const difference = displaysChosen - totalQuantity;
   requiredPlates.textContent = difference;

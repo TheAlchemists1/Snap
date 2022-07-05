@@ -64,6 +64,7 @@ popupContainer.style.display = "none";
 
 document.getElementById("order-btn").addEventListener("click", function () {
   popupContainer.style.display = "flex";
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("x").addEventListener("click", function () {
@@ -208,6 +209,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
     }
   }
   checkStagedItemsArm();
+  console.log(stagedItems);
   overviewAppend();
 });
 
@@ -221,6 +223,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
 
 function checkStagedItemsCeiling() {
   let items = document.querySelectorAll(".ceiling");
+  console.log(items);
   stagedItems.ceiling = [];
   for (let i = 0; i < items.length; i++) {
     let z = items[i].childNodes[1];
@@ -233,6 +236,7 @@ function checkStagedItemsCeiling() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -260,6 +264,7 @@ function checkStagedItemsPoles() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -279,6 +284,7 @@ function checkStagedItemsStrut() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -298,6 +304,7 @@ function checkStagedItemsBox() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -317,6 +324,7 @@ function checkStagedItemsArm() {
         title: z.childNodes[0].innerText,
         sku: z.childNodes[1].innerText,
         img: items[i].childNodes[0].currentSrc,
+        link: items[i].childNodes[1].childNodes[1].href,
       });
     }
   }
@@ -1162,6 +1170,8 @@ const addOrSubtractOverview = (target) => {
 //
 //
 
+// TODO: add required functionality for the mounting boxe and display arm
+
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid`
@@ -1409,7 +1419,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
 
@@ -1420,7 +1431,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   stagedItems.ceiling.forEach((item) => {
@@ -1430,7 +1442,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   stagedItems.pole.forEach((item) => {
@@ -1440,7 +1453,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   stagedItems.strut.forEach((item) => {
@@ -1450,7 +1464,8 @@ const overviewAppend = () => {
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity
+      item.quantity,
+      item.link
     );
   });
   document

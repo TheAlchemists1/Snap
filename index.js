@@ -56,7 +56,9 @@ for (let i = 0; i < surveys.length; i++) {
 // <----------------------Popup Container---------------------------->
 
 document.getElementById("open-snap").addEventListener("click", function () {
-  window.open("https://www.snapav.com/shop/UserAccountView?currentSelection=quickOrderSlct&catalogId=10010&langId=-1&storeId=10151");
+  window.open(
+    "https://www.snapav.com/shop/UserAccountView?currentSelection=quickOrderSlct&catalogId=10010&langId=-1&storeId=10151"
+  );
 });
 const popupContainer = document.querySelector(`.pop-up-container`);
 
@@ -634,14 +636,10 @@ document.querySelector(`.pole-next`).addEventListener(`click`, () => {
 });
 
 document.querySelector(`.strut-next`).addEventListener(`click`, () => {
-  document.querySelector(`.item-quantity-amount-box-grid`).textContent =
-    answers[3].displays;
   requiredStrutsDisplay();
 });
 
 document.querySelector(`.arm-next`).addEventListener(`click`, () => {
-  document.querySelector(`.item-quantity-amount-arm-grid`).textContent =
-    answers[3].displays;
   requiredArmsDisplay();
 });
 
@@ -997,6 +995,7 @@ const addOrSubtractBoxes = (target) => {
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
+        parseInt(requiredBoxes.textContent) < answers[3].displays &&
         parseInt(itemQuantityAmountArray[i].textContent) > 0
       ) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
@@ -1013,10 +1012,7 @@ const addOrSubtractBoxes = (target) => {
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      if (
-        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredBoxes.textContent) > 0
-      ) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
@@ -1051,10 +1047,7 @@ const addOrSubtractArms = (target) => {
     );
     const targetSKU = target.getAttribute(`data-sku`);
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-      if (
-        targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredArms.textContent) > 0
-      ) {
+      if (targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`)) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
         let newQuantity = parseInt(currentQuantity) + 1;
         itemQuantityAmountArray[i].textContent = newQuantity;
@@ -1170,8 +1163,6 @@ const addOrSubtractOverview = (target) => {
 //
 //
 
-// TODO: add required functionality for the mounting boxe and display arm
-
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid`
@@ -1256,14 +1247,31 @@ const requiredStrutsDisplay = () => {
 };
 
 const requiredBoxesDisplay = (strutLength) => {
-  requiredBoxes.textContent = answers[3].displays;
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-box-grid`
+  );
+  let totalQuantity = 0;
+  for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+    totalQuantity += currentQuantity;
+  }
+
+  const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
+  }
+
+  const difference = displaysChosen - totalQuantity;
+  requiredBoxes.textContent = difference;
+
   requiredTextManipulator(
     requiredBoxes,
     document.querySelector(`.required-boxes-text`),
     `You will need `,
-    ` mounting box. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.`,
-    ` mounting boxes. For your convenience we have already updated the quantity. If you would like more, please update the quantity below.`
+    ` mounting box for this install. If you would like more, please update the quantity below.`,
+    ` mounting boxes for this install. If you would like more, please update the quantity below.`
   );
+
   requiredStrutsBoxesChecker(
     strutLength,
     document.querySelector(`.item-quantity-amount-box-grid`).textContent
@@ -1271,7 +1279,23 @@ const requiredBoxesDisplay = (strutLength) => {
 };
 
 const requiredArmsDisplay = () => {
-  requiredArms.textContent = answers[3].displays;
+  const itemQuantityAmountArray = document.querySelectorAll(
+    `.item-quantity-amount-arm-grid`
+  );
+  let totalQuantity = 0;
+  for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+    totalQuantity += currentQuantity;
+  }
+
+  const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
+  }
+
+  const difference = displaysChosen - totalQuantity;
+  requiredArms.textContent = difference;
+
   requiredTextManipulator(
     requiredArms,
     document.querySelector(`.required-arm-text`),
@@ -1279,9 +1303,7 @@ const requiredArmsDisplay = () => {
     ` display arm for this install.`,
     ` display arms for this install.`
   );
-  requiredArmsChecker(
-    document.querySelector(`.item-quantity-amount-arm-grid`).textContent
-  );
+  requiredChecker(requiredArms);
 };
 
 const requiredTextManipulator = (
@@ -1308,13 +1330,13 @@ const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
   }
 };
 
-const requiredArmsChecker = (chosenArms) => {
-  if (chosenArms >= answers[3].displays) {
-    document.querySelector(`.arm`).classList.add(`question-picked`);
-  } else {
-    document.querySelector(`.arm`).classList.remove(`question-picked`);
-  }
-};
+// const requiredArmsChecker = (chosenArms) => {
+//   if (chosenArms >= answers[3].displays) {
+//     document.querySelector(`.arm`).classList.add(`question-picked`);
+//   } else {
+//     document.querySelector(`.arm`).classList.remove(`question-picked`);
+//   }
+// };
 
 const requiredChecker = (remainingChoices) => {
   if (remainingChoices.textContent === `0`) {

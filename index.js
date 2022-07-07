@@ -1252,12 +1252,6 @@ const requiredStrutsDisplay = () => {
     `.item-quantity-amount-strut-grid`
   );
 
-  if (answers[1].sides === `dual`) {
-    requiredStruts.textContent = strutMin / 2;
-  } else {
-    requiredStruts.textContent = strutMin;
-  }
-
   let totalLength = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
     const itemLength = parseInt(
@@ -1267,6 +1261,13 @@ const requiredStrutsDisplay = () => {
     let currentLength = itemLength * itemAmount;
     console.log(currentLength);
     totalLength += currentLength;
+  }
+
+  if (answers[1].sides === `dual`) {
+    requiredStruts.textContent = strutMin / 2;
+    totalLength /= 2;
+  } else {
+    requiredStruts.textContent = strutMin;
   }
 
   if (totalLength >= requiredStruts.textContent) {

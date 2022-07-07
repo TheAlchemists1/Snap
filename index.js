@@ -1216,7 +1216,7 @@ const requiredPlatesAlgorithm = () => {
   if (totalWeight > totalPlateRating) {
     calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
   }
-  return calculatedPlates;
+  return Math.ceil(calculatedPlates);
 };
 
 const requiredPolesDisplay = () => {

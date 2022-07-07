@@ -283,10 +283,8 @@ h2 {
 
 .dimensions-answers {
   display: grid;
-  grid-template-columns: repeat(3, 200px);
+  grid-template-columns: repeat(3);
   gap: 40px;
-  border-bottom: var(--border-bottom);
-  padding-bottom: 60px;
 }
 
 .dimensions-answers > .label-container:nth-child(3),
@@ -577,4 +575,19 @@ label {
 .overview-products-grid > .item-container > .item-img {
   height: 100px;
   min-width: 100px;
+}
+
+.dimensions-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  border-bottom: var(--border-bottom);
+  padding-bottom: 60px;
+  /* grid-template-rows: repeat(2, 200px); */
+}
+
+.dimensions-SVG {
+  justify-self: center;
+  grid-row: span 3;
+  max-height: 400px;
 }

@@ -162,6 +162,7 @@ document.getElementById("sub").addEventListener("click", function () {
   }
   propigateCeiling();
   algorithmSetup();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-poles").addEventListener("click", function () {
@@ -172,6 +173,7 @@ document.getElementById("sub-poles").addEventListener("click", function () {
   }
   propigatePole();
   checkStagedItemsCeiling();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-struts").addEventListener("click", function () {
@@ -190,6 +192,7 @@ document.getElementById("sub-struts").addEventListener("click", function () {
   propigateBox();
 
   checkStagedItemsPoles();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-arm").addEventListener("click", function () {
@@ -202,6 +205,7 @@ document.getElementById("sub-arm").addEventListener("click", function () {
   propigateArm();
   checkStagedItemsStrut();
   checkStagedItemsBox();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-overview").addEventListener("click", function () {
@@ -213,6 +217,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
   checkStagedItemsArm();
   console.log(stagedItems);
   overviewAppend();
+  window.scrollTo(0, 0);
 });
 
 // <----------------------Events ending---------------------------->
@@ -610,6 +615,7 @@ document.addEventListener(`click`, (event) => {
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
   wallMountDisablesDualSided(selectionTargeter);
+  portraitOrLandscapeSVGDisplay();
 
   addOrSubtractPlate(event.target);
   addOrSubtractPole(event.target);
@@ -628,6 +634,7 @@ document.addEventListener(`input`, (event) => {
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
+  requiredPlatesAlgorithm();
   requiredPlatesDisplay();
 });
 
@@ -711,6 +718,15 @@ const wallMountDisablesDualSided = (target) => {
   }
 };
 
+const portraitOrLandscapeSVGDisplay = () => {
+  if (answers[2].orientation === `portrait`) {
+    console.log(`portrait`);
+    document.querySelector(`.dimensions-SVG`).src = `./w-h-gap_vert.svg`;
+  } else if (answers[2].orientation === `landscape`) {
+    document.querySelector(`.dimensions-SVG`).src = `./w-h-gap_horiz.svg`;
+  }
+};
+
 const highlightSelectedQuantity = (target) => {
   if (target.classList.contains(`item-quantity-amount`)) {
     var range = document.createRange();
@@ -786,13 +802,13 @@ const inputDimensionsAnswer = (target) => {
 
     for (let i = 0; i < dimensionInputs.length; i++) {
       if (dimensionInputs[i].value === `` || dimensionInputs[i].value < `0`) {
-        target.parentElement.parentElement.parentElement.classList.remove(
+        target.parentElement.parentElement.parentElement.parentElement.classList.remove(
           `question-picked`
         );
         break;
       }
 
-      target.parentElement.parentElement.parentElement.classList.add(
+      target.parentElement.parentElement.parentElement.parentElement.classList.add(
         `question-picked`
       );
     }
@@ -882,7 +898,7 @@ const addOrSubtractPlate = (target) => {
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredPlates.textContent) < answers[3].displays &&
+        parseInt(requiredPlates.textContent) < requiredPlatesAlgorithm() &&
         parseInt(itemQuantityAmountArray[i].textContent) > 0
       ) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
@@ -1173,26 +1189,13 @@ const requiredPlatesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  let displaysChosen;
-  if (answers[1].sides == "single") {
-    displaysChosen = Math.ceil(answers[3].displays / 2);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
-  } else if (answers[1].sides == "dual") {
-    displaysChosen = Math.ceil(answers[3].displays / 4);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
+  const calculatedPlates = requiredPlatesAlgorithm();
+  console.log(calculatedPlates);
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  //
-  // const displaysChosen = answers[3].displays;
-  // if (totalQuantity > displaysChosen) {
-  //   totalQuantity = displaysChosen;
-  // }
-
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredPlates.textContent = difference;
 
   requiredTextManipulator(
@@ -1205,6 +1208,22 @@ const requiredPlatesDisplay = () => {
   requiredChecker(requiredPlates);
 };
 
+const requiredPlatesAlgorithm = () => {
+  const totalWeight = answers[3].displays * answers[3].weight;
+  console.log(`Total weight: ${totalWeight}`);
+  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
+  console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
+  let calculatedPlates =
+    answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
+  let totalPlateRating = calculatedPlates * wallOrCeilingRating;
+  console.log(`Total plate rating: ${totalPlateRating}`);
+
+  if (totalWeight > totalPlateRating) {
+    calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
+  }
+  return calculatedPlates;
+};
+
 const requiredPolesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid-pole`
@@ -1215,25 +1234,12 @@ const requiredPolesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  let displaysChosen;
-  if (answers[1].sides == "single") {
-    displaysChosen = Math.ceil(answers[3].displays / 2);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
-  } else if (answers[1].sides == "dual") {
-    displaysChosen = Math.ceil(answers[3].displays / 4);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
+  const calculatedPlates = requiredPlatesAlgorithm();
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  // const displaysChosen = answers[3].displays;
-  // if (totalQuantity > displaysChosen) {
-  //   totalQuantity = displaysChosen;
-  // }
-
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredPoles.textContent = difference;
 
   requiredTextManipulator(
@@ -1250,7 +1256,13 @@ const requiredStrutsDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-strut-grid`
   );
-  requiredStruts.textContent = strutMin;
+
+  if (answers[1].sides === `dual`) {
+    requiredStruts.textContent = strutMin / 2;
+  } else {
+    requiredStruts.textContent = strutMin;
+  }
+
   let totalLength = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
     const itemLength = parseInt(
@@ -1261,7 +1273,8 @@ const requiredStrutsDisplay = () => {
     console.log(currentLength);
     totalLength += currentLength;
   }
-  if (totalLength >= strutMin) {
+
+  if (totalLength >= requiredStruts.textContent) {
     document
       .querySelector(`.required-struts-text-warning`)
       .classList.remove(`show`);
@@ -1283,27 +1296,18 @@ const requiredBoxesDisplay = (strutLength) => {
     totalQuantity += currentQuantity;
   }
 
-  let displaysChosen;
-  if (answers[1].sides == "single") {
-    displaysChosen = Math.ceil(answers[3].displays / 2);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
-  } else if (answers[1].sides == "dual") {
-    displaysChosen = Math.ceil(answers[3].displays / 4);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
+  const calculatedPlates = requiredPlatesAlgorithm();
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredBoxes.textContent = difference;
 
   requiredTextManipulator(
     requiredBoxes,
     document.querySelector(`.required-boxes-text`),
     `You will need `,
-
     ` mounting box for this install. If you would like more, please update the quantity below.`,
     ` mounting boxes for this install. If you would like more, please update the quantity below.`
   );
@@ -1324,12 +1328,12 @@ const requiredArmsDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  const calculatedPlates = requiredPlatesAlgorithm();
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredArms.textContent = difference;
 
   requiredTextManipulator(
@@ -1359,10 +1363,7 @@ const requiredTextManipulator = (
 };
 
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
-  if (
-    strutLength >= strutMin &&
-    chosenBoxes >= answers[3].displays / (answers[1].sides == "single" ? 2 : 4)
-  ) {
+  if (strutLength >= strutMin && chosenBoxes >= answers[3].displays) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);
@@ -1519,13 +1520,17 @@ const overviewAppend = () => {
     );
   });
   stagedItems.strut.forEach((item) => {
+    let strutQuantity = item.quantity;
+    if (answers[1].sides === `dual`) {
+      strutQuantity = item.quantity * 2;
+    }
     itemAppend(
       overviewGrid,
       item.title,
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity,
+      strutQuantity,
       item.link
     );
   });

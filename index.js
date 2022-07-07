@@ -1358,7 +1358,7 @@ const requiredTextManipulator = (
 };
 
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
-  if (strutLength >= strutMin && chosenBoxes >= answers[3].displays) {
+  if (strutLength >= strutMin && chosenBoxes >= requiredPlatesAlgorithm()) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);

@@ -1262,13 +1262,16 @@ const requiredStrutsDisplay = () => {
     console.log(currentLength);
     totalLength += currentLength;
   }
-
+  console.log(`totalLength: ${totalLength} `);
+  let newStrutMin;
   if (answers[1].sides === `dual`) {
-    requiredStruts.textContent = strutMin / 2;
-    totalLength /= 2;
+    newStrutMin = strutMin / 2;
+    requiredStruts.textContent = newStrutMin;
   } else {
-    requiredStruts.textContent = strutMin;
+    newStrutMin = strutMin;
+    requiredStruts.textContent = newStrutMin;
   }
+  console.log(strutMin);
 
   if (totalLength >= requiredStruts.textContent) {
     document
@@ -1279,10 +1282,10 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
-  requiredBoxesDisplay(totalLength);
+  requiredBoxesDisplay(totalLength, newStrutMin);
 };
 
-const requiredBoxesDisplay = (strutLength) => {
+const requiredBoxesDisplay = (strutLength, newStrutMin) => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-box-grid`
   );
@@ -1310,6 +1313,7 @@ const requiredBoxesDisplay = (strutLength) => {
 
   requiredStrutsBoxesChecker(
     strutLength,
+    newStrutMin,
     document.querySelector(`.item-quantity-amount-box-grid`).textContent
   );
 };
@@ -1358,8 +1362,8 @@ const requiredTextManipulator = (
   }
 };
 
-const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
-  if (strutLength >= strutMin && chosenBoxes >= requiredPlatesAlgorithm()) {
+const requiredStrutsBoxesChecker = (strutLength, newStrutMin, chosenBoxes) => {
+  if (strutLength >= newStrutMin && chosenBoxes >= requiredPlatesAlgorithm()) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);

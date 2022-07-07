@@ -1173,24 +1173,10 @@ const requiredPlatesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  let displaysChosen;
-  if (answers[1].sides == "single") {
-    displaysChosen = Math.ceil(answers[3].displays / 2);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
-  } else if (answers[1].sides == "dual") {
-    displaysChosen = Math.ceil(answers[3].displays / 4);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
+  const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
   }
-
-  //
-  // const displaysChosen = answers[3].displays;
-  // if (totalQuantity > displaysChosen) {
-  //   totalQuantity = displaysChosen;
-  // }
 
   const difference = displaysChosen - totalQuantity;
   requiredPlates.textContent = difference;
@@ -1215,23 +1201,10 @@ const requiredPolesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  let displaysChosen;
-  if (answers[1].sides == "single") {
-    displaysChosen = Math.ceil(answers[3].displays / 2);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
-  } else if (answers[1].sides == "dual") {
-    displaysChosen = Math.ceil(answers[3].displays / 4);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
+  const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
   }
-
-  // const displaysChosen = answers[3].displays;
-  // if (totalQuantity > displaysChosen) {
-  //   totalQuantity = displaysChosen;
-  // }
 
   const difference = displaysChosen - totalQuantity;
   requiredPoles.textContent = difference;
@@ -1250,7 +1223,13 @@ const requiredStrutsDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-strut-grid`
   );
-  requiredStruts.textContent = strutMin;
+
+  if (answers[1].sides === `dual`) {
+    requiredStruts.textContent = strutMin / 2;
+  } else {
+    requiredStruts.textContent = strutMin;
+  }
+
   let totalLength = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
     const itemLength = parseInt(
@@ -1261,7 +1240,8 @@ const requiredStrutsDisplay = () => {
     console.log(currentLength);
     totalLength += currentLength;
   }
-  if (totalLength >= strutMin) {
+
+  if (totalLength >= requiredStruts.textContent) {
     document
       .querySelector(`.required-struts-text-warning`)
       .classList.remove(`show`);
@@ -1283,17 +1263,9 @@ const requiredBoxesDisplay = (strutLength) => {
     totalQuantity += currentQuantity;
   }
 
-  let displaysChosen;
-  if (answers[1].sides == "single") {
-    displaysChosen = Math.ceil(answers[3].displays / 2);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
-  } else if (answers[1].sides == "dual") {
-    displaysChosen = Math.ceil(answers[3].displays / 4);
-    if (totalQuantity > displaysChosen) {
-      totalQuantity = displaysChosen;
-    }
+  const displaysChosen = answers[3].displays;
+  if (totalQuantity > displaysChosen) {
+    totalQuantity = displaysChosen;
   }
 
   const difference = displaysChosen - totalQuantity;
@@ -1303,7 +1275,6 @@ const requiredBoxesDisplay = (strutLength) => {
     requiredBoxes,
     document.querySelector(`.required-boxes-text`),
     `You will need `,
-
     ` mounting box for this install. If you would like more, please update the quantity below.`,
     ` mounting boxes for this install. If you would like more, please update the quantity below.`
   );
@@ -1359,10 +1330,7 @@ const requiredTextManipulator = (
 };
 
 const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
-  if (
-    strutLength >= strutMin &&
-    chosenBoxes >= answers[3].displays / (answers[1].sides == "single" ? 2 : 4)
-  ) {
+  if (strutLength >= strutMin && chosenBoxes >= answers[3].displays) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);
@@ -1519,13 +1487,17 @@ const overviewAppend = () => {
     );
   });
   stagedItems.strut.forEach((item) => {
+    let strutQuantity = item.quantity;
+    if (answers[1].sides === `dual`) {
+      strutQuantity = item.quantity * 2;
+    }
     itemAppend(
       overviewGrid,
       item.title,
       item.sku,
       item.img,
       `overview-page`,
-      item.quantity,
+      strutQuantity,
       item.link
     );
   });

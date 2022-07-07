@@ -610,6 +610,7 @@ document.addEventListener(`click`, (event) => {
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
   wallMountDisablesDualSided(selectionTargeter);
+  portraitOrLandscapeSVGDisplay();
 
   addOrSubtractPlate(event.target);
   addOrSubtractPole(event.target);
@@ -711,6 +712,15 @@ const wallMountDisablesDualSided = (target) => {
   }
 };
 
+const portraitOrLandscapeSVGDisplay = () => {
+  if (answers[2].orientation === `portrait`) {
+    console.log(`portrait`);
+    document.querySelector(`.dimensions-SVG`).src = `./w-h-gap_vert.svg`;
+  } else if (answers[2].orientation === `landscape`) {
+    document.querySelector(`.dimensions-SVG`).src = `./w-h-gap_horiz.svg`;
+  }
+};
+
 const highlightSelectedQuantity = (target) => {
   if (target.classList.contains(`item-quantity-amount`)) {
     var range = document.createRange();
@@ -786,13 +796,13 @@ const inputDimensionsAnswer = (target) => {
 
     for (let i = 0; i < dimensionInputs.length; i++) {
       if (dimensionInputs[i].value === `` || dimensionInputs[i].value < `0`) {
-        target.parentElement.parentElement.parentElement.classList.remove(
+        target.parentElement.parentElement.parentElement.parentElement.classList.remove(
           `question-picked`
         );
         break;
       }
 
-      target.parentElement.parentElement.parentElement.classList.add(
+      target.parentElement.parentElement.parentElement.parentElement.classList.add(
         `question-picked`
       );
     }

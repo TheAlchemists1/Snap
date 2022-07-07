@@ -1262,7 +1262,6 @@ const requiredStrutsDisplay = () => {
     console.log(currentLength);
     totalLength += currentLength;
   }
-  console.log(`totalLength: ${totalLength} `);
   let newStrutMin;
   if (answers[1].sides === `dual`) {
     newStrutMin = strutMin / 2;
@@ -1271,7 +1270,6 @@ const requiredStrutsDisplay = () => {
     newStrutMin = strutMin;
     requiredStruts.textContent = newStrutMin;
   }
-  console.log(strutMin);
 
   if (totalLength >= requiredStruts.textContent) {
     document

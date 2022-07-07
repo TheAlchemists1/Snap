@@ -796,13 +796,13 @@ const inputDimensionsAnswer = (target) => {
 
     for (let i = 0; i < dimensionInputs.length; i++) {
       if (dimensionInputs[i].value === `` || dimensionInputs[i].value < `0`) {
-        target.parentElement.parentElement.parentElement.classList.remove(
+        target.parentElement.parentElement.parentElement.parentElement.classList.remove(
           `question-picked`
         );
         break;
       }
 
-      target.parentElement.parentElement.parentElement.classList.add(
+      target.parentElement.parentElement.parentElement.parentElement.classList.add(
         `question-picked`
       );
     }

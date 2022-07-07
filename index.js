@@ -162,6 +162,7 @@ document.getElementById("sub").addEventListener("click", function () {
   }
   propigateCeiling();
   algorithmSetup();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-poles").addEventListener("click", function () {
@@ -172,6 +173,7 @@ document.getElementById("sub-poles").addEventListener("click", function () {
   }
   propigatePole();
   checkStagedItemsCeiling();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-struts").addEventListener("click", function () {
@@ -190,6 +192,7 @@ document.getElementById("sub-struts").addEventListener("click", function () {
   propigateBox();
 
   checkStagedItemsPoles();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-arm").addEventListener("click", function () {
@@ -202,6 +205,7 @@ document.getElementById("sub-arm").addEventListener("click", function () {
   propigateArm();
   checkStagedItemsStrut();
   checkStagedItemsBox();
+  window.scrollTo(0, 0);
 });
 
 document.getElementById("sub-overview").addEventListener("click", function () {
@@ -213,6 +217,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
   checkStagedItemsArm();
   console.log(stagedItems);
   overviewAppend();
+  window.scrollTo(0, 0);
 });
 
 // <----------------------Events ending---------------------------->

@@ -629,6 +629,7 @@ document.addEventListener(`input`, (event) => {
 });
 
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
+  requiredPlatesAlgorithm();
   requiredPlatesDisplay();
 });
 
@@ -892,7 +893,7 @@ const addOrSubtractPlate = (target) => {
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredPlates.textContent) < answers[3].displays &&
+        parseInt(requiredPlates.textContent) < requiredPlatesAlgorithm() &&
         parseInt(itemQuantityAmountArray[i].textContent) > 0
       ) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
@@ -1183,7 +1184,8 @@ const requiredPlatesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
+  const displaysChosen = requiredPlatesAlgorithm();
+  console.log(displaysChosen);
   if (totalQuantity > displaysChosen) {
     totalQuantity = displaysChosen;
   }
@@ -1199,6 +1201,19 @@ const requiredPlatesDisplay = () => {
     ` mounting plates for this install`
   );
   requiredChecker(requiredPlates);
+};
+
+const requiredPlatesAlgorithm = () => {
+  let totalWeight = answers[3].displays * answers[3].weight;
+  let totalPlateRating = answers[3].displays * 500;
+  let neededPlates = answers[3].displays;
+
+  if (totalWeight > totalPlateRating) {
+    neededPlates = Math.ceil(totalWeight / 500);
+    // console.log(totalWeight);
+    // console.log(neededPlates);
+  }
+  return neededPlates;
 };
 
 const requiredPolesDisplay = () => {

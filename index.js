@@ -1184,13 +1184,13 @@ const requiredPlatesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = requiredPlatesAlgorithm();
-  console.log(displaysChosen);
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  const calculatedPlates = requiredPlatesAlgorithm();
+  console.log(calculatedPlates);
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredPlates.textContent = difference;
 
   requiredTextManipulator(
@@ -1204,16 +1204,19 @@ const requiredPlatesDisplay = () => {
 };
 
 const requiredPlatesAlgorithm = () => {
-  let totalWeight = answers[3].displays * answers[3].weight;
-  let totalPlateRating = answers[3].displays * 500;
-  let neededPlates = answers[3].displays;
+  const totalWeight = answers[3].displays * answers[3].weight;
+  console.log(`Total weight: ${totalWeight}`);
+  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
+  console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
+  let calculatedPlates =
+    answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
+  let totalPlateRating = calculatedPlates * wallOrCeilingRating;
+  console.log(`Total plate rating: ${totalPlateRating}`);
 
   if (totalWeight > totalPlateRating) {
-    neededPlates = Math.ceil(totalWeight / 500);
-    // console.log(totalWeight);
-    // console.log(neededPlates);
+    calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
   }
-  return neededPlates;
+  return calculatedPlates;
 };
 
 const requiredPolesDisplay = () => {
@@ -1226,12 +1229,12 @@ const requiredPolesDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  const calculatedPlates = requiredPlatesAlgorithm();
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredPoles.textContent = difference;
 
   requiredTextManipulator(
@@ -1288,12 +1291,12 @@ const requiredBoxesDisplay = (strutLength) => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  const calculatedPlates = requiredPlatesAlgorithm();
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredBoxes.textContent = difference;
 
   requiredTextManipulator(
@@ -1320,12 +1323,12 @@ const requiredArmsDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const displaysChosen = answers[3].displays;
-  if (totalQuantity > displaysChosen) {
-    totalQuantity = displaysChosen;
+  const calculatedPlates = requiredPlatesAlgorithm();
+  if (totalQuantity > calculatedPlates) {
+    totalQuantity = calculatedPlates;
   }
 
-  const difference = displaysChosen - totalQuantity;
+  const difference = calculatedPlates - totalQuantity;
   requiredArms.textContent = difference;
 
   requiredTextManipulator(

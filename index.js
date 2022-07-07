@@ -610,6 +610,7 @@ document.addEventListener(`click`, (event) => {
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
   wallMountDisablesDualSided(selectionTargeter);
+  portraitOrLandscapeSVGDisplay();
 
   addOrSubtractPlate(event.target);
   addOrSubtractPole(event.target);
@@ -708,6 +709,15 @@ const wallMountDisablesDualSided = (target) => {
   if (target.classList.contains(`ceiling-mount`)) {
     singleSided.classList.remove(`picked`);
     singleSided.parentElement.parentElement.classList.remove(`question-picked`);
+  }
+};
+
+const portraitOrLandscapeSVGDisplay = () => {
+  if (answers[2].orientation === `portrait`) {
+    console.log(`portrait`);
+    document.querySelector(`.dimensions-SVG`).src = `./w-h-gap_vert.svg`;
+  } else if (answers[2].orientation === `landscape`) {
+    document.querySelector(`.dimensions-SVG`).src = `./w-h-gap_horiz.svg`;
   }
 };
 

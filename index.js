@@ -1213,6 +1213,7 @@ const requiredPlatesAlgorithm = () => {
   console.log(`Total weight: ${totalWeight}`);
   let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
   console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
+
   let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
   // let calculatedPlates =
   //   answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
@@ -1222,6 +1223,7 @@ const requiredPlatesAlgorithm = () => {
   // if (totalWeight > totalPlateRating) {
   //   calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
   // }
+
   return Math.ceil(calculatedPlates);
 };
 

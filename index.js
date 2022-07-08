@@ -667,17 +667,6 @@ document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
 //
 //
 //
-//
-//
-//
-//
-
-document
-  .querySelector(`.overview-dropdown`)
-  .addEventListener(`click`, (event) => {
-    overviewDropdownAlternator(event.target);
-  });
-
 // Client does not want items to wipe when selecting other tiles
 // const wipeItemSelections = (target) => {
 //   if (target.classList.contains(`plate`)) {
@@ -699,6 +688,16 @@ document
 //     requiredPolesDisplay();
 //   }
 // };
+//
+//
+//
+//
+
+document
+  .querySelector(`.overview-dropdown`)
+  .addEventListener(`click`, (event) => {
+    overviewDropdownAlternator(event.target);
+  });
 
 const wallMountDisablesDualSided = (target) => {
   const singleSided = document.querySelector(`.single-sided`);
@@ -797,7 +796,13 @@ const inputTileAnswer = (target) => {
           selection.classList.remove(`picked`);
         }
       });
-      target.parentElement.parentElement.classList.remove(`question-picked`);
+      if (
+        target.parentElement.parentElement.classList.contains(`mount`) ||
+        target.parentElement.parentElement.classList.contains(`sides`) ||
+        target.parentElement.parentElement.classList.contains(`orientation`)
+      ) {
+        target.parentElement.parentElement.classList.remove(`question-picked`);
+      }
     }
   }
 };
@@ -1239,8 +1244,20 @@ const requiredPolesDisplay = () => {
   );
   let totalQuantity = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
-    totalQuantity += currentQuantity;
+    if (
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-FFC-BLK` &&
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-FFC-WH` &&
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-OFC-BLK` &&
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-OFC-WH`
+    ) {
+      console.log(itemQuantityAmountArray[i]);
+      let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+      totalQuantity += currentQuantity;
+    }
   }
 
   const calculatedPlates = requiredPlatesAlgorithm();
@@ -1340,7 +1357,7 @@ const requiredArmsDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const calculatedPlates = requiredPlatesAlgorithm();
+  const calculatedPlates = answers[3].displays;
   if (totalQuantity > calculatedPlates) {
     totalQuantity = calculatedPlates;
   }

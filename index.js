@@ -1225,8 +1225,20 @@ const requiredPolesDisplay = () => {
   );
   let totalQuantity = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-    let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
-    totalQuantity += currentQuantity;
+    if (
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-FFC-BLK` &&
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-FFC-WH` &&
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-OFC-BLK` &&
+      itemQuantityAmountArray[i].getAttribute(`data-sku`) !==
+        `SM-CEILING-OFC-WH`
+    ) {
+      console.log(itemQuantityAmountArray[i]);
+      let currentQuantity = parseInt(itemQuantityAmountArray[i].textContent);
+      totalQuantity += currentQuantity;
+    }
   }
 
   const calculatedPlates = requiredPlatesAlgorithm();

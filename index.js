@@ -797,7 +797,13 @@ const inputTileAnswer = (target) => {
           selection.classList.remove(`picked`);
         }
       });
-      target.parentElement.parentElement.classList.remove(`question-picked`);
+      if (
+        target.parentElement.parentElement.classList.contains(`mount`) ||
+        target.parentElement.parentElement.classList.contains(`sides`) ||
+        target.parentElement.parentElement.classList.contains(`orientation`)
+      ) {
+        target.parentElement.parentElement.classList.remove(`question-picked`);
+      }
     }
   }
 };
@@ -1352,7 +1358,7 @@ const requiredArmsDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const calculatedPlates = requiredPlatesAlgorithm();
+  const calculatedPlates = answers[3].displays;
   if (totalQuantity > calculatedPlates) {
     totalQuantity = calculatedPlates;
   }

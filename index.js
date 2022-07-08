@@ -1213,15 +1213,16 @@ const requiredPlatesAlgorithm = () => {
   console.log(`Total weight: ${totalWeight}`);
   let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
   console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
-  let calculatedPlates =
-    answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
-  let totalPlateRating = calculatedPlates * wallOrCeilingRating;
-  console.log(`Total plate rating: ${totalPlateRating}`);
+  let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
+  // let calculatedPlates =
+  //   answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
+  // let totalPlateRating = calculatedPlates * wallOrCeilingRating;
+  // console.log(`Total plate rating: ${totalPlateRating}`);
 
-  if (totalWeight > totalPlateRating) {
-    calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
-  }
-  return calculatedPlates;
+  // if (totalWeight > totalPlateRating) {
+  //   calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
+  // }
+  return Math.ceil(calculatedPlates);
 };
 
 const requiredPolesDisplay = () => {
@@ -1257,12 +1258,6 @@ const requiredStrutsDisplay = () => {
     `.item-quantity-amount-strut-grid`
   );
 
-  if (answers[1].sides === `dual`) {
-    requiredStruts.textContent = strutMin / 2;
-  } else {
-    requiredStruts.textContent = strutMin;
-  }
-
   let totalLength = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
     const itemLength = parseInt(
@@ -1272,6 +1267,14 @@ const requiredStrutsDisplay = () => {
     let currentLength = itemLength * itemAmount;
     console.log(currentLength);
     totalLength += currentLength;
+  }
+  let newStrutMin;
+  if (answers[1].sides === `dual`) {
+    newStrutMin = strutMin / 2;
+    requiredStruts.textContent = newStrutMin;
+  } else {
+    newStrutMin = strutMin;
+    requiredStruts.textContent = newStrutMin;
   }
 
   if (totalLength >= requiredStruts.textContent) {
@@ -1283,10 +1286,10 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
-  requiredBoxesDisplay(totalLength);
+  requiredBoxesDisplay(totalLength, newStrutMin);
 };
 
-const requiredBoxesDisplay = (strutLength) => {
+const requiredBoxesDisplay = (strutLength, newStrutMin) => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-box-grid`
   );
@@ -1314,6 +1317,7 @@ const requiredBoxesDisplay = (strutLength) => {
 
   requiredStrutsBoxesChecker(
     strutLength,
+    newStrutMin,
     document.querySelector(`.item-quantity-amount-box-grid`).textContent
   );
 };
@@ -1362,8 +1366,8 @@ const requiredTextManipulator = (
   }
 };
 
-const requiredStrutsBoxesChecker = (strutLength, chosenBoxes) => {
-  if (strutLength >= strutMin && chosenBoxes >= answers[3].displays) {
+const requiredStrutsBoxesChecker = (strutLength, newStrutMin, chosenBoxes) => {
+  if (strutLength >= newStrutMin && chosenBoxes >= requiredPlatesAlgorithm()) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);

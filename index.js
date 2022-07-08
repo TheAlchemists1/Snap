@@ -1338,7 +1338,7 @@ const requiredArmsDisplay = () => {
     totalQuantity += currentQuantity;
   }
 
-  const calculatedPlates = requiredPlatesAlgorithm();
+  const calculatedPlates = answers[3].displays;
   if (totalQuantity > calculatedPlates) {
     totalQuantity = calculatedPlates;
   }

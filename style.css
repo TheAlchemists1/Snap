@@ -13,6 +13,11 @@
   font-weight: 400;
 }
 
+.dual-sided-note {
+  margin-top: 0.5rem;
+  display: none;
+}
+
 .medium-font {
   font-weight: 500;
 }

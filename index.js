@@ -188,6 +188,12 @@ document.getElementById("sub-struts").addEventListener("click", function () {
     }
   }
 
+  const dualSidedNotee = document.getElementById("dual-sided-note");
+  if (answers[1].sides == "dual") {
+    dualSidedNotee.style.display = "flex";
+  } else {
+    dualSidedNotee.style.display = "none";
+  }
   propigateStruts();
   propigateBox();
 

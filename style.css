@@ -193,9 +193,9 @@ button {
   outline: none;
   cursor: pointer;
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1rem;
   border-radius: 5px;
-  padding: 1rem 3.5rem;
+  padding: 0.5rem 3.5rem;
   border: 0;
   color: #fff;
   background: var(--snap-orange);
@@ -400,7 +400,8 @@ label {
 }
 
 .item-container.strut,
-.item-container.box {
+.item-container.box,
+.item-container.overview-page {
   width: 96%;
 }
 
@@ -575,19 +576,24 @@ label {
 
 .overview-products-grid {
   border-bottom: var(--border-bottom);
-  display: grid;
-  padding: 20px 40px 60px;
-  gap: 4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  gap: 2rem;
 }
 
 .overview-products-grid > .item-container {
-  gap: 4rem;
+  gap: 1rem;
+  height: 10rem;
+}
+.overview-page > .item-info-container {
+  padding-right: 1rem;
 }
 
-.overview-products-grid > .item-container > .item-img {
+/* .overview-products-grid > .item-container > .item-img {
   height: 100px;
   min-width: 100px;
-}
+} */
 
 .dimensions-container {
   display: grid;

@@ -8,9 +8,10 @@
   --snap-blue: #3f576e;
   --snap-darker-blue: #2d4052;
   --grey-border: rgba(128, 128, 128, 0.387);
-  font-size: 1rem;
+  font-size: 0.9vw;
   font-family: "poppins";
   font-weight: 400;
+  line-height: 1.5;
 }
 
 .dual-sided-note {
@@ -28,6 +29,7 @@
 h1 {
   font-weight: 600;
   color: var(--snap-darker-blue);
+  font-size: 2.5rem;
 }
 
 .title {
@@ -36,9 +38,10 @@ h1 {
 
 body {
   font-family: "poppins";
-  display: grid;
-  /* justify-content: center; */
-  justify-items: center;
+  display: flex;
+  font-size: 1.11rem;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
@@ -113,6 +116,7 @@ img {
 
 .start {
   align-self: center;
+  justify-content: center;
 }
 
 .opening-page > :nth-child(4) {
@@ -121,19 +125,19 @@ img {
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  padding: 25vh 0;
   border-bottom: var(--border-bottom);
 }
 
 .container {
+  padding-top: 1.5%;
   display: flex;
   flex-direction: column;
-  width: min(100vw, 1400px);
-  gap: 30px;
-  margin: 30px;
+  width: 72%;
 }
 
 .tile-img {
-  width: 10rem;
+  width: 8rem;
 }
 
 .disclaimer {
@@ -152,22 +156,21 @@ img {
 .survey {
   display: flex;
   flex-direction: column;
-  min-height: 80vh;
-  gap: 15px;
+  gap: 0.5rem;
 }
 
 .subtext {
-  padding-bottom: 15px;
+  padding-bottom: 0.5rem;
   font-size: 1.1rem;
   border-bottom: var(--border-bottom);
 }
 
 .tile-answers {
-  display: grid;
+  display: flex;
   justify-content: space-evenly;
-  gap: 20px;
-  grid-template-columns: auto auto;
-  padding: 60px 30px 90px 30px;
+  align-items: center;
+  height: 30vw;
+  max-height: 50vh;
 }
 
 .struts > .tile-answers {
@@ -183,16 +186,16 @@ img {
 .prev-or-next {
   display: flex;
   justify-content: space-between;
-  padding: 50px;
+  padding: 3rem;
 }
 
 button {
   outline: none;
   cursor: pointer;
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   border-radius: 5px;
-  padding: 12px 48px;
+  padding: 1rem 3.5rem;
   border: 0;
   color: #fff;
   background: var(--snap-orange);
@@ -243,7 +246,7 @@ i.selection-checkbox {
 .selection > .selection-icon {
   background-color: var(--selection-bg);
   border-radius: 5px;
-  padding: 15px;
+  padding: 1rem;
 }
 
 .selection > .selection-checkbox {
@@ -280,8 +283,8 @@ i.selection-checkbox {
 }
 
 h2 {
-  margin-top: 100px;
-  font-size: 1.6rem;
+  margin-top: 15%;
+  font-size: 1.67rem;
   color: var(--snap-blue);
   font-weight: bold;
 }
@@ -289,7 +292,7 @@ h2 {
 .dimensions-answers {
   display: grid;
   grid-template-columns: repeat(3);
-  gap: 40px;
+  gap: 2rem;
 }
 
 .dimensions-answers > .label-container:nth-child(3),
@@ -300,7 +303,7 @@ h2 {
 
 .dimension-input {
   border-radius: 7.5px;
-  padding: 10px;
+  padding: 0.7rem;
   border: 2px solid var(--grey-border);
 }
 
@@ -315,7 +318,7 @@ h2 {
 }
 
 label {
-  font-size: 18px;
+  font-size: 1.25rem;
   font-weight: bold;
   color: #303030;
 }
@@ -335,6 +338,8 @@ label {
 .required-arm-text,
 .subtext-reminder {
   font-size: 1.3rem;
+  height: 100%;
+  justify-content: start;
   align-self: center;
 }
 
@@ -378,9 +383,9 @@ label {
 
 .item-grid {
   border-bottom: var(--border-bottom);
-  display: grid;
-  grid-template-columns: 45% 45%;
-  gap: 4rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   grid-template-rows: repeat(auto-fit, 200px);
   padding-bottom: 60px;
 }
@@ -388,9 +393,15 @@ label {
 .box-grid,
 .strut-grid {
   display: grid;
+  width: 48%;
   /* max-width: 500px; */
   gap: 4rem 1rem;
   grid-template-rows: repeat(auto-fit, 200px);
+}
+
+.item-container.strut,
+.item-container.box {
+  width: 96%;
 }
 
 .arm-grid {
@@ -402,35 +413,32 @@ label {
 
 .item-container {
   display: flex;
-  gap: 20px;
+  width: 48%;
+  margin: 2rem 0;
 }
 
-/* .item-img {
+.item-img {
   height: 100%;
   width: 40%;
-} */
-
-.item-img {
-  height: 200px;
-  min-width: 200px;
+  object-fit: contain;
+  margin-right: 1rem;
 }
 
 .item-info-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 60%;
   justify-content: space-evenly;
 }
 
 .item-info-title {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .item-info-SKU {
   color: var(--snap-orange);
-  font-size: 1.3rem;
+  font-size: 1.11rem;
   margin-bottom: 15px;
 }
 
@@ -438,7 +446,8 @@ label {
   display: flex;
   align-items: center;
   gap: 15px;
-  font-size: 1.3rem;
+  font-size: 1.11rem;
+  line-height: 1;
   color: var(--snap-blue);
 }
 
@@ -452,26 +461,28 @@ label {
 
 .item-quantity-subtract,
 .item-quantity-add {
-  font-size: 3rem;
+  font-size: 2rem;
   color: var(--snap-blue);
   background-color: white;
   border-radius: inherit;
-  padding: 0px 20px;
+
+  padding: 0 2rem;
   cursor: pointer;
   user-select: none;
 }
 
 .item-quantity-amount {
-  font-size: 1.5rem;
-  padding: 0 30px;
+  border-right: 2px solid var(--grey-border);
+  border-left: 2px solid var(--grey-border);
+  font-size: 1.11rem;
+  padding: 1.2rem 2rem;
   color: var(--snap-blue);
 }
 
 .item-quantity-subtract {
-  border-right: 2px solid var(--grey-border);
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-  padding-bottom: 10px;
+  padding-bottom: 0.2rem;
 }
 
 .item-quantity-subtract.disable {
@@ -480,11 +491,8 @@ label {
 }
 
 .item-quantity-add {
-  border-left: 2px solid var(--grey-border);
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
-  padding-bottom: 5px;
-  padding-top: 5px;
 }
 
 .item-quantity-amount-container {
@@ -493,8 +501,7 @@ label {
 
 .strut-box-grid-container {
   display: flex;
-  justify-content: space-around;
-  padding-bottom: 60px;
+  justify-content: space-between;
   border-bottom: var(--border-bottom);
 }
 
@@ -595,4 +602,5 @@ label {
   justify-self: center;
   grid-row: span 3;
   max-height: 400px;
+  margin: auto;
 }

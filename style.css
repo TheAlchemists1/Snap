@@ -13,6 +13,64 @@
   font-weight: 400;
   line-height: 1.5;
 }
+@media only screen and (max-width: 991px) {
+  * {
+    font-size: 1.2vw;
+  }
+  .order-img {
+    display: none;
+  }
+  .popup-text {
+    width: 100% !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  * {
+    font-size: 1.3vw;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  * {
+    font-size: 1.3vw;
+  }
+  .item-container {
+    flex-direction: column;
+  }
+  .item-img,
+  .item-info-container {
+    width: 60% !important;
+    margin: auto !important;
+  }
+  .item-info-title {
+    margin-top: 1rem;
+  }
+  .item-info-SKU {
+    margin-top: 1rem;
+    margin-bottom: 1rem !important;
+  }
+  .tile-answers {
+    height: auto !important;
+    padding-top: 6rem !important ;
+    padding-bottom: 4rem !important;
+  }
+  .tile-img {
+    width: 15rem !important;
+  }
+  .overview-page > .item-img {
+    width: auto !important;
+  }
+  .overview-products-grid > .overview-page {
+    flex-direction: row !important;
+  }
+}
+
+.popup-text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 60%;
+}
 
 .dual-sided-note {
   margin-top: 0.5rem;
@@ -133,11 +191,10 @@ img {
   padding-top: 1.5%;
   display: flex;
   flex-direction: column;
-  width: 72%;
 }
 
 .tile-img {
-  width: 8rem;
+  width: 10rem;
 }
 
 .disclaimer {
@@ -171,6 +228,7 @@ img {
   align-items: center;
   height: 30vw;
   max-height: 50vh;
+  padding: 3rem 0 2rem 0;
 }
 
 .struts > .tile-answers {
@@ -327,7 +385,7 @@ label {
   display: grid;
   justify-content: space-evenly;
   gap: 20px;
-  padding: 40px;
+  padding: 3rem 0 2rem 0;
   grid-template-columns: auto auto auto auto;
 }
 
@@ -349,7 +407,7 @@ label {
 }
 
 .subtext-reminder {
-  padding-bottom: 50px;
+  padding-bottom: 3rem;
 }
 
 .required-plates,
@@ -392,11 +450,11 @@ label {
 
 .box-grid,
 .strut-grid {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   width: 48%;
   /* max-width: 500px; */
   gap: 4rem 1rem;
-  grid-template-rows: repeat(auto-fit, 200px);
 }
 
 .item-container.strut,
@@ -405,6 +463,9 @@ label {
   width: 96%;
 }
 
+.item-container.overview-page > .item-img {
+  width: auto;
+}
 .arm-grid {
   border-bottom: var(--border-bottom);
   display: grid;
@@ -440,7 +501,7 @@ label {
 .item-info-SKU {
   color: var(--snap-orange);
   font-size: 1.11rem;
-  margin-bottom: 15px;
+  margin-bottom: 0.5rem;
 }
 
 .item-quantity-container {
@@ -471,6 +532,19 @@ label {
   cursor: pointer;
   user-select: none;
 }
+
+/* 
+
+
+
+
+
+
+
+
+
+
+ */
 
 .item-quantity-amount {
   border-right: 2px solid var(--grey-border);

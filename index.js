@@ -667,17 +667,6 @@ document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
 //
 //
 //
-//
-//
-//
-//
-
-document
-  .querySelector(`.overview-dropdown`)
-  .addEventListener(`click`, (event) => {
-    overviewDropdownAlternator(event.target);
-  });
-
 // Client does not want items to wipe when selecting other tiles
 // const wipeItemSelections = (target) => {
 //   if (target.classList.contains(`plate`)) {
@@ -699,6 +688,16 @@ document
 //     requiredPolesDisplay();
 //   }
 // };
+//
+//
+//
+//
+
+document
+  .querySelector(`.overview-dropdown`)
+  .addEventListener(`click`, (event) => {
+    overviewDropdownAlternator(event.target);
+  });
 
 const wallMountDisablesDualSided = (target) => {
   const singleSided = document.querySelector(`.single-sided`);

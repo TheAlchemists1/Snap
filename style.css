@@ -21,7 +21,7 @@
   .order-img-container {
     display: none;
   }
-  .popup-text {
+  .pop-up-text {
     width: 100% !important;
   }
 }
@@ -64,6 +64,9 @@
   .overview-products-grid > .overview-page {
     flex-direction: row !important;
   }
+  .pop-up-div {
+    width: 80% !important;
+  }
 }
 
 .footer-link:visited {
@@ -83,15 +86,16 @@
 .footer {
   background-color: #343f4b;
   margin-top: 5rem;
-  height: 12rem;
+  height: auto;
   width: 100%;
+  padding: 0 0 3rem 0;
 }
 .footer-link {
   color: white;
   display: inline-block;
   text-decoration: none;
 }
-.popup-text {
+.pop-up-text {
   display: flex;
   flex-direction: column;
   align-items: start;

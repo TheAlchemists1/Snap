@@ -86,8 +86,9 @@
 .footer {
   background-color: #343f4b;
   margin-top: 5rem;
-  height: 12rem;
+  height: auto;
   width: 100%;
+  padding: 0 0 3rem 0;
 }
 .footer-link {
   color: white;

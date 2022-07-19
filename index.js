@@ -123,14 +123,14 @@ axios
 function algorithmSetup() {
   const answerArr = answers[3];
   const display = parseInt(answerArr.displays);
-  const width = parseInt(answerArr.width);
+  const width = parseFloat(answerArr.width);
   const gap = parseFloat(answerArr.gap);
   const weight = parseInt(answerArr.weight);
   const vesaWidth = display / 2;
-  console.log(gap);
+  // console.log(gap);
 
   strutMin = display * width + ((display - 1) * gap) / 2 - (width - vesaWidth);
-  console.log(strutMin);
+  // console.log(strutMin);
   strutMax = display * width;
 
   totalDisplayLength = display * width + (display - 1) * gap;

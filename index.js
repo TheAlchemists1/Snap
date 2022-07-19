@@ -123,13 +123,14 @@ axios
 function algorithmSetup() {
   const answerArr = answers[3];
   const display = parseInt(answerArr.displays);
-  const width = parseInt(answerArr.width);
-  const gap = parseInt(answerArr.gap);
+  const width = parseFloat(answerArr.width);
+  const gap = parseFloat(answerArr.gap);
   const weight = parseInt(answerArr.weight);
   const vesaWidth = display / 2;
+  // console.log(gap);
 
   strutMin = display * width + ((display - 1) * gap) / 2 - (width - vesaWidth);
-  console.log(strutMin);
+  // console.log(strutMin);
   strutMax = display * width;
 
   totalDisplayLength = display * width + (display - 1) * gap;
@@ -808,19 +809,19 @@ const inputTileAnswer = (target) => {
 };
 
 const inputDimensionsAnswer = (target) => {
-  if (target.classList.contains(`dimension-input`)) {
-    answers[3][target.getAttribute(`id`)] = target.value;
+  if (target.classList.contains("dimension-input")) {
+    answers[3][target.getAttribute("id")] = target.value;
 
     for (let i = 0; i < dimensionInputs.length; i++) {
-      if (dimensionInputs[i].value === `` || dimensionInputs[i].value < `0`) {
+      if (!(dimensionInputs[i].value >= 0) || dimensionInputs[i].value === "") {
         target.parentElement.parentElement.parentElement.parentElement.classList.remove(
-          `question-picked`
+          "question-picked"
         );
         break;
       }
 
       target.parentElement.parentElement.parentElement.parentElement.classList.add(
-        `question-picked`
+        "question-picked"
       );
     }
   }

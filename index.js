@@ -1169,11 +1169,25 @@ const requiredPlatesAlgorithm = () => {
 
   let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
   if (
-    (answers[0].mount == "ceiling-mount" && answers[3].displays > 3) ||
-    (answers[0].mount == "ceiling-mount" && answers[3].displays > 2)
+    (answers[0].mount == "ceiling-mount" &&
+      answers[3].displays > 3 &&
+      answers[1].sides == "single") ||
+    (answers[0].mount == "wall-mount" && answers[3].displays > 2)
   ) {
-    return Math.ceil(calculatedPlates + 1);
+    if (totalWeight > wallOrCeilingRating) {
+      return Math.ceil(calculatedPlates);
+    } else {
+      return Math.ceil(calculatedPlates + 1);
+    }
+  } else if (
+    answers[0].mount == "ceiling-mount" &&
+    answers[3].displays > 6 &&
+    answers[1].sides == "dual"
+  ) {
+    console.log("display 6 +");
+    return Math.ceil(calculatedPlates / 2 + 1);
   } else {
+    console.log("display - 6");
     return Math.ceil(calculatedPlates);
   }
 };

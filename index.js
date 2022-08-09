@@ -227,13 +227,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
   window.scrollTo(0, 0);
 });
 
-// <----------------------Events ending---------------------------->
-
-// <----------------------Event listeners to Unpop---------------------------->
-
-// <----------------------Events ending---------------------------->
-
-// <----------------------Item Staging Checking Functions Start---------------------------->
+// <---------------------------------------->
 
 function checkStagedItemsCeiling() {
   let items = document.querySelectorAll(".ceiling");
@@ -665,30 +659,6 @@ document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
   overviewItemsSaver();
 });
 //
-//
-//
-//
-// Client does not want items to wipe when selecting other tiles
-// const wipeItemSelections = (target) => {
-//   if (target.classList.contains(`plate`)) {
-//     const itemQuantityAmountArray = document.querySelectorAll(
-//       `.item-quantity-amount-plate-grid`
-//     );
-//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-//       itemQuantityAmountArray[i].textContent = `0`;
-//     }
-//     requiredPlatesDisplay();
-//   }
-//   if (target.classList.contains(`poles`)) {
-//     const itemQuantityAmountArray = document.querySelectorAll(
-//       `.item-quantity-amount-plate-grid-pole`
-//     );
-//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-//       itemQuantityAmountArray[i].textContent = `0`;
-//     }
-//     requiredPolesDisplay();
-//   }
-// };
 //
 //
 //
@@ -1191,6 +1161,23 @@ const addOrSubtractOverview = (target) => {
 //
 //
 
+const requiredPlatesAlgorithm = () => {
+  const totalWeight = answers[3].displays * answers[3].weight;
+  console.log(`Total weight: ${totalWeight}`);
+  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
+  console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
+
+  let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
+  if (
+    (answers[0].mount == "ceiling-mount" && answers[3].displays > 3) ||
+    (answers[0].mount == "ceiling-mount" && answers[3].displays > 2)
+  ) {
+    return Math.ceil(calculatedPlates + 1);
+  } else {
+    return Math.ceil(calculatedPlates);
+  }
+};
+
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid`
@@ -1218,25 +1205,6 @@ const requiredPlatesDisplay = () => {
     ` mounting plates for this install`
   );
   requiredChecker(requiredPlates);
-};
-
-const requiredPlatesAlgorithm = () => {
-  const totalWeight = answers[3].displays * answers[3].weight;
-  console.log(`Total weight: ${totalWeight}`);
-  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
-  console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
-
-  let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
-  // let calculatedPlates =
-  //   answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
-  // let totalPlateRating = calculatedPlates * wallOrCeilingRating;
-  // console.log(`Total plate rating: ${totalPlateRating}`);
-
-  // if (totalWeight > totalPlateRating) {
-  //   calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
-  // }
-
-  return Math.ceil(calculatedPlates);
 };
 
 const requiredPolesDisplay = () => {
@@ -1399,14 +1367,6 @@ const requiredStrutsBoxesChecker = (strutLength, newStrutMin, chosenBoxes) => {
     document.querySelector(`.struts`).classList.remove(`question-picked`);
   }
 };
-
-// const requiredArmsChecker = (chosenArms) => {
-//   if (chosenArms >= answers[3].displays) {
-//     document.querySelector(`.arm`).classList.add(`question-picked`);
-//   } else {
-//     document.querySelector(`.arm`).classList.remove(`question-picked`);
-//   }
-// };
 
 const requiredChecker = (remainingChoices) => {
   if (remainingChoices.textContent === `0`) {

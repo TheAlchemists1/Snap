@@ -247,8 +247,71 @@
         </div>
         <div class="prev-or-next">
           <button type="button" class="prev semi-bold-font">< Back</button>
-          <button type="button" id="sub" class="next plate-next semi-bold-font">Next</button>
+          <button type="button" id="sub" class="next strut-next semi-bold-font">Next</button>
 
+        </div>
+      </form>
+
+      <form action="POST" class="survey struts">
+        <h1 class="question">Support Strut & Mounting Box</h1>
+        <div class="subtext">
+          Please select the amount of recommended products. You may filter the
+          results by clicking on the appropriate tile below.
+        </div>
+        <div class="tile-answers">
+          <button
+            type="button"
+            class="selection struts"
+            data-question="struts"
+            id="struts"
+            value="struts"
+          >
+            <img
+              class="tile-img selection-child selection-icon"
+              src="https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dc4754487429a65421a5_strut.svg"
+            />
+            <i
+              class="material-icons-outlined selection-child selection-checkbox"
+              >check_circle_outline</i
+            >
+            <div class="selection-child selection-text semi-bold-font">Support Strut</div>
+          </button>
+          <button
+            type="button"
+            class="selection boxes"
+            data-question="boxes"
+            id="boxes"
+            value="boxes"
+          >
+            <img
+              class="tile-img selection-child selection-icon"
+              src="https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dc46f2e3dc5e181f9f36_single_mounting-box.svg"
+            />
+            <i
+              class="material-icons-outlined selection-child selection-checkbox"
+              >check_circle_outline</i
+            >
+            <div class="selection-child selection-text semi-bold-font">Mounting Box</div>
+          </button>
+        </div>
+        <div class="required-struts-boxes-container">
+          <div class="required-struts-text">
+            Select the desired quantity of each strut to reach recommended minimum length of <span class="required-struts">120</span> inches per side.
+            <div class="dual-sided-note" id="dual-sided-note">*For Dual Sided Mounts the quantity selected will be automatically doubled on the order summary page.</div>  
+          <div class="required-struts-text-warning show">Note: Your selection does not meet the minimum length required.</div>
+          </div>
+          <div class="required-boxes-text">
+            You will need <span class="required-boxes"></span>
+          </div>
+        </div>
+        <div class="strut-box-grid-container">
+          <div class="strut-grid"></div>
+          <div class="box-grid"></div>
+        </div>
+        <div class="prev-or-next">
+
+          <button type="button" class="prev semi-bold-font back-to-poles">< Back</button>
+          <button type="button" id="sub-arm" class="next plate-next semi-bold-font">Next</button>
         </div>
       </form>
 
@@ -402,84 +465,13 @@
         <div class="prev-or-next">
 
           <button type="button" class="prev semi-bold-font back-to-plates">< Back</button>
-          <button type="button" id="sub-struts" class="next strut-next semi-bold-font">Next</button>
+          <button type="button" id="sub-struts" class="next arm-next semi-bold-font">Next</button>
 
 
 
         </div>
       </form>
 
-      <form action="POST" class="survey struts">
-        <h1 class="question">Support Strut & Mounting Box</h1>
-        <div class="subtext">
-          Please select the amount of recommended products. You may filter the
-          results by clicking on the appropriate tile below.
-        </div>
-        <div class="tile-answers">
-          <button
-            type="button"
-            class="selection struts"
-            data-question="struts"
-            id="struts"
-            value="struts"
-          >
-            <img
-              class="tile-img selection-child selection-icon"
-              src="https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dc4754487429a65421a5_strut.svg"
-            />
-            <i
-              class="material-icons-outlined selection-child selection-checkbox"
-              >check_circle_outline</i
-            >
-            <div class="selection-child selection-text semi-bold-font">Support Strut</div>
-          </button>
-          <button
-            type="button"
-            class="selection boxes"
-            data-question="boxes"
-            id="boxes"
-            value="boxes"
-          >
-            <img
-              class="tile-img selection-child selection-icon"
-              src="https://uploads-ssl.webflow.com/62b9d2d1e4fd403936acb4f1/62b9dc46f2e3dc5e181f9f36_single_mounting-box.svg"
-            />
-            <i
-              class="material-icons-outlined selection-child selection-checkbox"
-              >check_circle_outline</i
-            >
-            <div class="selection-child selection-text semi-bold-font">Mounting Box</div>
-          </button>
-        </div>
-        <div class="required-struts-boxes-container">
-          <div class="required-struts-text">
-            Select the desired quantity of each strut to reach recommended minimum length of <span class="required-struts">120</span> inches per side.
-            <div class="dual-sided-note" id="dual-sided-note">*For Dual Sided Mounts the quantity selected will be automatically doubled on the order summary page.</div>  
-          <div class="required-struts-text-warning show">Note: Your selection does not meet the minimum length required.</div>
-          </div>
-          <div class="required-boxes-text">
-            You will need <span class="required-boxes"></span>
-          </div>
-        </div>
-        <div class="strut-box-grid-container">
-          <div class="strut-grid"></div>
-          <div class="box-grid"></div>
-        </div>
-        <div class="prev-or-next">
-
-          <button type="button" class="prev semi-bold-font back-to-poles">< Back</button>
-          <button type="button" id="sub-arm" class="next arm-next semi-bold-font">Next</button>
-<!--  
-        
-
-
-
-
-
-           -->
-
-        </div>
-      </form>
       <form action="POST" class="survey arm">
         <h1 class="question">Display Arm</h1>
         <div class="subtext">

@@ -640,6 +640,10 @@ document.addEventListener(`input`, (event) => {
   inputItemQuantity(event.target);
 });
 
+document.querySelector(`.strut-next`).addEventListener(`click`, () => {
+  requiredStrutsDisplay();
+});
+
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
   requiredPlatesAlgorithm();
   requiredPlatesDisplay();
@@ -647,10 +651,6 @@ document.querySelector(`.plate-next`).addEventListener(`click`, () => {
 
 document.querySelector(`.pole-next`).addEventListener(`click`, () => {
   requiredPolesDisplay();
-});
-
-document.querySelector(`.strut-next`).addEventListener(`click`, () => {
-  requiredStrutsDisplay();
 });
 
 document.querySelector(`.arm-next`).addEventListener(`click`, () => {

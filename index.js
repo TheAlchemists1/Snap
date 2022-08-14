@@ -26,6 +26,7 @@ let strutMin;
 let strutMax;
 let totalDisplayLength;
 let totalWeight;
+let neededstruts;
 
 const answers = [
   { mount: `` },
@@ -136,6 +137,17 @@ function algorithmSetup() {
   totalDisplayLength = display * width + (display - 1) * gap;
 
   totalWeight = display * weight;
+
+  // console.log(`Total weight: ${totalWeight}`);
+  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
+  // console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
+
+  if (totalWeight > wallOrCeilingRating) {
+    neededstruts = Math.ceil(totalWeight / wallOrCeilingRating);
+  } else {
+    neededstruts = 1;
+  }
+  // console.log(neededstruts);
 }
 
 // <----------------------Algorithm for specs end---------------------------->
@@ -162,10 +174,9 @@ document.getElementById("sub-1").addEventListener("click", function () {
   } else {
     dualSidedNotee.style.display = "none";
   }
-
+  algorithmSetup();
   propigateStruts();
   propigateArm();
-  algorithmSetup();
   window.scrollTo(0, 0);
 });
 
@@ -668,27 +679,6 @@ document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
 //
 //
 //
-// Client does not want items to wipe when selecting other tiles
-// const wipeItemSelections = (target) => {
-//   if (target.classList.contains(`plate`)) {
-//     const itemQuantityAmountArray = document.querySelectorAll(
-//       `.item-quantity-amount-plate-grid`
-//     );
-//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-//       itemQuantityAmountArray[i].textContent = `0`;
-//     }
-//     requiredPlatesDisplay();
-//   }
-//   if (target.classList.contains(`poles`)) {
-//     const itemQuantityAmountArray = document.querySelectorAll(
-//       `.item-quantity-amount-plate-grid-pole`
-//     );
-//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
-//       itemQuantityAmountArray[i].textContent = `0`;
-//     }
-//     requiredPolesDisplay();
-//   }
-// };
 //
 //
 //
@@ -1230,22 +1220,12 @@ const requiredPlatesDisplay = () => {
 };
 
 const requiredPlatesAlgorithm = () => {
-  const totalWeight = answers[3].displays * answers[3].weight;
-  console.log(`Total weight: ${totalWeight}`);
-  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
-  console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
-
-  let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
-  // let calculatedPlates =
-  //   answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
-  // let totalPlateRating = calculatedPlates * wallOrCeilingRating;
-  // console.log(`Total plate rating: ${totalPlateRating}`);
-
-  // if (totalWeight > totalPlateRating) {
-  //   calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
-  // }
-
-  return Math.ceil(calculatedPlates);
+  let needed = stagedItems.strut;
+  let totalneeded = 0;
+  for (let i = 0; i < needed.length; i++) {
+    totalneeded += parseInt(needed[i].quantity);
+  }
+  return totalneeded;
 };
 
 const requiredPolesDisplay = () => {

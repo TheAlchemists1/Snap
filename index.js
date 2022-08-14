@@ -1341,7 +1341,7 @@ const requiredBoxesDisplay = () => {
     ` mounting boxes for this install. If you would like more, please update the quantity below.`
   );
 
-  // Need a checker
+  requiredChecker(requiredBoxes);
 
   // requiredStrutsArmsChecker(
   //   strutLength,

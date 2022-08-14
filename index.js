@@ -1031,7 +1031,7 @@ const addOrSubtractBoxes = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredStrutsDisplay();
+    requiredBoxesDisplay();
   }
 
   if (target.classList.contains(`item-quantity-add-box-grid`)) {
@@ -1046,7 +1046,7 @@ const addOrSubtractBoxes = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredStrutsDisplay();
+    requiredBoxesDisplay();
   }
 };
 
@@ -1066,7 +1066,7 @@ const addOrSubtractArms = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredArmsDisplay();
+    requiredStrutsDisplay();
   }
 
   if (target.classList.contains(`item-quantity-add-arm-grid`)) {
@@ -1081,7 +1081,7 @@ const addOrSubtractArms = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredArmsDisplay();
+    requiredStrutsDisplay();
   }
 };
 

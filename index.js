@@ -127,10 +127,10 @@ function algorithmSetup() {
   const gap = parseFloat(answerArr.gap);
   const weight = parseInt(answerArr.weight);
   const vesaWidth = display / 2;
-  // console.log(gap);
+  console.log(gap);
 
   strutMin = display * width + ((display - 1) * gap) / 2 - (width - vesaWidth);
-  // console.log(strutMin);
+  console.log(strutMin);
   strutMax = display * width;
 
   totalDisplayLength = display * width + (display - 1) * gap;
@@ -143,7 +143,33 @@ function algorithmSetup() {
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates
-document.getElementById("sub").addEventListener("click", function () {
+
+document.getElementById("sub-1").addEventListener("click", function () {
+  if (armGrid.childNodes.length > 0) {
+    for (let i = 0; i < armGrid.childNodes.length; i++) {
+      armGrid.innerHTML = "";
+    }
+  }
+  if (strutGrid.childNodes.length > 0) {
+    for (let i = 0; i < strutGrid.childNodes.length; i++) {
+      strutGrid.innerHTML = "";
+    }
+  }
+
+  const dualSidedNotee = document.getElementById("dual-sided-note");
+  if (answers[1].sides == "dual") {
+    dualSidedNotee.style.display = "flex";
+  } else {
+    dualSidedNotee.style.display = "none";
+  }
+
+  propigateStruts();
+  propigateArm();
+  algorithmSetup();
+  window.scrollTo(0, 0);
+});
+
+document.getElementById("sub-2").addEventListener("click", function () {
   const plates = document.querySelectorAll(".selection.plate");
   console.log(plates);
   if (plateGrid.childNodes.length > 0) {
@@ -151,7 +177,6 @@ document.getElementById("sub").addEventListener("click", function () {
       plateGrid.innerHTML = "";
     }
   }
-
   if (answers[0].mount === "wall-mount") {
     for (let i = 0; i < plates.length; i++) {
       plates[i].classList.add(`disabled`);
@@ -162,11 +187,12 @@ document.getElementById("sub").addEventListener("click", function () {
     }
   }
   propigateCeiling();
-  algorithmSetup();
+  checkStagedItemsStrut();
+  checkStagedItemsArm();
   window.scrollTo(0, 0);
 });
 
-document.getElementById("sub-poles").addEventListener("click", function () {
+document.getElementById("sub-3").addEventListener("click", function () {
   if (plateGridPole.childNodes.length > 0) {
     for (let i = 0; i < plateGridPole.childNodes.length; i++) {
       plateGridPole.innerHTML = "";
@@ -177,41 +203,14 @@ document.getElementById("sub-poles").addEventListener("click", function () {
   window.scrollTo(0, 0);
 });
 
-document.getElementById("sub-struts").addEventListener("click", function () {
-  if (strutGrid.childNodes.length > 0) {
-    for (let i = 0; i < strutGrid.childNodes.length; i++) {
-      strutGrid.innerHTML = "";
-    }
-  }
+document.getElementById("sub-4").addEventListener("click", function () {
   if (boxGrid.childNodes.length > 0) {
     for (let i = 0; i < boxGrid.childNodes.length; i++) {
       boxGrid.innerHTML = "";
     }
   }
-
-  const dualSidedNotee = document.getElementById("dual-sided-note");
-  if (answers[1].sides == "dual") {
-    dualSidedNotee.style.display = "flex";
-  } else {
-    dualSidedNotee.style.display = "none";
-  }
-  propigateStruts();
   propigateBox();
-
   checkStagedItemsPoles();
-  window.scrollTo(0, 0);
-});
-
-document.getElementById("sub-arm").addEventListener("click", function () {
-  if (armGrid.childNodes.length > 0) {
-    for (let i = 0; i < armGrid.childNodes.length; i++) {
-      armGrid.innerHTML = "";
-    }
-  }
-
-  propigateArm();
-  checkStagedItemsStrut();
-  checkStagedItemsBox();
   window.scrollTo(0, 0);
 });
 
@@ -221,13 +220,19 @@ document.getElementById("sub-overview").addEventListener("click", function () {
       overviewGrid.innerHTML = "";
     }
   }
-  checkStagedItemsArm();
+  checkStagedItemsBox();
   console.log(stagedItems);
   overviewAppend();
   window.scrollTo(0, 0);
 });
 
-// <---------------------------------------->
+// <----------------------Events ending---------------------------->
+
+// <----------------------Event listeners to Unpop---------------------------->
+
+// <----------------------Events ending---------------------------->
+
+// <----------------------Item Staging Checking Functions Start---------------------------->
 
 function checkStagedItemsCeiling() {
   let items = document.querySelectorAll(".ceiling");
@@ -616,6 +621,7 @@ document.addEventListener(`click`, (event) => {
   nextAnswer(selectionTargeter);
   prevAnswer(selectionTargeter);
   wallMountDisablesDualSided(selectionTargeter);
+  skipDualSided(selectionTargeter);
   portraitOrLandscapeSVGDisplay();
 
   addOrSubtractPlate(event.target);
@@ -634,6 +640,10 @@ document.addEventListener(`input`, (event) => {
   inputItemQuantity(event.target);
 });
 
+document.querySelector(`.strut-next`).addEventListener(`click`, () => {
+  requiredStrutsDisplay();
+});
+
 document.querySelector(`.plate-next`).addEventListener(`click`, () => {
   requiredPlatesAlgorithm();
   requiredPlatesDisplay();
@@ -643,12 +653,8 @@ document.querySelector(`.pole-next`).addEventListener(`click`, () => {
   requiredPolesDisplay();
 });
 
-document.querySelector(`.strut-next`).addEventListener(`click`, () => {
-  requiredStrutsDisplay();
-});
-
-document.querySelector(`.arm-next`).addEventListener(`click`, () => {
-  requiredArmsDisplay();
+document.querySelector(`.box-next`).addEventListener(`click`, () => {
+  requiredBoxesDisplay();
 });
 
 document.querySelector(`.overview-next`).addEventListener(`click`, () => {
@@ -659,6 +665,30 @@ document.querySelector(`.quick-order-next`).addEventListener(`click`, () => {
   overviewItemsSaver();
 });
 //
+//
+//
+//
+// Client does not want items to wipe when selecting other tiles
+// const wipeItemSelections = (target) => {
+//   if (target.classList.contains(`plate`)) {
+//     const itemQuantityAmountArray = document.querySelectorAll(
+//       `.item-quantity-amount-plate-grid`
+//     );
+//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+//       itemQuantityAmountArray[i].textContent = `0`;
+//     }
+//     requiredPlatesDisplay();
+//   }
+//   if (target.classList.contains(`poles`)) {
+//     const itemQuantityAmountArray = document.querySelectorAll(
+//       `.item-quantity-amount-plate-grid-pole`
+//     );
+//     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
+//       itemQuantityAmountArray[i].textContent = `0`;
+//     }
+//     requiredPolesDisplay();
+//   }
+// };
 //
 //
 //
@@ -691,6 +721,15 @@ const wallMountDisablesDualSided = (target) => {
   if (target.classList.contains(`ceiling-mount`)) {
     singleSided.classList.remove(`picked`);
     singleSided.parentElement.parentElement.classList.remove(`question-picked`);
+  }
+};
+
+const skipDualSided = (target) => {
+  if (
+    target.classList.contains(`sides-next`) &&
+    answers[0].mount === `wall-mount`
+  ) {
+    nextAnswer(document.querySelector(`.orientation-next`));
   }
 };
 
@@ -1001,7 +1040,7 @@ const addOrSubtractBoxes = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredStrutsDisplay();
+    requiredBoxesDisplay();
   }
 
   if (target.classList.contains(`item-quantity-add-box-grid`)) {
@@ -1016,7 +1055,7 @@ const addOrSubtractBoxes = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredStrutsDisplay();
+    requiredBoxesDisplay();
   }
 };
 
@@ -1036,7 +1075,7 @@ const addOrSubtractArms = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredArmsDisplay();
+    requiredStrutsDisplay();
   }
 
   if (target.classList.contains(`item-quantity-add-arm-grid`)) {
@@ -1051,7 +1090,7 @@ const addOrSubtractArms = (target) => {
         itemQuantityAmountArray[i].textContent = newQuantity;
       }
     }
-    requiredArmsDisplay();
+    requiredStrutsDisplay();
   }
 };
 
@@ -1161,37 +1200,6 @@ const addOrSubtractOverview = (target) => {
 //
 //
 
-const requiredPlatesAlgorithm = () => {
-  const totalWeight = answers[3].displays * answers[3].weight;
-  console.log(`Total weight: ${totalWeight}`);
-  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
-  console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
-
-  let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
-  if (
-    (answers[0].mount == "ceiling-mount" &&
-      answers[3].displays > 3 &&
-      answers[1].sides == "single") ||
-    (answers[0].mount == "wall-mount" && answers[3].displays > 2)
-  ) {
-    if (totalWeight > wallOrCeilingRating) {
-      return Math.ceil(calculatedPlates);
-    } else {
-      return Math.ceil(calculatedPlates + 1);
-    }
-  } else if (
-    answers[0].mount == "ceiling-mount" &&
-    answers[3].displays > 6 &&
-    answers[1].sides == "dual"
-  ) {
-    console.log("display 6 +");
-    return Math.ceil(calculatedPlates / 2 + 1);
-  } else {
-    console.log("display - 6");
-    return Math.ceil(calculatedPlates);
-  }
-};
-
 const requiredPlatesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-plate-grid`
@@ -1219,6 +1227,25 @@ const requiredPlatesDisplay = () => {
     ` mounting plates for this install`
   );
   requiredChecker(requiredPlates);
+};
+
+const requiredPlatesAlgorithm = () => {
+  const totalWeight = answers[3].displays * answers[3].weight;
+  console.log(`Total weight: ${totalWeight}`);
+  let wallOrCeilingRating = answers[0].mount == "ceiling-mount" ? 500 : 200;
+  console.log(`Wall or Ceiling Rating: ${wallOrCeilingRating}`);
+
+  let calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
+  // let calculatedPlates =
+  //   answers[3].displays / (answers[1].sides == "single" ? 2 : 4);
+  // let totalPlateRating = calculatedPlates * wallOrCeilingRating;
+  // console.log(`Total plate rating: ${totalPlateRating}`);
+
+  // if (totalWeight > totalPlateRating) {
+  //   calculatedPlates = Math.ceil(totalWeight / wallOrCeilingRating);
+  // }
+
+  return Math.ceil(calculatedPlates);
 };
 
 const requiredPolesDisplay = () => {
@@ -1294,10 +1321,10 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
-  requiredBoxesDisplay(totalLength, newStrutMin);
+  requiredArmsDisplay(totalLength, newStrutMin);
 };
 
-const requiredBoxesDisplay = (strutLength, newStrutMin) => {
+const requiredBoxesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-box-grid`
   );
@@ -1323,14 +1350,16 @@ const requiredBoxesDisplay = (strutLength, newStrutMin) => {
     ` mounting boxes for this install. If you would like more, please update the quantity below.`
   );
 
-  requiredStrutsBoxesChecker(
-    strutLength,
-    newStrutMin,
-    document.querySelector(`.item-quantity-amount-box-grid`).textContent
-  );
+  requiredChecker(requiredBoxes);
+
+  // requiredStrutsArmsChecker(
+  //   strutLength,
+  //   newStrutMin,
+  //   document.querySelector(`.item-quantity-amount-box-grid`).textContent
+  // );
 };
 
-const requiredArmsDisplay = () => {
+const requiredArmsDisplay = (strutLength, newStrutMin) => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-arm-grid`
   );
@@ -1355,7 +1384,12 @@ const requiredArmsDisplay = () => {
     ` display arm for this install.`,
     ` display arms for this install.`
   );
-  requiredChecker(requiredArms);
+  // requiredChecker(requiredArms);
+  requiredStrutsArmsChecker(
+    strutLength,
+    newStrutMin,
+    document.querySelector(`.item-quantity-amount-arm-grid`).textContent
+  );
 };
 
 const requiredTextManipulator = (
@@ -1374,13 +1408,21 @@ const requiredTextManipulator = (
   }
 };
 
-const requiredStrutsBoxesChecker = (strutLength, newStrutMin, chosenBoxes) => {
-  if (strutLength >= newStrutMin && chosenBoxes >= requiredPlatesAlgorithm()) {
+const requiredStrutsArmsChecker = (strutLength, newStrutMin, chosenArms) => {
+  if (strutLength >= newStrutMin && chosenArms >= answers[3].displays) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);
   }
 };
+
+// const requiredArmsChecker = (chosenArms) => {
+//   if (chosenArms >= answers[3].displays) {
+//     document.querySelector(`.arm`).classList.add(`question-picked`);
+//   } else {
+//     document.querySelector(`.arm`).classList.remove(`question-picked`);
+//   }
+// };
 
 const requiredChecker = (remainingChoices) => {
   if (remainingChoices.textContent === `0`) {

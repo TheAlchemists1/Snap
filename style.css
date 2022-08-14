@@ -484,7 +484,7 @@ label {
   padding-bottom: 60px;
 }
 
-.box-grid,
+.arm-grid,
 .strut-grid {
   display: flex;
   flex-direction: column;
@@ -502,7 +502,7 @@ label {
 .item-container.overview-page > .item-img {
   width: auto;
 }
-.arm-grid {
+.box-grid {
   border-bottom: var(--border-bottom);
   display: grid;
   padding-bottom: 60px;
@@ -570,16 +570,6 @@ label {
 }
 
 /* 
-
-
-
-
-
-
-
-
-
-
  */
 
 .item-quantity-amount {
@@ -624,7 +614,7 @@ label {
   display: block;
 }
 
-.arm-answer {
+.box-answer {
   align-self: center;
   padding: 30px;
   padding-bottom: 60px;
@@ -641,7 +631,7 @@ label {
   height: 200px;
 } */
 
-.arm-grid > .item-container {
+.box-grid > .item-container {
   justify-self: center;
 }
 

@@ -127,10 +127,10 @@ function algorithmSetup() {
   const gap = parseFloat(answerArr.gap);
   const weight = parseInt(answerArr.weight);
   const vesaWidth = display / 2;
-  // console.log(gap);
+  console.log(gap);
 
   strutMin = display * width + ((display - 1) * gap) / 2 - (width - vesaWidth);
-  // console.log(strutMin);
+  console.log(strutMin);
   strutMax = display * width;
 
   totalDisplayLength = display * width + (display - 1) * gap;
@@ -143,7 +143,33 @@ function algorithmSetup() {
 // <----------------------Event handling for prop and checking items staged Start---------------------------->
 
 //on click after display to propigate ceiling plates
-document.getElementById("sub").addEventListener("click", function () {
+
+document.getElementById("sub-1").addEventListener("click", function () {
+  if (armGrid.childNodes.length > 0) {
+    for (let i = 0; i < armGrid.childNodes.length; i++) {
+      armGrid.innerHTML = "";
+    }
+  }
+  if (strutGrid.childNodes.length > 0) {
+    for (let i = 0; i < strutGrid.childNodes.length; i++) {
+      strutGrid.innerHTML = "";
+    }
+  }
+
+  const dualSidedNotee = document.getElementById("dual-sided-note");
+  if (answers[1].sides == "dual") {
+    dualSidedNotee.style.display = "flex";
+  } else {
+    dualSidedNotee.style.display = "none";
+  }
+
+  propigateStruts();
+  propigateArm();
+  algorithmSetup();
+  window.scrollTo(0, 0);
+});
+
+document.getElementById("sub-2").addEventListener("click", function () {
   const plates = document.querySelectorAll(".selection.plate");
   console.log(plates);
   if (plateGrid.childNodes.length > 0) {
@@ -151,7 +177,6 @@ document.getElementById("sub").addEventListener("click", function () {
       plateGrid.innerHTML = "";
     }
   }
-
   if (answers[0].mount === "wall-mount") {
     for (let i = 0; i < plates.length; i++) {
       plates[i].classList.add(`disabled`);
@@ -162,11 +187,12 @@ document.getElementById("sub").addEventListener("click", function () {
     }
   }
   propigateCeiling();
-  algorithmSetup();
+  checkStagedItemsStrut();
+  checkStagedItemsArm();
   window.scrollTo(0, 0);
 });
 
-document.getElementById("sub-poles").addEventListener("click", function () {
+document.getElementById("sub-3").addEventListener("click", function () {
   if (plateGridPole.childNodes.length > 0) {
     for (let i = 0; i < plateGridPole.childNodes.length; i++) {
       plateGridPole.innerHTML = "";
@@ -177,41 +203,14 @@ document.getElementById("sub-poles").addEventListener("click", function () {
   window.scrollTo(0, 0);
 });
 
-document.getElementById("sub-struts").addEventListener("click", function () {
-  if (strutGrid.childNodes.length > 0) {
-    for (let i = 0; i < strutGrid.childNodes.length; i++) {
-      strutGrid.innerHTML = "";
-    }
-  }
+document.getElementById("sub-4").addEventListener("click", function () {
   if (boxGrid.childNodes.length > 0) {
     for (let i = 0; i < boxGrid.childNodes.length; i++) {
       boxGrid.innerHTML = "";
     }
   }
-
-  const dualSidedNotee = document.getElementById("dual-sided-note");
-  if (answers[1].sides == "dual") {
-    dualSidedNotee.style.display = "flex";
-  } else {
-    dualSidedNotee.style.display = "none";
-  }
-  propigateStruts();
   propigateBox();
-
   checkStagedItemsPoles();
-  window.scrollTo(0, 0);
-});
-
-document.getElementById("sub-arm").addEventListener("click", function () {
-  if (armGrid.childNodes.length > 0) {
-    for (let i = 0; i < armGrid.childNodes.length; i++) {
-      armGrid.innerHTML = "";
-    }
-  }
-
-  propigateArm();
-  checkStagedItemsStrut();
-  checkStagedItemsBox();
   window.scrollTo(0, 0);
 });
 
@@ -221,7 +220,7 @@ document.getElementById("sub-overview").addEventListener("click", function () {
       overviewGrid.innerHTML = "";
     }
   }
-  checkStagedItemsArm();
+  checkStagedItemsBox();
   console.log(stagedItems);
   overviewAppend();
   window.scrollTo(0, 0);

@@ -653,8 +653,8 @@ document.querySelector(`.pole-next`).addEventListener(`click`, () => {
   requiredPolesDisplay();
 });
 
-document.querySelector(`.arm-next`).addEventListener(`click`, () => {
-  requiredArmsDisplay();
+document.querySelector(`.box-next`).addEventListener(`click`, () => {
+  requiredBoxesDisplay();
 });
 
 document.querySelector(`.overview-next`).addEventListener(`click`, () => {
@@ -1312,10 +1312,10 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
-  requiredBoxesDisplay(totalLength, newStrutMin);
+  requiredArmsDisplay(totalLength, newStrutMin);
 };
 
-const requiredBoxesDisplay = (strutLength, newStrutMin) => {
+const requiredBoxesDisplay = () => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-box-grid`
   );
@@ -1341,14 +1341,16 @@ const requiredBoxesDisplay = (strutLength, newStrutMin) => {
     ` mounting boxes for this install. If you would like more, please update the quantity below.`
   );
 
-  requiredStrutsBoxesChecker(
-    strutLength,
-    newStrutMin,
-    document.querySelector(`.item-quantity-amount-box-grid`).textContent
-  );
+  // Need a checker
+
+  // requiredStrutsArmsChecker(
+  //   strutLength,
+  //   newStrutMin,
+  //   document.querySelector(`.item-quantity-amount-box-grid`).textContent
+  // );
 };
 
-const requiredArmsDisplay = () => {
+const requiredArmsDisplay = (strutLength, newStrutMin) => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-arm-grid`
   );
@@ -1373,7 +1375,12 @@ const requiredArmsDisplay = () => {
     ` display arm for this install.`,
     ` display arms for this install.`
   );
-  requiredChecker(requiredArms);
+  // requiredChecker(requiredArms);
+  requiredStrutsArmsChecker(
+    strutLength,
+    newStrutMin,
+    document.querySelector(`.item-quantity-amount-arm-grid`).textContent
+  );
 };
 
 const requiredTextManipulator = (
@@ -1392,8 +1399,8 @@ const requiredTextManipulator = (
   }
 };
 
-const requiredStrutsBoxesChecker = (strutLength, newStrutMin, chosenBoxes) => {
-  if (strutLength >= newStrutMin && chosenBoxes >= requiredPlatesAlgorithm()) {
+const requiredStrutsArmsChecker = (strutLength, newStrutMin, chosenArms) => {
+  if (strutLength >= newStrutMin && chosenArms >= answers[3].displays) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);

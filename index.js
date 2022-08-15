@@ -1314,6 +1314,15 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
+
+  requiredTextManipulator(
+    requiredStruts,
+    document.querySelector(`.required-struts-text`),
+    `Select at least `,
+    ` strut and reach the recommended minimum length of`,
+    ` struts and reach the recommended minimum length of`
+  );
+
   requiredArmsDisplay(totalLength, newStrutMin, totalItems);
 };
 

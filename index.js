@@ -1275,6 +1275,7 @@ const requiredStrutsDisplay = () => {
   );
 
   let totalLength = 0;
+  let totalItems = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
     const itemLength = parseInt(
       itemQuantityAmountArray[i].getAttribute(`data-length`)
@@ -1282,6 +1283,7 @@ const requiredStrutsDisplay = () => {
     const itemAmount = parseInt(itemQuantityAmountArray[i].textContent);
     let currentLength = itemLength * itemAmount;
     console.log(currentLength);
+    totalItems += itemAmount;
     totalLength += currentLength;
   }
   let newStrutMin;
@@ -1303,16 +1305,16 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-length-text-warning`)
       .classList.add(`show`);
   }
-  // if (itemAmount >= requiredStruts.textContent) {
-  //   document
-  //     .querySelector(`.required-struts-text-warning`)
-  //     .classList.remove(`show`);
-  // } else {
-  //   document
-  //     .querySelector(`.required-struts-text-warning`)
-  //     .classList.add(`show`);
-  // }
-  // requiredArmsDisplay(totalLength, newStrutMin);
+  if (totalItems >= requiredStruts.textContent) {
+    document
+      .querySelector(`.required-struts-text-warning`)
+      .classList.remove(`show`);
+  } else {
+    document
+      .querySelector(`.required-struts-text-warning`)
+      .classList.add(`show`);
+  }
+  requiredArmsDisplay(totalLength, newStrutMin);
 };
 
 const requiredBoxesDisplay = () => {

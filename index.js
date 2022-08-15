@@ -717,10 +717,17 @@ const wallMountDisablesDualSided = (target) => {
 
 const skipDualSided = (target) => {
   if (
-    target.classList.contains(`sides-next`) &&
+    target.classList.contains(`mount-next`) &&
     answers[0].mount === `wall-mount`
   ) {
-    nextAnswer(document.querySelector(`.orientation-next`));
+    nextAnswer(document.querySelector(`.sides-next`));
+  }
+
+  if (
+    target.classList.contains(`orientation-prev`) &&
+    answers[0].mount === `wall-mount`
+  ) {
+    prevAnswer(document.querySelector(`.sides-prev`));
   }
 };
 

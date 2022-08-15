@@ -717,10 +717,17 @@ const wallMountDisablesDualSided = (target) => {
 
 const skipDualSided = (target) => {
   if (
-    target.classList.contains(`sides-next`) &&
+    target.classList.contains(`mount-next`) &&
     answers[0].mount === `wall-mount`
   ) {
-    nextAnswer(document.querySelector(`.orientation-next`));
+    nextAnswer(document.querySelector(`.sides-next`));
+  }
+
+  if (
+    target.classList.contains(`orientation-prev`) &&
+    answers[0].mount === `wall-mount`
+  ) {
+    prevAnswer(document.querySelector(`.sides-prev`));
   }
 };
 
@@ -1314,6 +1321,15 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
+
+  requiredTextManipulator(
+    requiredStruts,
+    document.querySelector(`.required-struts-text`),
+    `Select at least `,
+    ` strut and reach the recommended minimum length of`,
+    ` struts and reach the recommended minimum length of`
+  );
+
   requiredArmsDisplay(totalLength, newStrutMin, totalItems);
 };
 
@@ -1703,7 +1719,7 @@ const nextAnswer = (target) => {
           document
             .querySelector(`.survey.poles`)
             .classList.add(`question-picked`);
-          document.querySelector(`#sub-struts`).click();
+          document.querySelector(`#sub-4`).click();
           document
             .querySelector(`.survey.poles`)
             .classList.remove(`question-picked`);

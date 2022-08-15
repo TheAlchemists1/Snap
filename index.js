@@ -1712,7 +1712,7 @@ const nextAnswer = (target) => {
           document
             .querySelector(`.survey.poles`)
             .classList.add(`question-picked`);
-          document.querySelector(`#sub-struts`).click();
+          document.querySelector(`#sub-4`).click();
           document
             .querySelector(`.survey.poles`)
             .classList.remove(`question-picked`);

@@ -4,6 +4,7 @@ const dimensionInputs = document.querySelectorAll(`.dimension-input`);
 const requiredPlates = document.querySelector(`.required-plates`);
 const requiredPoles = document.querySelector(`.required-poles`);
 const requiredStruts = document.querySelector(`.required-struts`);
+const requiredStrutsLength = document.querySelector(`.required-struts-length`);
 const requiredBoxes = document.querySelector(`.required-boxes`);
 const requiredArms = document.querySelector(`.required-arm`);
 const plateGrid = document.querySelector(`.plate-grid`);
@@ -716,10 +717,17 @@ const wallMountDisablesDualSided = (target) => {
 
 const skipDualSided = (target) => {
   if (
-    target.classList.contains(`sides-next`) &&
+    target.classList.contains(`mount-next`) &&
     answers[0].mount === `wall-mount`
   ) {
-    nextAnswer(document.querySelector(`.orientation-next`));
+    nextAnswer(document.querySelector(`.sides-next`));
+  }
+
+  if (
+    target.classList.contains(`orientation-prev`) &&
+    answers[0].mount === `wall-mount`
+  ) {
+    prevAnswer(document.querySelector(`.sides-prev`));
   }
 };
 
@@ -1274,6 +1282,7 @@ const requiredStrutsDisplay = () => {
   );
 
   let totalLength = 0;
+  let totalItems = 0;
   for (let i = 0; i < itemQuantityAmountArray.length; i++) {
     const itemLength = parseInt(
       itemQuantityAmountArray[i].getAttribute(`data-length`)
@@ -1281,18 +1290,29 @@ const requiredStrutsDisplay = () => {
     const itemAmount = parseInt(itemQuantityAmountArray[i].textContent);
     let currentLength = itemLength * itemAmount;
     console.log(currentLength);
+    totalItems += itemAmount;
     totalLength += currentLength;
   }
   let newStrutMin;
   if (answers[1].sides === `dual`) {
     newStrutMin = strutMin / 2;
-    requiredStruts.textContent = newStrutMin;
+    requiredStrutsLength.textContent = newStrutMin;
   } else {
     newStrutMin = strutMin;
-    requiredStruts.textContent = newStrutMin;
+    requiredStrutsLength.textContent = newStrutMin;
   }
+  requiredStruts.textContent = neededstruts;
 
-  if (totalLength >= requiredStruts.textContent) {
+  if (totalLength >= requiredStrutsLength.textContent) {
+    document
+      .querySelector(`.required-struts-length-text-warning`)
+      .classList.remove(`show`);
+  } else {
+    document
+      .querySelector(`.required-struts-length-text-warning`)
+      .classList.add(`show`);
+  }
+  if (totalItems >= requiredStruts.textContent) {
     document
       .querySelector(`.required-struts-text-warning`)
       .classList.remove(`show`);
@@ -1301,7 +1321,16 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
-  requiredArmsDisplay(totalLength, newStrutMin);
+
+  requiredTextManipulator(
+    requiredStruts,
+    document.querySelector(`.required-struts-text`),
+    `Select at least `,
+    ` strut and reach the recommended minimum length of`,
+    ` struts and reach the recommended minimum length of`
+  );
+
+  requiredArmsDisplay(totalLength, newStrutMin, totalItems);
 };
 
 const requiredBoxesDisplay = () => {
@@ -1339,7 +1368,7 @@ const requiredBoxesDisplay = () => {
   // );
 };
 
-const requiredArmsDisplay = (strutLength, newStrutMin) => {
+const requiredArmsDisplay = (strutLength, newStrutMin, totalStruts) => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-arm-grid`
   );
@@ -1368,7 +1397,8 @@ const requiredArmsDisplay = (strutLength, newStrutMin) => {
   requiredStrutsArmsChecker(
     strutLength,
     newStrutMin,
-    document.querySelector(`.item-quantity-amount-arm-grid`).textContent
+    document.querySelector(`.item-quantity-amount-arm-grid`).textContent,
+    totalStruts
   );
 };
 
@@ -1388,8 +1418,17 @@ const requiredTextManipulator = (
   }
 };
 
-const requiredStrutsArmsChecker = (strutLength, newStrutMin, chosenArms) => {
-  if (strutLength >= newStrutMin && chosenArms >= answers[3].displays) {
+const requiredStrutsArmsChecker = (
+  strutLength,
+  newStrutMin,
+  chosenArms,
+  totalStruts
+) => {
+  if (
+    strutLength >= newStrutMin &&
+    (chosenArms >= answers[3].displays) &
+      (totalStruts >= requiredStruts.textContent)
+  ) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);
@@ -1680,7 +1719,7 @@ const nextAnswer = (target) => {
           document
             .querySelector(`.survey.poles`)
             .classList.add(`question-picked`);
-          document.querySelector(`#sub-struts`).click();
+          document.querySelector(`#sub-4`).click();
           document
             .querySelector(`.survey.poles`)
             .classList.remove(`question-picked`);

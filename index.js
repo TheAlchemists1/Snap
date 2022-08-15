@@ -1314,7 +1314,7 @@ const requiredStrutsDisplay = () => {
       .querySelector(`.required-struts-text-warning`)
       .classList.add(`show`);
   }
-  requiredArmsDisplay(totalLength, newStrutMin);
+  requiredArmsDisplay(totalLength, newStrutMin, totalItems);
 };
 
 const requiredBoxesDisplay = () => {
@@ -1352,7 +1352,7 @@ const requiredBoxesDisplay = () => {
   // );
 };
 
-const requiredArmsDisplay = (strutLength, newStrutMin) => {
+const requiredArmsDisplay = (strutLength, newStrutMin, totalStruts) => {
   const itemQuantityAmountArray = document.querySelectorAll(
     `.item-quantity-amount-arm-grid`
   );
@@ -1381,7 +1381,8 @@ const requiredArmsDisplay = (strutLength, newStrutMin) => {
   requiredStrutsArmsChecker(
     strutLength,
     newStrutMin,
-    document.querySelector(`.item-quantity-amount-arm-grid`).textContent
+    document.querySelector(`.item-quantity-amount-arm-grid`).textContent,
+    totalStruts
   );
 };
 
@@ -1401,8 +1402,17 @@ const requiredTextManipulator = (
   }
 };
 
-const requiredStrutsArmsChecker = (strutLength, newStrutMin, chosenArms) => {
-  if (strutLength >= newStrutMin && chosenArms >= answers[3].displays) {
+const requiredStrutsArmsChecker = (
+  strutLength,
+  newStrutMin,
+  chosenArms,
+  totalStruts
+) => {
+  if (
+    strutLength >= newStrutMin &&
+    (chosenArms >= answers[3].displays) &
+      (totalStruts >= requiredStruts.textContent)
+  ) {
     document.querySelector(`.struts`).classList.add(`question-picked`);
   } else {
     document.querySelector(`.struts`).classList.remove(`question-picked`);

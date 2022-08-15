@@ -449,6 +449,7 @@ label {
 .required-plates,
 .required-poles,
 .required-struts,
+.required-struts-length,
 .required-boxes,
 .required-arm {
   color: var(--snap-orange);
@@ -469,7 +470,9 @@ label {
   max-width: 600px;
 }
 
-.required-struts-text-warning {
+.required-struts-text-warning,
+.required-struts-length-text-warning {
+  display: none;
   color: var(--snap-orange);
   padding-top: 10px;
   font-style: italic;
@@ -606,11 +609,8 @@ label {
   border-bottom: var(--border-bottom);
 }
 
-.required-struts-text-warning {
-  display: none;
-}
-
-.required-struts-text-warning.show {
+.required-struts-text-warning.show,
+.required-struts-length-text-warning.show {
   display: block;
 }
 

@@ -4,6 +4,7 @@ const dimensionInputs = document.querySelectorAll(`.dimension-input`);
 const requiredPlates = document.querySelector(`.required-plates`);
 const requiredPoles = document.querySelector(`.required-poles`);
 const requiredStruts = document.querySelector(`.required-struts`);
+const requiredStrutsLength = document.querySelector(`.required-struts-length`);
 const requiredBoxes = document.querySelector(`.required-boxes`);
 const requiredArms = document.querySelector(`.required-arm`);
 const plateGrid = document.querySelector(`.plate-grid`);
@@ -1286,22 +1287,32 @@ const requiredStrutsDisplay = () => {
   let newStrutMin;
   if (answers[1].sides === `dual`) {
     newStrutMin = strutMin / 2;
-    requiredStruts.textContent = newStrutMin;
+    requiredStrutsLength.textContent = newStrutMin;
   } else {
     newStrutMin = strutMin;
-    requiredStruts.textContent = newStrutMin;
+    requiredStrutsLength.textContent = newStrutMin;
   }
+  requiredStruts.textContent = neededstruts;
 
-  if (totalLength >= requiredStruts.textContent) {
+  if (totalLength >= requiredStrutsLength.textContent) {
     document
-      .querySelector(`.required-struts-text-warning`)
+      .querySelector(`.required-struts-length-text-warning`)
       .classList.remove(`show`);
   } else {
     document
-      .querySelector(`.required-struts-text-warning`)
+      .querySelector(`.required-struts-length-text-warning`)
       .classList.add(`show`);
   }
-  requiredArmsDisplay(totalLength, newStrutMin);
+  // if (itemAmount >= requiredStruts.textContent) {
+  //   document
+  //     .querySelector(`.required-struts-text-warning`)
+  //     .classList.remove(`show`);
+  // } else {
+  //   document
+  //     .querySelector(`.required-struts-text-warning`)
+  //     .classList.add(`show`);
+  // }
+  // requiredArmsDisplay(totalLength, newStrutMin);
 };
 
 const requiredBoxesDisplay = () => {

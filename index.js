@@ -850,7 +850,7 @@ const inputItemQuantity = (target) => {
     requiredStrutsDisplay();
   }
   if (target.classList.contains(`item-quantity-amount-arm-grid`)) {
-    requiredArmsDisplay();
+    requiredStrutsDisplay();
   }
   if (target.classList.contains(`item-quantity-amount-box-grid`)) {
     requiredBoxesDisplay();

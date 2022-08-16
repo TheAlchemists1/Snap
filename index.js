@@ -953,7 +953,7 @@ const addOrSubtractPole = (target) => {
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredPoles.textContent) < answers[3].displays &&
+        parseInt(requiredPoles.textContent) < requiredPlatesAlgorithm() &&
         parseInt(itemQuantityAmountArray[i].textContent) > 0
       ) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;
@@ -1030,7 +1030,7 @@ const addOrSubtractBoxes = (target) => {
     for (let i = 0; i < itemQuantityAmountArray.length; i++) {
       if (
         targetSKU === itemQuantityAmountArray[i].getAttribute(`data-sku`) &&
-        parseInt(requiredBoxes.textContent) < answers[3].displays &&
+        parseInt(requiredBoxes.textContent) < requiredPlatesAlgorithm() &&
         parseInt(itemQuantityAmountArray[i].textContent) > 0
       ) {
         let currentQuantity = itemQuantityAmountArray[i].textContent;

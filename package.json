@@ -1,0 +1,25 @@
+{
+  "name": "snap",
+  "version": "1.0.0",
+  "description": "snap config app",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmurdoc90/Snap.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rmurdoc90/Snap/issues"
+  },
+  "homepage": "https://github.com/rmurdoc90/Snap#readme"
+}

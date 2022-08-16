@@ -840,6 +840,7 @@ const inputItemQuantity = (target) => {
     target.textContent = `0`;
   }
   if (target.classList.contains(`item-quantity-amount-plate-grid`)) {
+    console.log(`hi`);
     requiredPlatesDisplay();
   }
   if (target.classList.contains(`item-quantity-amount-plate-grid-pole`)) {
@@ -849,7 +850,10 @@ const inputItemQuantity = (target) => {
     requiredStrutsDisplay();
   }
   if (target.classList.contains(`item-quantity-amount-arm-grid`)) {
-    requiredArmsDisplay();
+    requiredStrutsDisplay();
+  }
+  if (target.classList.contains(`item-quantity-amount-box-grid`)) {
+    requiredBoxesDisplay();
   }
   if (
     target.classList.contains(`item-quantity-amount-overview-products-grid`)
@@ -1209,7 +1213,6 @@ const requiredPlatesDisplay = () => {
   }
 
   const calculatedPlates = requiredPlatesAlgorithm();
-  console.log(calculatedPlates);
   if (totalQuantity > calculatedPlates) {
     totalQuantity = calculatedPlates;
   }
@@ -1448,11 +1451,13 @@ const requiredChecker = (remainingChoices) => {
     remainingChoices.parentElement.parentElement.classList.add(
       `question-picked`
     );
+    console.log(`check success`);
   }
   if (remainingChoices.textContent !== `0`) {
     remainingChoices.parentElement.parentElement.classList.remove(
       `question-picked`
     );
+    console.log(`check failure`);
   }
 };
 
